@@ -17,3 +17,40 @@ model User {
   updatedAt DateTime @updatedAt
   username  String   @unique
 }
+
+model Business {
+  createdAt DateTime @default(now())
+  data      Json?
+  id        String   @id @default(cuid())
+  updatedAt DateTime @updatedAt
+}
+
+model Account {
+  createdAt DateTime @default(now())
+  id        String   @id @default(cuid())
+  updatedAt DateTime @updatedAt
+}
+
+model Transaction {
+  createdAt DateTime @default(now())
+  id        String   @id @default(cuid())
+  updatedAt DateTime @updatedAt
+}
+
+model Document {
+  createdAt DateTime @default(now())
+  id        String   @id @default(cuid())
+  updatedAt DateTime @updatedAt
+}
+
+model Item {
+  createdAt DateTime @default(now())
+  id        String   @id @default(cuid())
+  updatedAt DateTime @updatedAt
+}
+
+model Bankbook {
+  createdAt DateTime @default(now())
+  id        String   @id @default(cuid())
+  updatedAt DateTime @updatedAt
+}
