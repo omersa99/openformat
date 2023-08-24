@@ -2,6 +2,12 @@ import { Module, Scope } from "@nestjs/common";
 import { APP_INTERCEPTOR } from "@nestjs/core";
 import { MorganInterceptor, MorganModule } from "nest-morgan";
 import { UserModule } from "./user/user.module";
+import { BusinessModule } from "./business/business.module";
+import { AccountModule } from "./account/account.module";
+import { TransactionModule } from "./transaction/transaction.module";
+import { DocumentModule } from "./document/document.module";
+import { ItemModule } from "./item/item.module";
+import { BankbookModule } from "./bankbook/bankbook.module";
 import { HealthModule } from "./health/health.module";
 import { PrismaModule } from "./prisma/prisma.module";
 import { SecretsManagerModule } from "./providers/secrets/secretsManager.module";
@@ -19,6 +25,12 @@ import { AuthModule } from "./auth/auth.module";
     ACLModule,
     AuthModule,
     UserModule,
+    BusinessModule,
+    AccountModule,
+    TransactionModule,
+    DocumentModule,
+    ItemModule,
+    BankbookModule,
     HealthModule,
     PrismaModule,
     SecretsManagerModule,

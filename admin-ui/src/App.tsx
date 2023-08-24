@@ -9,6 +9,30 @@ import { UserList } from "./user/UserList";
 import { UserCreate } from "./user/UserCreate";
 import { UserEdit } from "./user/UserEdit";
 import { UserShow } from "./user/UserShow";
+import { BusinessList } from "./business/BusinessList";
+import { BusinessCreate } from "./business/BusinessCreate";
+import { BusinessEdit } from "./business/BusinessEdit";
+import { BusinessShow } from "./business/BusinessShow";
+import { AccountList } from "./account/AccountList";
+import { AccountCreate } from "./account/AccountCreate";
+import { AccountEdit } from "./account/AccountEdit";
+import { AccountShow } from "./account/AccountShow";
+import { TransactionList } from "./transaction/TransactionList";
+import { TransactionCreate } from "./transaction/TransactionCreate";
+import { TransactionEdit } from "./transaction/TransactionEdit";
+import { TransactionShow } from "./transaction/TransactionShow";
+import { DocumentList } from "./document/DocumentList";
+import { DocumentCreate } from "./document/DocumentCreate";
+import { DocumentEdit } from "./document/DocumentEdit";
+import { DocumentShow } from "./document/DocumentShow";
+import { ItemList } from "./item/ItemList";
+import { ItemCreate } from "./item/ItemCreate";
+import { ItemEdit } from "./item/ItemEdit";
+import { ItemShow } from "./item/ItemShow";
+import { BankbookList } from "./bankbook/BankbookList";
+import { BankbookCreate } from "./bankbook/BankbookCreate";
+import { BankbookEdit } from "./bankbook/BankbookEdit";
+import { BankbookShow } from "./bankbook/BankbookShow";
 import { jwtAuthProvider } from "./auth-provider/ra-auth-jwt";
 
 const App = (): React.ReactElement => {
@@ -41,6 +65,48 @@ const App = (): React.ReactElement => {
           edit={UserEdit}
           create={UserCreate}
           show={UserShow}
+        />
+        <Resource
+          name="Business"
+          list={BusinessList}
+          edit={BusinessEdit}
+          create={BusinessCreate}
+          show={BusinessShow}
+        />
+        <Resource
+          name="Account"
+          list={AccountList}
+          edit={AccountEdit}
+          create={AccountCreate}
+          show={AccountShow}
+        />
+        <Resource
+          name="Transaction"
+          list={TransactionList}
+          edit={TransactionEdit}
+          create={TransactionCreate}
+          show={TransactionShow}
+        />
+        <Resource
+          name="Document"
+          list={DocumentList}
+          edit={DocumentEdit}
+          create={DocumentCreate}
+          show={DocumentShow}
+        />
+        <Resource
+          name="Item"
+          list={ItemList}
+          edit={ItemEdit}
+          create={ItemCreate}
+          show={ItemShow}
+        />
+        <Resource
+          name="Bankbook"
+          list={BankbookList}
+          edit={BankbookEdit}
+          create={BankbookCreate}
+          show={BankbookShow}
         />
       </Admin>
     </div>
