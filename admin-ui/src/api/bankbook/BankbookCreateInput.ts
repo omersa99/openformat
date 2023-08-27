@@ -1,1 +1,5 @@
-export type BankbookCreateInput = {};
+import { InputJsonValue } from "../../types";
+
+export type BankbookCreateInput = {
+  data?: InputJsonValue;
+};

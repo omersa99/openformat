@@ -51,6 +51,7 @@ export class BankbookControllerBase {
       data: data,
       select: {
         createdAt: true,
+        data: true,
         id: true,
         updatedAt: true,
       },
@@ -75,6 +76,7 @@ export class BankbookControllerBase {
       ...args,
       select: {
         createdAt: true,
+        data: true,
         id: true,
         updatedAt: true,
       },
@@ -100,6 +102,7 @@ export class BankbookControllerBase {
       where: params,
       select: {
         createdAt: true,
+        data: true,
         id: true,
         updatedAt: true,
       },
@@ -134,6 +137,7 @@ export class BankbookControllerBase {
         data: data,
         select: {
           createdAt: true,
+          data: true,
           id: true,
           updatedAt: true,
         },
@@ -167,6 +171,7 @@ export class BankbookControllerBase {
         where: params,
         select: {
           createdAt: true,
+          data: true,
           id: true,
           updatedAt: true,
         },

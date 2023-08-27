@@ -18,6 +18,9 @@ import * as gqlACGuard from "../../auth/gqlAC.guard";
 import { GqlDefaultAuthGuard } from "../../auth/gqlDefaultAuth.guard";
 import * as common from "@nestjs/common";
 import { AclFilterResponseInterceptor } from "../../interceptors/aclFilterResponse.interceptor";
+import { AclValidateRequestInterceptor } from "../../interceptors/aclValidateRequest.interceptor";
+import { CreateDocumentArgs } from "./CreateDocumentArgs";
+import { UpdateDocumentArgs } from "./UpdateDocumentArgs";
 import { DeleteDocumentArgs } from "./DeleteDocumentArgs";
 import { DocumentCountArgs } from "./DocumentCountArgs";
 import { DocumentFindManyArgs } from "./DocumentFindManyArgs";
@@ -75,6 +78,47 @@ export class DocumentResolverBase {
       return null;
     }
     return result;
+  }
+
+  @common.UseInterceptors(AclValidateRequestInterceptor)
+  @graphql.Mutation(() => Document)
+  @nestAccessControl.UseRoles({
+    resource: "Document",
+    action: "create",
+    possession: "any",
+  })
+  async createDocument(
+    @graphql.Args() args: CreateDocumentArgs
+  ): Promise<Document> {
+    return await this.service.create({
+      ...args,
+      data: args.data,
+    });
+  }
+
+  @common.UseInterceptors(AclValidateRequestInterceptor)
+  @graphql.Mutation(() => Document)
+  @nestAccessControl.UseRoles({
+    resource: "Document",
+    action: "update",
+    possession: "any",
+  })
+  async updateDocument(
+    @graphql.Args() args: UpdateDocumentArgs
+  ): Promise<Document | null> {
+    try {
+      return await this.service.update({
+        ...args,
+        data: args.data,
+      });
+    } catch (error) {
+      if (isRecordNotFoundError(error)) {
+        throw new apollo.ApolloError(
+          `No resource was found for ${JSON.stringify(args.where)}`
+        );
+      }
+      throw error;
+    }
   }
 
   @graphql.Mutation(() => Document)
