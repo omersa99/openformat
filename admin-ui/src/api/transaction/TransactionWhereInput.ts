@@ -1,7 +1,31 @@
+import { StringNullableFilter } from "../../util/StringNullableFilter";
+import { IntNullableFilter } from "../../util/IntNullableFilter";
 import { JsonFilter } from "../../util/JsonFilter";
+import { DateTimeNullableFilter } from "../../util/DateTimeNullableFilter";
 import { StringFilter } from "../../util/StringFilter";
 
 export type TransactionWhereInput = {
+  accountInTransaction?: StringNullableFilter;
+  actionAmount?: IntNullableFilter;
+  actionIndicator?: IntNullableFilter;
+  actionOperation?: StringNullableFilter;
+  counterAccount?: StringNullableFilter;
   data?: JsonFilter;
+  date?: DateTimeNullableFilter;
+  details?: StringNullableFilter;
+  entryDate?: DateTimeNullableFilter;
+  foreignCurrencyAmount?: IntNullableFilter;
+  foreignCurrencyCode?: StringNullableFilter;
   id?: StringFilter;
+  lineNumberInTransaction?: IntNullableFilter;
+  matchingField_1?: StringNullableFilter;
+  matchingField_2?: StringNullableFilter;
+  modifiedDate?: DateTimeNullableFilter;
+  portion?: IntNullableFilter;
+  reference?: StringNullableFilter;
+  reference_2?: StringNullableFilter;
+  referenceDocumentType?: IntNullableFilter;
+  referenceDocumentType_2?: IntNullableFilter;
+  transactionNumber?: IntNullableFilter;
+  transactionType?: StringNullableFilter;
 };

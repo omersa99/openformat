@@ -21,23 +21,55 @@ const existingId = "existingId";
 const CREATE_INPUT = {
   createdAt: new Date(),
   id: "exampleId",
+  internalItemCode: "exampleInternalItemCode",
+  itemName: "exampleItemName",
+  sortingCode: "exampleSortingCode",
+  sortingCodeDescription: "exampleSortingCodeDescription",
+  supplierManufacturerCodeInProcurement:
+    "exampleSupplierManufacturerCodeInProcurement",
+  unitOfMeasurementDescription: "exampleUnitOfMeasurementDescription",
+  universalItemCode: "exampleUniversalItemCode",
   updatedAt: new Date(),
 };
 const CREATE_RESULT = {
   createdAt: new Date(),
   id: "exampleId",
+  internalItemCode: "exampleInternalItemCode",
+  itemName: "exampleItemName",
+  sortingCode: "exampleSortingCode",
+  sortingCodeDescription: "exampleSortingCodeDescription",
+  supplierManufacturerCodeInProcurement:
+    "exampleSupplierManufacturerCodeInProcurement",
+  unitOfMeasurementDescription: "exampleUnitOfMeasurementDescription",
+  universalItemCode: "exampleUniversalItemCode",
   updatedAt: new Date(),
 };
 const FIND_MANY_RESULT = [
   {
     createdAt: new Date(),
     id: "exampleId",
+    internalItemCode: "exampleInternalItemCode",
+    itemName: "exampleItemName",
+    sortingCode: "exampleSortingCode",
+    sortingCodeDescription: "exampleSortingCodeDescription",
+    supplierManufacturerCodeInProcurement:
+      "exampleSupplierManufacturerCodeInProcurement",
+    unitOfMeasurementDescription: "exampleUnitOfMeasurementDescription",
+    universalItemCode: "exampleUniversalItemCode",
     updatedAt: new Date(),
   },
 ];
 const FIND_ONE_RESULT = {
   createdAt: new Date(),
   id: "exampleId",
+  internalItemCode: "exampleInternalItemCode",
+  itemName: "exampleItemName",
+  sortingCode: "exampleSortingCode",
+  sortingCodeDescription: "exampleSortingCodeDescription",
+  supplierManufacturerCodeInProcurement:
+    "exampleSupplierManufacturerCodeInProcurement",
+  unitOfMeasurementDescription: "exampleUnitOfMeasurementDescription",
+  universalItemCode: "exampleUniversalItemCode",
   updatedAt: new Date(),
 };
 

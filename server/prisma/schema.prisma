@@ -26,31 +26,68 @@ model Business {
 }
 
 model Account {
-  createdAt DateTime @default(now())
-  data      Json?
-  id        String   @id @default(cuid())
-  updatedAt DateTime @updatedAt
+  accountantClassificationCode    Int?
+  accountBalanceAtStartOfSegment  Int?
+  accountBalanceInForeignCurrency Int?
+  accountKey                      String?
+  accountName                     String?
+  centerAccount                   String?
+  createdAt                       DateTime @default(now())
+  currencyCodeForForeignCurrency  String?
+  examinedBalanceCode             String?
+  examinedBalanceCodeDescription  String?
+  id                              String   @id @default(cuid())
+  totalCredit                     Int?
+  totalDebit                      Int?
+  updatedAt                       DateTime @updatedAt
 }
 
 model Transaction {
-  createdAt DateTime @default(now())
-  data      Json?
-  id        String   @id @default(cuid())
-  updatedAt DateTime @updatedAt
+  accountInTransaction    String?
+  actionAmount            Int?
+  actionIndicator         Int?
+  actionOperation         String?
+  counterAccount          String?
+  createdAt               DateTime  @default(now())
+  data                    Json?
+  date                    DateTime?
+  details                 String?
+  entryDate               DateTime?
+  foreignCurrencyAmount   Int?
+  foreignCurrencyCode     String?
+  id                      String    @id @default(cuid())
+  lineNumberInTransaction Int?
+  matchingField_1         String?
+  matchingField_2         String?
+  modifiedDate            DateTime?
+  portion                 Int?
+  reference               String?
+  reference_2             String?
+  referenceDocumentType   Int?
+  referenceDocumentType_2 Int?
+  transactionNumber       Int?
+  transactionType         String?
+  updatedAt               DateTime  @updatedAt
 }
 
 model Document {
   createdAt DateTime @default(now())
-  data      Json?
   id        String   @id @default(cuid())
   updatedAt DateTime @updatedAt
 }
 
 model Item {
-  createdAt DateTime @default(now())
-  data      Json?
-  id        String   @id @default(cuid())
-  updatedAt DateTime @updatedAt
+  createdAt                             DateTime @default(now())
+  data                                  Json?
+  id                                    String   @id @default(cuid())
+  internalItemCode                      String?
+  itemName                              String?
+  sortingCode                           String?
+  sortingCodeDescription                String?
+  supplierManufacturerCodeInProcurement String?
+  unitOfMeasurementDescription          String?
+  universalItemCode                     String?
+  updatedAt                             DateTime @updatedAt
 }
 
 model Bankbook {
@@ -61,8 +98,23 @@ model Bankbook {
 }
 
 model ClientsAndSupplier {
-  createdAt DateTime @default(now())
-  data      Json?
-  id        String   @id @default(cuid())
-  updatedAt DateTime @updatedAt
+  addressCity        String?
+  addressCountry     String?
+  addressHouseNumber String?
+  addressPostalCode  String?
+  addressStreet      String?
+  businessNumber     String?
+  countryCode        String?
+  createdAt          DateTime @default(now())
+  id                 String   @id @default(cuid())
+  updatedAt          DateTime @updatedAt
+}
+
+model ItemTransaction {
+  createdAt        DateTime @default(now())
+  id               String   @id @default(cuid())
+  inflows          Int?
+  internalItemCode String?
+  outflows         Int?
+  updatedAt        DateTime @updatedAt
 }

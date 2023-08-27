@@ -11,20 +11,20 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { ArgsType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { DocumentCreateInput } from "./DocumentCreateInput";
+import { ItemTransactionCreateInput } from "./ItemTransactionCreateInput";
 import { ValidateNested } from "class-validator";
 import { Type } from "class-transformer";
 
 @ArgsType()
-class CreateDocumentArgs {
+class CreateItemTransactionArgs {
   @ApiProperty({
     required: true,
-    type: () => DocumentCreateInput,
+    type: () => ItemTransactionCreateInput,
   })
   @ValidateNested()
-  @Type(() => DocumentCreateInput)
-  @Field(() => DocumentCreateInput, { nullable: false })
-  data!: DocumentCreateInput;
+  @Type(() => ItemTransactionCreateInput)
+  @Field(() => ItemTransactionCreateInput, { nullable: false })
+  data!: ItemTransactionCreateInput;
 }
 
-export { CreateDocumentArgs as CreateDocumentArgs };
+export { CreateItemTransactionArgs as CreateItemTransactionArgs };

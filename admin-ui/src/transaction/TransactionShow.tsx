@@ -3,17 +3,53 @@ import {
   Show,
   SimpleShowLayout,
   ShowProps,
-  DateField,
   TextField,
+  DateField,
 } from "react-admin";
 
 export const TransactionShow = (props: ShowProps): React.ReactElement => {
   return (
     <Show {...props}>
       <SimpleShowLayout>
+        <TextField
+          label="Account in Transaction"
+          source="accountInTransaction"
+        />
+        <TextField label="Action Amount" source="actionAmount" />
+        <TextField label="Action Indicator" source="actionIndicator" />
+        <TextField label="Action Operation" source="actionOperation" />
+        <TextField label="Counter Account" source="counterAccount" />
         <DateField source="createdAt" label="Created At" />
         <TextField label="data" source="data" />
+        <TextField label="Date" source="date" />
+        <TextField label="Details" source="details" />
+        <TextField label="Entry Date" source="entryDate" />
+        <TextField
+          label="Foreign Currency Amount"
+          source="foreignCurrencyAmount"
+        />
+        <TextField label="Foreign Currency Code" source="foreignCurrencyCode" />
         <TextField label="ID" source="id" />
+        <TextField
+          label="Line Number in Transaction"
+          source="lineNumberInTransaction"
+        />
+        <TextField label="Matching Field 1" source="matchingField_1" />
+        <TextField label="Matching Field 2" source="matchingField_2" />
+        <TextField label="Modified Date" source="modifiedDate" />
+        <TextField label="Portion" source="portion" />
+        <TextField label="Reference" source="reference" />
+        <TextField label="Reference 2" source="reference_2" />
+        <TextField
+          label="Reference Document Type"
+          source="referenceDocumentType"
+        />
+        <TextField
+          label="Reference Document Type 2"
+          source="referenceDocumentType_2"
+        />
+        <TextField label="Transaction Number" source="transactionNumber" />
+        <TextField label="Transaction Type" source="transactionType" />
         <DateField source="updatedAt" label="Updated At" />
       </SimpleShowLayout>
     </Show>

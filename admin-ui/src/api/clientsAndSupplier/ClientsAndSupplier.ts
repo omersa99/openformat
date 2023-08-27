@@ -1,8 +1,12 @@
-import { JsonValue } from "type-fest";
-
 export type ClientsAndSupplier = {
+  addressCity: string | null;
+  addressCountry: string | null;
+  addressHouseNumber: string | null;
+  addressPostalCode: string | null;
+  addressStreet: string | null;
+  businessNumber: string | null;
+  countryCode: string | null;
   createdAt: Date;
-  data: JsonValue;
   id: string;
   updatedAt: Date;
 };

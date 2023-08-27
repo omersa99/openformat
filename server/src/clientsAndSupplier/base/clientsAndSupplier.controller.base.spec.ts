@@ -19,23 +19,51 @@ import { ClientsAndSupplierService } from "../clientsAndSupplier.service";
 const nonExistingId = "nonExistingId";
 const existingId = "existingId";
 const CREATE_INPUT = {
+  addressCity: "exampleAddressCity",
+  addressCountry: "exampleAddressCountry",
+  addressHouseNumber: "exampleAddressHouseNumber",
+  addressPostalCode: "exampleAddressPostalCode",
+  addressStreet: "exampleAddressStreet",
+  businessNumber: "exampleBusinessNumber",
+  countryCode: "exampleCountryCode",
   createdAt: new Date(),
   id: "exampleId",
   updatedAt: new Date(),
 };
 const CREATE_RESULT = {
+  addressCity: "exampleAddressCity",
+  addressCountry: "exampleAddressCountry",
+  addressHouseNumber: "exampleAddressHouseNumber",
+  addressPostalCode: "exampleAddressPostalCode",
+  addressStreet: "exampleAddressStreet",
+  businessNumber: "exampleBusinessNumber",
+  countryCode: "exampleCountryCode",
   createdAt: new Date(),
   id: "exampleId",
   updatedAt: new Date(),
 };
 const FIND_MANY_RESULT = [
   {
+    addressCity: "exampleAddressCity",
+    addressCountry: "exampleAddressCountry",
+    addressHouseNumber: "exampleAddressHouseNumber",
+    addressPostalCode: "exampleAddressPostalCode",
+    addressStreet: "exampleAddressStreet",
+    businessNumber: "exampleBusinessNumber",
+    countryCode: "exampleCountryCode",
     createdAt: new Date(),
     id: "exampleId",
     updatedAt: new Date(),
   },
 ];
 const FIND_ONE_RESULT = {
+  addressCity: "exampleAddressCity",
+  addressCountry: "exampleAddressCountry",
+  addressHouseNumber: "exampleAddressHouseNumber",
+  addressPostalCode: "exampleAddressPostalCode",
+  addressStreet: "exampleAddressStreet",
+  businessNumber: "exampleBusinessNumber",
+  countryCode: "exampleCountryCode",
   createdAt: new Date(),
   id: "exampleId",
   updatedAt: new Date(),

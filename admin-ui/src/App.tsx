@@ -37,6 +37,10 @@ import { ClientsAndSupplierList } from "./clientsAndSupplier/ClientsAndSupplierL
 import { ClientsAndSupplierCreate } from "./clientsAndSupplier/ClientsAndSupplierCreate";
 import { ClientsAndSupplierEdit } from "./clientsAndSupplier/ClientsAndSupplierEdit";
 import { ClientsAndSupplierShow } from "./clientsAndSupplier/ClientsAndSupplierShow";
+import { ItemTransactionList } from "./itemTransaction/ItemTransactionList";
+import { ItemTransactionCreate } from "./itemTransaction/ItemTransactionCreate";
+import { ItemTransactionEdit } from "./itemTransaction/ItemTransactionEdit";
+import { ItemTransactionShow } from "./itemTransaction/ItemTransactionShow";
 import { jwtAuthProvider } from "./auth-provider/ra-auth-jwt";
 
 const App = (): React.ReactElement => {
@@ -118,6 +122,13 @@ const App = (): React.ReactElement => {
           edit={ClientsAndSupplierEdit}
           create={ClientsAndSupplierCreate}
           show={ClientsAndSupplierShow}
+        />
+        <Resource
+          name="ItemTransaction"
+          list={ItemTransactionList}
+          edit={ItemTransactionEdit}
+          create={ItemTransactionCreate}
+          show={ItemTransactionShow}
         />
       </Admin>
     </div>

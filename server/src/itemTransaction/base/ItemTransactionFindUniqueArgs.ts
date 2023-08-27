@@ -11,30 +11,20 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { ArgsType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { DocumentWhereUniqueInput } from "./DocumentWhereUniqueInput";
+import { ItemTransactionWhereUniqueInput } from "./ItemTransactionWhereUniqueInput";
 import { ValidateNested } from "class-validator";
 import { Type } from "class-transformer";
-import { DocumentUpdateInput } from "./DocumentUpdateInput";
 
 @ArgsType()
-class UpdateDocumentArgs {
+class ItemTransactionFindUniqueArgs {
   @ApiProperty({
     required: true,
-    type: () => DocumentWhereUniqueInput,
+    type: () => ItemTransactionWhereUniqueInput,
   })
   @ValidateNested()
-  @Type(() => DocumentWhereUniqueInput)
-  @Field(() => DocumentWhereUniqueInput, { nullable: false })
-  where!: DocumentWhereUniqueInput;
-
-  @ApiProperty({
-    required: true,
-    type: () => DocumentUpdateInput,
-  })
-  @ValidateNested()
-  @Type(() => DocumentUpdateInput)
-  @Field(() => DocumentUpdateInput, { nullable: false })
-  data!: DocumentUpdateInput;
+  @Type(() => ItemTransactionWhereUniqueInput)
+  @Field(() => ItemTransactionWhereUniqueInput, { nullable: false })
+  where!: ItemTransactionWhereUniqueInput;
 }
 
-export { UpdateDocumentArgs as UpdateDocumentArgs };
+export { ItemTransactionFindUniqueArgs as ItemTransactionFindUniqueArgs };

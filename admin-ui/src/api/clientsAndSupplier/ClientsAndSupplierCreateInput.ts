@@ -1,5 +1,9 @@
-import { InputJsonValue } from "../../types";
-
 export type ClientsAndSupplierCreateInput = {
-  data?: InputJsonValue;
+  addressCity?: string | null;
+  addressCountry?: string | null;
+  addressHouseNumber?: string | null;
+  addressPostalCode?: string | null;
+  addressStreet?: string | null;
+  businessNumber?: string | null;
+  countryCode?: string | null;
 };
