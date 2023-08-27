@@ -208,5 +208,35 @@
     "resource": "Bankbook",
     "action": "read:any",
     "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "ClientsAndSupplier",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "ClientsAndSupplier",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "ClientsAndSupplier",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "ClientsAndSupplier",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "ClientsAndSupplier",
+    "action": "read:any",
+    "attributes": "*"
   }
 ]

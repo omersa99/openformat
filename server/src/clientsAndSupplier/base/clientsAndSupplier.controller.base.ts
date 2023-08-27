@@ -18,35 +18,37 @@ import { plainToClass } from "class-transformer";
 import { ApiNestedQuery } from "../../decorators/api-nested-query.decorator";
 import * as nestAccessControl from "nest-access-control";
 import * as defaultAuthGuard from "../../auth/defaultAuth.guard";
-import { AccountService } from "../account.service";
+import { ClientsAndSupplierService } from "../clientsAndSupplier.service";
 import { AclValidateRequestInterceptor } from "../../interceptors/aclValidateRequest.interceptor";
 import { AclFilterResponseInterceptor } from "../../interceptors/aclFilterResponse.interceptor";
-import { AccountCreateInput } from "./AccountCreateInput";
-import { AccountWhereInput } from "./AccountWhereInput";
-import { AccountWhereUniqueInput } from "./AccountWhereUniqueInput";
-import { AccountFindManyArgs } from "./AccountFindManyArgs";
-import { AccountUpdateInput } from "./AccountUpdateInput";
-import { Account } from "./Account";
+import { ClientsAndSupplierCreateInput } from "./ClientsAndSupplierCreateInput";
+import { ClientsAndSupplierWhereInput } from "./ClientsAndSupplierWhereInput";
+import { ClientsAndSupplierWhereUniqueInput } from "./ClientsAndSupplierWhereUniqueInput";
+import { ClientsAndSupplierFindManyArgs } from "./ClientsAndSupplierFindManyArgs";
+import { ClientsAndSupplierUpdateInput } from "./ClientsAndSupplierUpdateInput";
+import { ClientsAndSupplier } from "./ClientsAndSupplier";
 
 @swagger.ApiBearerAuth()
 @common.UseGuards(defaultAuthGuard.DefaultAuthGuard, nestAccessControl.ACGuard)
-export class AccountControllerBase {
+export class ClientsAndSupplierControllerBase {
   constructor(
-    protected readonly service: AccountService,
+    protected readonly service: ClientsAndSupplierService,
     protected readonly rolesBuilder: nestAccessControl.RolesBuilder
   ) {}
   @common.UseInterceptors(AclValidateRequestInterceptor)
   @common.Post()
-  @swagger.ApiCreatedResponse({ type: Account })
+  @swagger.ApiCreatedResponse({ type: ClientsAndSupplier })
   @nestAccessControl.UseRoles({
-    resource: "Account",
+    resource: "ClientsAndSupplier",
     action: "create",
     possession: "any",
   })
   @swagger.ApiForbiddenResponse({
     type: errors.ForbiddenException,
   })
-  async create(@common.Body() data: AccountCreateInput): Promise<Account> {
+  async create(
+    @common.Body() data: ClientsAndSupplierCreateInput
+  ): Promise<ClientsAndSupplier> {
     return await this.service.create({
       data: data,
       select: {
@@ -60,18 +62,20 @@ export class AccountControllerBase {
 
   @common.UseInterceptors(AclFilterResponseInterceptor)
   @common.Get()
-  @swagger.ApiOkResponse({ type: [Account] })
-  @ApiNestedQuery(AccountFindManyArgs)
+  @swagger.ApiOkResponse({ type: [ClientsAndSupplier] })
+  @ApiNestedQuery(ClientsAndSupplierFindManyArgs)
   @nestAccessControl.UseRoles({
-    resource: "Account",
+    resource: "ClientsAndSupplier",
     action: "read",
     possession: "any",
   })
   @swagger.ApiForbiddenResponse({
     type: errors.ForbiddenException,
   })
-  async findMany(@common.Req() request: Request): Promise<Account[]> {
-    const args = plainToClass(AccountFindManyArgs, request.query);
+  async findMany(
+    @common.Req() request: Request
+  ): Promise<ClientsAndSupplier[]> {
+    const args = plainToClass(ClientsAndSupplierFindManyArgs, request.query);
     return this.service.findMany({
       ...args,
       select: {
@@ -85,10 +89,10 @@ export class AccountControllerBase {
 
   @common.UseInterceptors(AclFilterResponseInterceptor)
   @common.Get("/:id")
-  @swagger.ApiOkResponse({ type: Account })
+  @swagger.ApiOkResponse({ type: ClientsAndSupplier })
   @swagger.ApiNotFoundResponse({ type: errors.NotFoundException })
   @nestAccessControl.UseRoles({
-    resource: "Account",
+    resource: "ClientsAndSupplier",
     action: "read",
     possession: "own",
   })
@@ -96,8 +100,8 @@ export class AccountControllerBase {
     type: errors.ForbiddenException,
   })
   async findOne(
-    @common.Param() params: AccountWhereUniqueInput
-  ): Promise<Account | null> {
+    @common.Param() params: ClientsAndSupplierWhereUniqueInput
+  ): Promise<ClientsAndSupplier | null> {
     const result = await this.service.findOne({
       where: params,
       select: {
@@ -117,10 +121,10 @@ export class AccountControllerBase {
 
   @common.UseInterceptors(AclValidateRequestInterceptor)
   @common.Patch("/:id")
-  @swagger.ApiOkResponse({ type: Account })
+  @swagger.ApiOkResponse({ type: ClientsAndSupplier })
   @swagger.ApiNotFoundResponse({ type: errors.NotFoundException })
   @nestAccessControl.UseRoles({
-    resource: "Account",
+    resource: "ClientsAndSupplier",
     action: "update",
     possession: "any",
   })
@@ -128,9 +132,9 @@ export class AccountControllerBase {
     type: errors.ForbiddenException,
   })
   async update(
-    @common.Param() params: AccountWhereUniqueInput,
-    @common.Body() data: AccountUpdateInput
-  ): Promise<Account | null> {
+    @common.Param() params: ClientsAndSupplierWhereUniqueInput,
+    @common.Body() data: ClientsAndSupplierUpdateInput
+  ): Promise<ClientsAndSupplier | null> {
     try {
       return await this.service.update({
         where: params,
@@ -153,10 +157,10 @@ export class AccountControllerBase {
   }
 
   @common.Delete("/:id")
-  @swagger.ApiOkResponse({ type: Account })
+  @swagger.ApiOkResponse({ type: ClientsAndSupplier })
   @swagger.ApiNotFoundResponse({ type: errors.NotFoundException })
   @nestAccessControl.UseRoles({
-    resource: "Account",
+    resource: "ClientsAndSupplier",
     action: "delete",
     possession: "any",
   })
@@ -164,8 +168,8 @@ export class AccountControllerBase {
     type: errors.ForbiddenException,
   })
   async delete(
-    @common.Param() params: AccountWhereUniqueInput
-  ): Promise<Account | null> {
+    @common.Param() params: ClientsAndSupplierWhereUniqueInput
+  ): Promise<ClientsAndSupplier | null> {
     try {
       return await this.service.delete({
         where: params,

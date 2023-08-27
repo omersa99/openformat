@@ -9,24 +9,20 @@ https://docs.amplication.com/how-to/custom-code
 
 ------------------------------------------------------------------------------
   */
-import { InputType, Field } from "@nestjs/graphql";
+import { ArgsType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { IsJSONValue } from "@app/custom-validators";
-import { IsOptional } from "class-validator";
-import { GraphQLJSON } from "graphql-type-json";
-import { InputJsonValue } from "../../types";
+import { ClientsAndSupplierWhereInput } from "./ClientsAndSupplierWhereInput";
+import { Type } from "class-transformer";
 
-@InputType()
-class AccountUpdateInput {
+@ArgsType()
+class ClientsAndSupplierCountArgs {
   @ApiProperty({
     required: false,
+    type: () => ClientsAndSupplierWhereInput,
   })
-  @IsJSONValue()
-  @IsOptional()
-  @Field(() => GraphQLJSON, {
-    nullable: true,
-  })
-  data?: InputJsonValue;
+  @Field(() => ClientsAndSupplierWhereInput, { nullable: true })
+  @Type(() => ClientsAndSupplierWhereInput)
+  where?: ClientsAndSupplierWhereInput;
 }
 
-export { AccountUpdateInput as AccountUpdateInput };
+export { ClientsAndSupplierCountArgs as ClientsAndSupplierCountArgs };

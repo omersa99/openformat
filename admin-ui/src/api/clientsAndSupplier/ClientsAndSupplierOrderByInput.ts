@@ -1,6 +1,6 @@
 import { SortOrder } from "../../util/SortOrder";
 
-export type AccountOrderByInput = {
+export type ClientsAndSupplierOrderByInput = {
   createdAt?: SortOrder;
   data?: SortOrder;
   id?: SortOrder;

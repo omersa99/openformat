@@ -1,6 +1,6 @@
 import { JsonValue } from "type-fest";
 
-export type Account = {
+export type ClientsAndSupplier = {
   createdAt: Date;
   data: JsonValue;
   id: string;

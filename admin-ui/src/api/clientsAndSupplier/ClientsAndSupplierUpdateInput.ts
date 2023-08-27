@@ -1,5 +1,5 @@
 import { InputJsonValue } from "../../types";
 
-export type AccountUpdateInput = {
+export type ClientsAndSupplierUpdateInput = {
   data?: InputJsonValue;
 };

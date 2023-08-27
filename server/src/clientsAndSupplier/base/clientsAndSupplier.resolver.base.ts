@@ -19,30 +19,30 @@ import { GqlDefaultAuthGuard } from "../../auth/gqlDefaultAuth.guard";
 import * as common from "@nestjs/common";
 import { AclFilterResponseInterceptor } from "../../interceptors/aclFilterResponse.interceptor";
 import { AclValidateRequestInterceptor } from "../../interceptors/aclValidateRequest.interceptor";
-import { CreateAccountArgs } from "./CreateAccountArgs";
-import { UpdateAccountArgs } from "./UpdateAccountArgs";
-import { DeleteAccountArgs } from "./DeleteAccountArgs";
-import { AccountCountArgs } from "./AccountCountArgs";
-import { AccountFindManyArgs } from "./AccountFindManyArgs";
-import { AccountFindUniqueArgs } from "./AccountFindUniqueArgs";
-import { Account } from "./Account";
-import { AccountService } from "../account.service";
+import { CreateClientsAndSupplierArgs } from "./CreateClientsAndSupplierArgs";
+import { UpdateClientsAndSupplierArgs } from "./UpdateClientsAndSupplierArgs";
+import { DeleteClientsAndSupplierArgs } from "./DeleteClientsAndSupplierArgs";
+import { ClientsAndSupplierCountArgs } from "./ClientsAndSupplierCountArgs";
+import { ClientsAndSupplierFindManyArgs } from "./ClientsAndSupplierFindManyArgs";
+import { ClientsAndSupplierFindUniqueArgs } from "./ClientsAndSupplierFindUniqueArgs";
+import { ClientsAndSupplier } from "./ClientsAndSupplier";
+import { ClientsAndSupplierService } from "../clientsAndSupplier.service";
 @common.UseGuards(GqlDefaultAuthGuard, gqlACGuard.GqlACGuard)
-@graphql.Resolver(() => Account)
-export class AccountResolverBase {
+@graphql.Resolver(() => ClientsAndSupplier)
+export class ClientsAndSupplierResolverBase {
   constructor(
-    protected readonly service: AccountService,
+    protected readonly service: ClientsAndSupplierService,
     protected readonly rolesBuilder: nestAccessControl.RolesBuilder
   ) {}
 
   @graphql.Query(() => MetaQueryPayload)
   @nestAccessControl.UseRoles({
-    resource: "Account",
+    resource: "ClientsAndSupplier",
     action: "read",
     possession: "any",
   })
-  async _accountsMeta(
-    @graphql.Args() args: AccountCountArgs
+  async _clientsAndSuppliersMeta(
+    @graphql.Args() args: ClientsAndSupplierCountArgs
   ): Promise<MetaQueryPayload> {
     const result = await this.service.count(args);
     return {
@@ -51,28 +51,28 @@ export class AccountResolverBase {
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)
-  @graphql.Query(() => [Account])
+  @graphql.Query(() => [ClientsAndSupplier])
   @nestAccessControl.UseRoles({
-    resource: "Account",
+    resource: "ClientsAndSupplier",
     action: "read",
     possession: "any",
   })
-  async accounts(
-    @graphql.Args() args: AccountFindManyArgs
-  ): Promise<Account[]> {
+  async clientsAndSuppliers(
+    @graphql.Args() args: ClientsAndSupplierFindManyArgs
+  ): Promise<ClientsAndSupplier[]> {
     return this.service.findMany(args);
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)
-  @graphql.Query(() => Account, { nullable: true })
+  @graphql.Query(() => ClientsAndSupplier, { nullable: true })
   @nestAccessControl.UseRoles({
-    resource: "Account",
+    resource: "ClientsAndSupplier",
     action: "read",
     possession: "own",
   })
-  async account(
-    @graphql.Args() args: AccountFindUniqueArgs
-  ): Promise<Account | null> {
+  async clientsAndSupplier(
+    @graphql.Args() args: ClientsAndSupplierFindUniqueArgs
+  ): Promise<ClientsAndSupplier | null> {
     const result = await this.service.findOne(args);
     if (result === null) {
       return null;
@@ -81,15 +81,15 @@ export class AccountResolverBase {
   }
 
   @common.UseInterceptors(AclValidateRequestInterceptor)
-  @graphql.Mutation(() => Account)
+  @graphql.Mutation(() => ClientsAndSupplier)
   @nestAccessControl.UseRoles({
-    resource: "Account",
+    resource: "ClientsAndSupplier",
     action: "create",
     possession: "any",
   })
-  async createAccount(
-    @graphql.Args() args: CreateAccountArgs
-  ): Promise<Account> {
+  async createClientsAndSupplier(
+    @graphql.Args() args: CreateClientsAndSupplierArgs
+  ): Promise<ClientsAndSupplier> {
     return await this.service.create({
       ...args,
       data: args.data,
@@ -97,15 +97,15 @@ export class AccountResolverBase {
   }
 
   @common.UseInterceptors(AclValidateRequestInterceptor)
-  @graphql.Mutation(() => Account)
+  @graphql.Mutation(() => ClientsAndSupplier)
   @nestAccessControl.UseRoles({
-    resource: "Account",
+    resource: "ClientsAndSupplier",
     action: "update",
     possession: "any",
   })
-  async updateAccount(
-    @graphql.Args() args: UpdateAccountArgs
-  ): Promise<Account | null> {
+  async updateClientsAndSupplier(
+    @graphql.Args() args: UpdateClientsAndSupplierArgs
+  ): Promise<ClientsAndSupplier | null> {
     try {
       return await this.service.update({
         ...args,
@@ -121,15 +121,15 @@ export class AccountResolverBase {
     }
   }
 
-  @graphql.Mutation(() => Account)
+  @graphql.Mutation(() => ClientsAndSupplier)
   @nestAccessControl.UseRoles({
-    resource: "Account",
+    resource: "ClientsAndSupplier",
     action: "delete",
     possession: "any",
   })
-  async deleteAccount(
-    @graphql.Args() args: DeleteAccountArgs
-  ): Promise<Account | null> {
+  async deleteClientsAndSupplier(
+    @graphql.Args() args: DeleteClientsAndSupplierArgs
+  ): Promise<ClientsAndSupplier | null> {
     try {
       return await this.service.delete(args);
     } catch (error) {

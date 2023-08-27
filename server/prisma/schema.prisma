@@ -27,6 +27,7 @@ model Business {
 
 model Account {
   createdAt DateTime @default(now())
+  data      Json?
   id        String   @id @default(cuid())
   updatedAt DateTime @updatedAt
 }
@@ -51,6 +52,13 @@ model Item {
 
 model Bankbook {
   createdAt DateTime @default(now())
+  id        String   @id @default(cuid())
+  updatedAt DateTime @updatedAt
+}
+
+model ClientsAndSupplier {
+  createdAt DateTime @default(now())
+  data      Json?
   id        String   @id @default(cuid())
   updatedAt DateTime @updatedAt
 }

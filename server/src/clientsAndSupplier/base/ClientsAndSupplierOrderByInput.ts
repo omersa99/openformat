@@ -18,7 +18,7 @@ import { SortOrder } from "../../util/SortOrder";
   isAbstract: true,
   description: undefined,
 })
-class AccountOrderByInput {
+class ClientsAndSupplierOrderByInput {
   @ApiProperty({
     required: false,
     enum: ["asc", "desc"],
@@ -64,4 +64,4 @@ class AccountOrderByInput {
   updatedAt?: SortOrder;
 }
 
-export { AccountOrderByInput as AccountOrderByInput };
+export { ClientsAndSupplierOrderByInput as ClientsAndSupplierOrderByInput };
