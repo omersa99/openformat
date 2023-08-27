@@ -11,22 +11,34 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { IsJSONValue } from "@app/custom-validators";
+import { JsonFilter } from "../../util/JsonFilter";
+import { Type } from "class-transformer";
 import { IsOptional } from "class-validator";
-import { GraphQLJSON } from "graphql-type-json";
-import { InputJsonValue } from "../../types";
+import { StringFilter } from "../../util/StringFilter";
 
 @InputType()
-class AccountUpdateInput {
+class ClientsAndSupplierWhereInput {
   @ApiProperty({
     required: false,
+    type: JsonFilter,
   })
-  @IsJSONValue()
+  @Type(() => JsonFilter)
   @IsOptional()
-  @Field(() => GraphQLJSON, {
+  @Field(() => JsonFilter, {
     nullable: true,
   })
-  data?: InputJsonValue;
+  data?: JsonFilter;
+
+  @ApiProperty({
+    required: false,
+    type: StringFilter,
+  })
+  @Type(() => StringFilter)
+  @IsOptional()
+  @Field(() => StringFilter, {
+    nullable: true,
+  })
+  id?: StringFilter;
 }
 
-export { AccountUpdateInput as AccountUpdateInput };
+export { ClientsAndSupplierWhereInput as ClientsAndSupplierWhereInput };

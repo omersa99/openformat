@@ -17,7 +17,7 @@ import { GraphQLJSON } from "graphql-type-json";
 import { InputJsonValue } from "../../types";
 
 @InputType()
-class AccountUpdateInput {
+class ClientsAndSupplierCreateInput {
   @ApiProperty({
     required: false,
   })
@@ -29,4 +29,4 @@ class AccountUpdateInput {
   data?: InputJsonValue;
 }
 
-export { AccountUpdateInput as AccountUpdateInput };
+export { ClientsAndSupplierCreateInput as ClientsAndSupplierCreateInput };

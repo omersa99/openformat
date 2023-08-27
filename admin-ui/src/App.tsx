@@ -33,6 +33,10 @@ import { BankbookList } from "./bankbook/BankbookList";
 import { BankbookCreate } from "./bankbook/BankbookCreate";
 import { BankbookEdit } from "./bankbook/BankbookEdit";
 import { BankbookShow } from "./bankbook/BankbookShow";
+import { ClientsAndSupplierList } from "./clientsAndSupplier/ClientsAndSupplierList";
+import { ClientsAndSupplierCreate } from "./clientsAndSupplier/ClientsAndSupplierCreate";
+import { ClientsAndSupplierEdit } from "./clientsAndSupplier/ClientsAndSupplierEdit";
+import { ClientsAndSupplierShow } from "./clientsAndSupplier/ClientsAndSupplierShow";
 import { jwtAuthProvider } from "./auth-provider/ra-auth-jwt";
 
 const App = (): React.ReactElement => {
@@ -107,6 +111,13 @@ const App = (): React.ReactElement => {
           edit={BankbookEdit}
           create={BankbookCreate}
           show={BankbookShow}
+        />
+        <Resource
+          name="ClientsAndSupplier"
+          list={ClientsAndSupplierList}
+          edit={ClientsAndSupplierEdit}
+          create={ClientsAndSupplierCreate}
+          show={ClientsAndSupplierShow}
         />
       </Admin>
     </div>

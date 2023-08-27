@@ -7,7 +7,9 @@ import {
   TextField,
 } from "react-admin";
 
-export const AccountShow = (props: ShowProps): React.ReactElement => {
+export const ClientsAndSupplierShow = (
+  props: ShowProps
+): React.ReactElement => {
   return (
     <Show {...props}>
       <SimpleShowLayout>
