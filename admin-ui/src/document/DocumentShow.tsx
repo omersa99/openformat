@@ -12,7 +12,6 @@ export const DocumentShow = (props: ShowProps): React.ReactElement => {
     <Show {...props}>
       <SimpleShowLayout>
         <DateField source="createdAt" label="Created At" />
-        <TextField label="data" source="data" />
         <TextField label="ID" source="id" />
         <DateField source="updatedAt" label="Updated At" />
       </SimpleShowLayout>

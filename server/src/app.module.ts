@@ -9,6 +9,7 @@ import { DocumentModule } from "./document/document.module";
 import { ItemModule } from "./item/item.module";
 import { BankbookModule } from "./bankbook/bankbook.module";
 import { ClientsAndSupplierModule } from "./clientsAndSupplier/clientsAndSupplier.module";
+import { ItemTransactionModule } from "./itemTransaction/itemTransaction.module";
 import { HealthModule } from "./health/health.module";
 import { PrismaModule } from "./prisma/prisma.module";
 import { SecretsManagerModule } from "./providers/secrets/secretsManager.module";
@@ -33,6 +34,7 @@ import { AuthModule } from "./auth/auth.module";
     ItemModule,
     BankbookModule,
     ClientsAndSupplierModule,
+    ItemTransactionModule,
     HealthModule,
     PrismaModule,
     SecretsManagerModule,

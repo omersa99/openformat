@@ -11,22 +11,86 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { IsJSONValue } from "@app/custom-validators";
-import { IsOptional } from "class-validator";
-import { GraphQLJSON } from "graphql-type-json";
-import { InputJsonValue } from "../../types";
+import { IsString, IsOptional } from "class-validator";
 
 @InputType()
 class ClientsAndSupplierCreateInput {
   @ApiProperty({
     required: false,
+    type: String,
   })
-  @IsJSONValue()
+  @IsString()
   @IsOptional()
-  @Field(() => GraphQLJSON, {
+  @Field(() => String, {
     nullable: true,
   })
-  data?: InputJsonValue;
+  addressCity?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  addressCountry?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  addressHouseNumber?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  addressPostalCode?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  addressStreet?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  businessNumber?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  countryCode?: string | null;
 }
 
 export { ClientsAndSupplierCreateInput as ClientsAndSupplierCreateInput };
