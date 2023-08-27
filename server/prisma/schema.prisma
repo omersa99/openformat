@@ -34,24 +34,28 @@ model Account {
 
 model Transaction {
   createdAt DateTime @default(now())
+  data      Json?
   id        String   @id @default(cuid())
   updatedAt DateTime @updatedAt
 }
 
 model Document {
   createdAt DateTime @default(now())
+  data      Json?
   id        String   @id @default(cuid())
   updatedAt DateTime @updatedAt
 }
 
 model Item {
   createdAt DateTime @default(now())
+  data      Json?
   id        String   @id @default(cuid())
   updatedAt DateTime @updatedAt
 }
 
 model Bankbook {
   createdAt DateTime @default(now())
+  data      Json?
   id        String   @id @default(cuid())
   updatedAt DateTime @updatedAt
 }

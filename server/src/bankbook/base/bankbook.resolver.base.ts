@@ -18,6 +18,9 @@ import * as gqlACGuard from "../../auth/gqlAC.guard";
 import { GqlDefaultAuthGuard } from "../../auth/gqlDefaultAuth.guard";
 import * as common from "@nestjs/common";
 import { AclFilterResponseInterceptor } from "../../interceptors/aclFilterResponse.interceptor";
+import { AclValidateRequestInterceptor } from "../../interceptors/aclValidateRequest.interceptor";
+import { CreateBankbookArgs } from "./CreateBankbookArgs";
+import { UpdateBankbookArgs } from "./UpdateBankbookArgs";
 import { DeleteBankbookArgs } from "./DeleteBankbookArgs";
 import { BankbookCountArgs } from "./BankbookCountArgs";
 import { BankbookFindManyArgs } from "./BankbookFindManyArgs";
@@ -75,6 +78,47 @@ export class BankbookResolverBase {
       return null;
     }
     return result;
+  }
+
+  @common.UseInterceptors(AclValidateRequestInterceptor)
+  @graphql.Mutation(() => Bankbook)
+  @nestAccessControl.UseRoles({
+    resource: "Bankbook",
+    action: "create",
+    possession: "any",
+  })
+  async createBankbook(
+    @graphql.Args() args: CreateBankbookArgs
+  ): Promise<Bankbook> {
+    return await this.service.create({
+      ...args,
+      data: args.data,
+    });
+  }
+
+  @common.UseInterceptors(AclValidateRequestInterceptor)
+  @graphql.Mutation(() => Bankbook)
+  @nestAccessControl.UseRoles({
+    resource: "Bankbook",
+    action: "update",
+    possession: "any",
+  })
+  async updateBankbook(
+    @graphql.Args() args: UpdateBankbookArgs
+  ): Promise<Bankbook | null> {
+    try {
+      return await this.service.update({
+        ...args,
+        data: args.data,
+      });
+    } catch (error) {
+      if (isRecordNotFoundError(error)) {
+        throw new apollo.ApolloError(
+          `No resource was found for ${JSON.stringify(args.where)}`
+        );
+      }
+      throw error;
+    }
   }
 
   @graphql.Mutation(() => Bankbook)

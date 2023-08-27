@@ -1,1 +1,5 @@
-export type DocumentUpdateInput = {};
+import { InputJsonValue } from "../../types";
+
+export type DocumentUpdateInput = {
+  data?: InputJsonValue;
+};

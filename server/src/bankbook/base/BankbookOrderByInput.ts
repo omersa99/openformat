@@ -39,6 +39,17 @@ class BankbookOrderByInput {
   @Field(() => SortOrder, {
     nullable: true,
   })
+  data?: SortOrder;
+
+  @ApiProperty({
+    required: false,
+    enum: ["asc", "desc"],
+  })
+  @IsOptional()
+  @IsEnum(SortOrder)
+  @Field(() => SortOrder, {
+    nullable: true,
+  })
   id?: SortOrder;
 
   @ApiProperty({
