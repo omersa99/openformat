@@ -8,6 +8,7 @@ type Account {
   accountKey: String
   accountName: String
   accountantClassificationCode: Float
+  bankbook: Bankbook
   centerAccount: String
   createdAt: DateTime!
   currencyCodeForForeignCurrency: String
@@ -16,6 +17,7 @@ type Account {
   id: String!
   totalCredit: Float
   totalDebit: Float
+  transaction(orderBy: [TransactionOrderByInput!], skip: Float, take: Float, where: TransactionWhereInput): [Transaction!]!
   updatedAt: DateTime!
 }
 
@@ -25,12 +27,24 @@ input AccountCreateInput {
   accountKey: String
   accountName: String
   accountantClassificationCode: Float
+  bankbook: BankbookWhereUniqueInput
   centerAccount: String
   currencyCodeForForeignCurrency: String
   examinedBalanceCode: String
   examinedBalanceCodeDescription: String
   totalCredit: Float
   totalDebit: Float
+  transaction: TransactionCreateNestedManyWithoutAccountsInput
+}
+
+input AccountCreateNestedManyWithoutBankbooksInput {
+  connect: [AccountWhereUniqueInput!]
+}
+
+input AccountListRelationFilter {
+  every: AccountWhereInput
+  none: AccountWhereInput
+  some: AccountWhereInput
 }
 
 input AccountOrderByInput {
@@ -39,6 +53,7 @@ input AccountOrderByInput {
   accountKey: SortOrder
   accountName: SortOrder
   accountantClassificationCode: SortOrder
+  bankbookId: SortOrder
   centerAccount: SortOrder
   createdAt: SortOrder
   currencyCodeForForeignCurrency: SortOrder
@@ -56,12 +71,20 @@ input AccountUpdateInput {
   accountKey: String
   accountName: String
   accountantClassificationCode: Float
+  bankbook: BankbookWhereUniqueInput
   centerAccount: String
   currencyCodeForForeignCurrency: String
   examinedBalanceCode: String
   examinedBalanceCodeDescription: String
   totalCredit: Float
   totalDebit: Float
+  transaction: TransactionUpdateManyWithoutAccountsInput
+}
+
+input AccountUpdateManyWithoutBankbooksInput {
+  connect: [AccountWhereUniqueInput!]
+  disconnect: [AccountWhereUniqueInput!]
+  set: [AccountWhereUniqueInput!]
 }
 
 input AccountWhereInput {
@@ -70,6 +93,7 @@ input AccountWhereInput {
   accountKey: StringNullableFilter
   accountName: StringNullableFilter
   accountantClassificationCode: IntNullableFilter
+  bankbook: BankbookWhereUniqueInput
   centerAccount: StringNullableFilter
   currencyCodeForForeignCurrency: StringNullableFilter
   examinedBalanceCode: StringNullableFilter
@@ -77,6 +101,7 @@ input AccountWhereInput {
   id: StringFilter
   totalCredit: IntNullableFilter
   totalDebit: IntNullableFilter
+  transaction: TransactionListRelationFilter
 }
 
 input AccountWhereUniqueInput {
@@ -84,6 +109,8 @@ input AccountWhereUniqueInput {
 }
 
 type Bankbook {
+  accounts(orderBy: [AccountOrderByInput!], skip: Float, take: Float, where: AccountWhereInput): [Account!]!
+  business: Business
   createdAt: DateTime!
   data: JSON
   id: String!
@@ -91,10 +118,13 @@ type Bankbook {
 }
 
 input BankbookCreateInput {
+  accounts: AccountCreateNestedManyWithoutBankbooksInput
+  business: BusinessWhereUniqueInput
   data: JSON
 }
 
 input BankbookOrderByInput {
+  businessId: SortOrder
   createdAt: SortOrder
   data: SortOrder
   id: SortOrder
@@ -102,10 +132,14 @@ input BankbookOrderByInput {
 }
 
 input BankbookUpdateInput {
+  accounts: AccountUpdateManyWithoutBankbooksInput
+  business: BusinessWhereUniqueInput
   data: JSON
 }
 
 input BankbookWhereInput {
+  accounts: AccountListRelationFilter
+  business: BusinessWhereUniqueInput
   data: JsonFilter
   id: StringFilter
 }
@@ -115,17 +149,22 @@ input BankbookWhereUniqueInput {
 }
 
 type Business {
+  bankbooks: Bankbook
   createdAt: DateTime!
   data: JSON
+  documents(orderBy: [DocumentOrderByInput!], skip: Float, take: Float, where: DocumentWhereInput): [Document!]!
   id: String!
   updatedAt: DateTime!
 }
 
 input BusinessCreateInput {
+  bankbooks: BankbookWhereUniqueInput
   data: JSON
+  documents: DocumentCreateNestedManyWithoutBusinessesInput
 }
 
 input BusinessOrderByInput {
+  bankbooksId: SortOrder
   createdAt: SortOrder
   data: SortOrder
   id: SortOrder
@@ -133,11 +172,15 @@ input BusinessOrderByInput {
 }
 
 input BusinessUpdateInput {
+  bankbooks: BankbookWhereUniqueInput
   data: JSON
+  documents: DocumentUpdateManyWithoutBusinessesInput
 }
 
 input BusinessWhereInput {
+  bankbooks: BankbookWhereUniqueInput
   data: JsonFilter
+  documents: DocumentListRelationFilter
   id: StringFilter
 }
 
@@ -154,6 +197,7 @@ type ClientsAndSupplier {
   businessNumber: String
   countryCode: String
   createdAt: DateTime!
+  documents(orderBy: [DocumentOrderByInput!], skip: Float, take: Float, where: DocumentWhereInput): [Document!]!
   id: String!
   updatedAt: DateTime!
 }
@@ -166,6 +210,7 @@ input ClientsAndSupplierCreateInput {
   addressStreet: String
   businessNumber: String
   countryCode: String
+  documents: DocumentCreateNestedManyWithoutClientsAndSuppliersInput
 }
 
 input ClientsAndSupplierOrderByInput {
@@ -189,6 +234,7 @@ input ClientsAndSupplierUpdateInput {
   addressStreet: String
   businessNumber: String
   countryCode: String
+  documents: DocumentUpdateManyWithoutClientsAndSuppliersInput
 }
 
 input ClientsAndSupplierWhereInput {
@@ -199,6 +245,7 @@ input ClientsAndSupplierWhereInput {
   addressStreet: StringNullableFilter
   businessNumber: StringNullableFilter
   countryCode: StringNullableFilter
+  documents: DocumentListRelationFilter
   id: StringFilter
 }
 
@@ -228,19 +275,116 @@ input DateTimeNullableFilter {
 }
 
 type Document {
+  business: Business
+  clientSupplier: ClientsAndSupplier
   createdAt: DateTime!
+  documentDetails(orderBy: [DocumentDetailOrderByInput!], skip: Float, take: Float, where: DocumentDetailWhereInput): [DocumentDetail!]!
+  id: String!
+  receiptDetails(orderBy: [ReceiptDetailOrderByInput!], skip: Float, take: Float, where: ReceiptDetailWhereInput): [ReceiptDetail!]!
+  updatedAt: DateTime!
+}
+
+input DocumentCreateInput {
+  business: BusinessWhereUniqueInput
+  clientSupplier: ClientsAndSupplierWhereUniqueInput
+  documentDetails: DocumentDetailCreateNestedManyWithoutDocumentsInput
+  receiptDetails: ReceiptDetailCreateNestedManyWithoutDocumentsInput
+}
+
+input DocumentCreateNestedManyWithoutBusinessesInput {
+  connect: [DocumentWhereUniqueInput!]
+}
+
+input DocumentCreateNestedManyWithoutClientsAndSuppliersInput {
+  connect: [DocumentWhereUniqueInput!]
+}
+
+type DocumentDetail {
+  createdAt: DateTime!
+  document: Document
   id: String!
   updatedAt: DateTime!
 }
 
+input DocumentDetailCreateInput {
+  document: DocumentWhereUniqueInput
+}
+
+input DocumentDetailCreateNestedManyWithoutDocumentsInput {
+  connect: [DocumentDetailWhereUniqueInput!]
+}
+
+input DocumentDetailListRelationFilter {
+  every: DocumentDetailWhereInput
+  none: DocumentDetailWhereInput
+  some: DocumentDetailWhereInput
+}
+
+input DocumentDetailOrderByInput {
+  createdAt: SortOrder
+  documentId: SortOrder
+  id: SortOrder
+  updatedAt: SortOrder
+}
+
+input DocumentDetailUpdateInput {
+  document: DocumentWhereUniqueInput
+}
+
+input DocumentDetailUpdateManyWithoutDocumentsInput {
+  connect: [DocumentDetailWhereUniqueInput!]
+  disconnect: [DocumentDetailWhereUniqueInput!]
+  set: [DocumentDetailWhereUniqueInput!]
+}
+
+input DocumentDetailWhereInput {
+  document: DocumentWhereUniqueInput
+  id: StringFilter
+}
+
+input DocumentDetailWhereUniqueInput {
+  id: String!
+}
+
+input DocumentListRelationFilter {
+  every: DocumentWhereInput
+  none: DocumentWhereInput
+  some: DocumentWhereInput
+}
+
 input DocumentOrderByInput {
+  businessId: SortOrder
+  clientSupplierId: SortOrder
   createdAt: SortOrder
   id: SortOrder
   updatedAt: SortOrder
 }
 
+input DocumentUpdateInput {
+  business: BusinessWhereUniqueInput
+  clientSupplier: ClientsAndSupplierWhereUniqueInput
+  documentDetails: DocumentDetailUpdateManyWithoutDocumentsInput
+  receiptDetails: ReceiptDetailUpdateManyWithoutDocumentsInput
+}
+
+input DocumentUpdateManyWithoutBusinessesInput {
+  connect: [DocumentWhereUniqueInput!]
+  disconnect: [DocumentWhereUniqueInput!]
+  set: [DocumentWhereUniqueInput!]
+}
+
+input DocumentUpdateManyWithoutClientsAndSuppliersInput {
+  connect: [DocumentWhereUniqueInput!]
+  disconnect: [DocumentWhereUniqueInput!]
+  set: [DocumentWhereUniqueInput!]
+}
+
 input DocumentWhereInput {
+  business: BusinessWhereUniqueInput
+  clientSupplier: ClientsAndSupplierWhereUniqueInput
+  documentDetails: DocumentDetailListRelationFilter
   id: StringFilter
+  receiptDetails: ReceiptDetailListRelationFilter
 }
 
 input DocumentWhereUniqueInput {
@@ -389,8 +533,11 @@ type Mutation {
   createBankbook(data: BankbookCreateInput!): Bankbook!
   createBusiness(data: BusinessCreateInput!): Business!
   createClientsAndSupplier(data: ClientsAndSupplierCreateInput!): ClientsAndSupplier!
+  createDocument(data: DocumentCreateInput!): Document!
+  createDocumentDetail(data: DocumentDetailCreateInput!): DocumentDetail!
   createItem(data: ItemCreateInput!): Item!
   createItemTransaction(data: ItemTransactionCreateInput!): ItemTransaction!
+  createReceiptDetail(data: ReceiptDetailCreateInput!): ReceiptDetail!
   createTransaction(data: TransactionCreateInput!): Transaction!
   createUser(data: UserCreateInput!): User!
   deleteAccount(where: AccountWhereUniqueInput!): Account!
@@ -398,8 +545,10 @@ type Mutation {
   deleteBusiness(where: BusinessWhereUniqueInput!): Business!
   deleteClientsAndSupplier(where: ClientsAndSupplierWhereUniqueInput!): ClientsAndSupplier!
   deleteDocument(where: DocumentWhereUniqueInput!): Document!
+  deleteDocumentDetail(where: DocumentDetailWhereUniqueInput!): DocumentDetail!
   deleteItem(where: ItemWhereUniqueInput!): Item!
   deleteItemTransaction(where: ItemTransactionWhereUniqueInput!): ItemTransaction!
+  deleteReceiptDetail(where: ReceiptDetailWhereUniqueInput!): ReceiptDetail!
   deleteTransaction(where: TransactionWhereUniqueInput!): Transaction!
   deleteUser(where: UserWhereUniqueInput!): User!
   login(credentials: Credentials!): UserInfo!
@@ -407,8 +556,11 @@ type Mutation {
   updateBankbook(data: BankbookUpdateInput!, where: BankbookWhereUniqueInput!): Bankbook!
   updateBusiness(data: BusinessUpdateInput!, where: BusinessWhereUniqueInput!): Business!
   updateClientsAndSupplier(data: ClientsAndSupplierUpdateInput!, where: ClientsAndSupplierWhereUniqueInput!): ClientsAndSupplier!
+  updateDocument(data: DocumentUpdateInput!, where: DocumentWhereUniqueInput!): Document!
+  updateDocumentDetail(data: DocumentDetailUpdateInput!, where: DocumentDetailWhereUniqueInput!): DocumentDetail!
   updateItem(data: ItemUpdateInput!, where: ItemWhereUniqueInput!): Item!
   updateItemTransaction(data: ItemTransactionUpdateInput!, where: ItemTransactionWhereUniqueInput!): ItemTransaction!
+  updateReceiptDetail(data: ReceiptDetailUpdateInput!, where: ReceiptDetailWhereUniqueInput!): ReceiptDetail!
   updateTransaction(data: TransactionUpdateInput!, where: TransactionWhereUniqueInput!): Transaction!
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User!
 }
@@ -418,9 +570,11 @@ type Query {
   _bankbooksMeta(where: BankbookWhereInput): MetaQueryPayload!
   _businessesMeta(where: BusinessWhereInput): MetaQueryPayload!
   _clientsAndSuppliersMeta(where: ClientsAndSupplierWhereInput): MetaQueryPayload!
+  _documentDetailsMeta(where: DocumentDetailWhereInput): MetaQueryPayload!
   _documentsMeta(where: DocumentWhereInput): MetaQueryPayload!
   _itemTransactionsMeta(where: ItemTransactionWhereInput): MetaQueryPayload!
   _itemsMeta(where: ItemWhereInput): MetaQueryPayload!
+  _receiptDetailsMeta(where: ReceiptDetailWhereInput): MetaQueryPayload!
   _transactionsMeta(where: TransactionWhereInput): MetaQueryPayload!
   _usersMeta(where: UserWhereInput): MetaQueryPayload!
   account(where: AccountWhereUniqueInput!): Account
@@ -432,11 +586,16 @@ type Query {
   clientsAndSupplier(where: ClientsAndSupplierWhereUniqueInput!): ClientsAndSupplier
   clientsAndSuppliers(orderBy: [ClientsAndSupplierOrderByInput!], skip: Float, take: Float, where: ClientsAndSupplierWhereInput): [ClientsAndSupplier!]!
   document(where: DocumentWhereUniqueInput!): Document
+  documentDetail(where: DocumentDetailWhereUniqueInput!): DocumentDetail
+  documentDetails(orderBy: [DocumentDetailOrderByInput!], skip: Float, take: Float, where: DocumentDetailWhereInput): [DocumentDetail!]!
   documents(orderBy: [DocumentOrderByInput!], skip: Float, take: Float, where: DocumentWhereInput): [Document!]!
   item(where: ItemWhereUniqueInput!): Item
   itemTransaction(where: ItemTransactionWhereUniqueInput!): ItemTransaction
   itemTransactions(orderBy: [ItemTransactionOrderByInput!], skip: Float, take: Float, where: ItemTransactionWhereInput): [ItemTransaction!]!
   items(orderBy: [ItemOrderByInput!], skip: Float, take: Float, where: ItemWhereInput): [Item!]!
+  me: User!
+  receiptDetail(where: ReceiptDetailWhereUniqueInput!): ReceiptDetail
+  receiptDetails(orderBy: [ReceiptDetailOrderByInput!], skip: Float, take: Float, where: ReceiptDetailWhereInput): [ReceiptDetail!]!
   transaction(where: TransactionWhereUniqueInput!): Transaction
   transactions(orderBy: [TransactionOrderByInput!], skip: Float, take: Float, where: TransactionWhereInput): [Transaction!]!
   user(where: UserWhereUniqueInput!): User
@@ -447,6 +606,53 @@ type Query {
 enum QueryMode {
   Default
   Insensitive
+}
+
+type ReceiptDetail {
+  createdAt: DateTime!
+  document: Document
+  id: String!
+  updatedAt: DateTime!
+}
+
+input ReceiptDetailCreateInput {
+  document: DocumentWhereUniqueInput
+}
+
+input ReceiptDetailCreateNestedManyWithoutDocumentsInput {
+  connect: [ReceiptDetailWhereUniqueInput!]
+}
+
+input ReceiptDetailListRelationFilter {
+  every: ReceiptDetailWhereInput
+  none: ReceiptDetailWhereInput
+  some: ReceiptDetailWhereInput
+}
+
+input ReceiptDetailOrderByInput {
+  createdAt: SortOrder
+  documentId: SortOrder
+  id: SortOrder
+  updatedAt: SortOrder
+}
+
+input ReceiptDetailUpdateInput {
+  document: DocumentWhereUniqueInput
+}
+
+input ReceiptDetailUpdateManyWithoutDocumentsInput {
+  connect: [ReceiptDetailWhereUniqueInput!]
+  disconnect: [ReceiptDetailWhereUniqueInput!]
+  set: [ReceiptDetailWhereUniqueInput!]
+}
+
+input ReceiptDetailWhereInput {
+  document: DocumentWhereUniqueInput
+  id: StringFilter
+}
+
+input ReceiptDetailWhereUniqueInput {
+  id: String!
 }
 
 enum SortOrder {
@@ -485,7 +691,7 @@ input StringNullableFilter {
 }
 
 type Transaction {
-  accountInTransaction: String
+  accountInTransaction: Account
   actionAmount: Float
   actionIndicator: Float
   actionOperation: String
@@ -513,7 +719,7 @@ type Transaction {
 }
 
 input TransactionCreateInput {
-  accountInTransaction: String
+  accountInTransaction: AccountWhereUniqueInput
   actionAmount: Float
   actionIndicator: Float
   actionOperation: String
@@ -537,8 +743,18 @@ input TransactionCreateInput {
   transactionType: String
 }
 
+input TransactionCreateNestedManyWithoutAccountsInput {
+  connect: [TransactionWhereUniqueInput!]
+}
+
+input TransactionListRelationFilter {
+  every: TransactionWhereInput
+  none: TransactionWhereInput
+  some: TransactionWhereInput
+}
+
 input TransactionOrderByInput {
-  accountInTransaction: SortOrder
+  accountInTransactionId: SortOrder
   actionAmount: SortOrder
   actionIndicator: SortOrder
   actionOperation: SortOrder
@@ -566,7 +782,7 @@ input TransactionOrderByInput {
 }
 
 input TransactionUpdateInput {
-  accountInTransaction: String
+  accountInTransaction: AccountWhereUniqueInput
   actionAmount: Float
   actionIndicator: Float
   actionOperation: String
@@ -590,8 +806,14 @@ input TransactionUpdateInput {
   transactionType: String
 }
 
+input TransactionUpdateManyWithoutAccountsInput {
+  connect: [TransactionWhereUniqueInput!]
+  disconnect: [TransactionWhereUniqueInput!]
+  set: [TransactionWhereUniqueInput!]
+}
+
 input TransactionWhereInput {
-  accountInTransaction: StringNullableFilter
+  accountInTransaction: AccountWhereUniqueInput
   actionAmount: IntNullableFilter
   actionIndicator: IntNullableFilter
   actionOperation: StringNullableFilter
