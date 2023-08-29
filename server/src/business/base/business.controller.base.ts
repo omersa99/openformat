@@ -54,11 +54,26 @@ export class BusinessControllerBase {
   })
   async create(@common.Body() data: BusinessCreateInput): Promise<Business> {
     return await this.service.create({
-      data: data,
+      data: {
+        ...data,
+
+        owner: data.owner
+          ? {
+              connect: data.owner,
+            }
+          : undefined,
+      },
       select: {
         createdAt: true,
         data: true,
         id: true,
+
+        owner: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
       },
     });
@@ -84,6 +99,13 @@ export class BusinessControllerBase {
         createdAt: true,
         data: true,
         id: true,
+
+        owner: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
       },
     });
@@ -110,6 +132,13 @@ export class BusinessControllerBase {
         createdAt: true,
         data: true,
         id: true,
+
+        owner: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
       },
     });
@@ -140,11 +169,26 @@ export class BusinessControllerBase {
     try {
       return await this.service.update({
         where: params,
-        data: data,
+        data: {
+          ...data,
+
+          owner: data.owner
+            ? {
+                connect: data.owner,
+              }
+            : undefined,
+        },
         select: {
           createdAt: true,
           data: true,
           id: true,
+
+          owner: {
+            select: {
+              id: true,
+            },
+          },
+
           updatedAt: true,
         },
       });
@@ -179,6 +223,13 @@ export class BusinessControllerBase {
           createdAt: true,
           data: true,
           id: true,
+
+          owner: {
+            select: {
+              id: true,
+            },
+          },
+
           updatedAt: true,
         },
       });

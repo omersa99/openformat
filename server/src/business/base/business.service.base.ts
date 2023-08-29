@@ -10,7 +10,7 @@ https://docs.amplication.com/how-to/custom-code
 ------------------------------------------------------------------------------
   */
 import { PrismaService } from "../../prisma/prisma.service";
-import { Prisma, Business, Account, Document } from "@prisma/client";
+import { Prisma, Business, Account, Document, User } from "@prisma/client";
 
 export class BusinessServiceBase {
   constructor(protected readonly prisma: PrismaService) {}
@@ -67,5 +67,13 @@ export class BusinessServiceBase {
         where: { id: parentId },
       })
       .documents(args);
+  }
+
+  async getOwner(parentId: string): Promise<User | null> {
+    return this.prisma.business
+      .findUnique({
+        where: { id: parentId },
+      })
+      .owner();
   }
 }

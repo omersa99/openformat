@@ -30,6 +30,7 @@ import { AccountFindManyArgs } from "../../account/base/AccountFindManyArgs";
 import { Account } from "../../account/base/Account";
 import { DocumentFindManyArgs } from "../../document/base/DocumentFindManyArgs";
 import { Document } from "../../document/base/Document";
+import { User } from "../../user/base/User";
 import { BusinessService } from "../business.service";
 @common.UseGuards(GqlDefaultAuthGuard, gqlACGuard.GqlACGuard)
 @graphql.Resolver(() => Business)
@@ -96,7 +97,15 @@ export class BusinessResolverBase {
   ): Promise<Business> {
     return await this.service.create({
       ...args,
-      data: args.data,
+      data: {
+        ...args.data,
+
+        owner: args.data.owner
+          ? {
+              connect: args.data.owner,
+            }
+          : undefined,
+      },
     });
   }
 
@@ -113,7 +122,15 @@ export class BusinessResolverBase {
     try {
       return await this.service.update({
         ...args,
-        data: args.data,
+        data: {
+          ...args.data,
+
+          owner: args.data.owner
+            ? {
+                connect: args.data.owner,
+              }
+            : undefined,
+        },
       });
     } catch (error) {
       if (isRecordNotFoundError(error)) {
@@ -184,5 +201,26 @@ export class BusinessResolverBase {
     }
 
     return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => User, {
+    nullable: true,
+    name: "owner",
+  })
+  @nestAccessControl.UseRoles({
+    resource: "User",
+    action: "read",
+    possession: "any",
+  })
+  async resolveFieldOwner(
+    @graphql.Parent() parent: Business
+  ): Promise<User | null> {
+    const result = await this.service.getOwner(parent.id);
+
+    if (!result) {
+      return null;
+    }
+    return result;
   }
 }

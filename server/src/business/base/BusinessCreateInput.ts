@@ -18,6 +18,7 @@ import { IsJSONValue } from "@app/custom-validators";
 import { GraphQLJSON } from "graphql-type-json";
 import { InputJsonValue } from "../../types";
 import { DocumentCreateNestedManyWithoutBusinessesInput } from "./DocumentCreateNestedManyWithoutBusinessesInput";
+import { UserWhereUniqueInput } from "../../user/base/UserWhereUniqueInput";
 
 @InputType()
 class BusinessCreateInput {
@@ -54,6 +55,18 @@ class BusinessCreateInput {
     nullable: true,
   })
   documents?: DocumentCreateNestedManyWithoutBusinessesInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => UserWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => UserWhereUniqueInput)
+  @IsOptional()
+  @Field(() => UserWhereUniqueInput, {
+    nullable: true,
+  })
+  owner?: UserWhereUniqueInput | null;
 }
 
 export { BusinessCreateInput as BusinessCreateInput };

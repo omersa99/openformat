@@ -8,14 +8,15 @@ generator client {
 }
 
 model User {
-  createdAt DateTime @default(now())
-  firstName String?
-  id        String   @id @default(cuid())
-  lastName  String?
-  password  String
-  roles     Json
-  updatedAt DateTime @updatedAt
-  username  String   @unique
+  businesses Business?
+  createdAt  DateTime  @default(now())
+  firstName  String?
+  id         String    @id @default(cuid())
+  lastName   String?
+  password   String
+  roles      Json
+  updatedAt  DateTime  @updatedAt
+  username   String    @unique
 }
 
 model Business {
@@ -24,6 +25,8 @@ model Business {
   data      Json?
   documents Document[]
   id        String     @id @default(cuid())
+  owner     User?      @relation(fields: [ownerId], references: [id])
+  ownerId   String?    @unique
   updatedAt DateTime   @updatedAt
 }
 

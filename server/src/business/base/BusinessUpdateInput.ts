@@ -18,6 +18,7 @@ import { IsJSONValue } from "@app/custom-validators";
 import { GraphQLJSON } from "graphql-type-json";
 import { InputJsonValue } from "../../types";
 import { DocumentUpdateManyWithoutBusinessesInput } from "./DocumentUpdateManyWithoutBusinessesInput";
+import { UserWhereUniqueInput } from "../../user/base/UserWhereUniqueInput";
 
 @InputType()
 class BusinessUpdateInput {
@@ -54,6 +55,18 @@ class BusinessUpdateInput {
     nullable: true,
   })
   documents?: DocumentUpdateManyWithoutBusinessesInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => UserWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => UserWhereUniqueInput)
+  @IsOptional()
+  @Field(() => UserWhereUniqueInput, {
+    nullable: true,
+  })
+  owner?: UserWhereUniqueInput | null;
 }
 
 export { BusinessUpdateInput as BusinessUpdateInput };
