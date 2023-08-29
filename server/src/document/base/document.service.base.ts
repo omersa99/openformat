@@ -10,7 +10,15 @@ https://docs.amplication.com/how-to/custom-code
 ------------------------------------------------------------------------------
   */
 import { PrismaService } from "../../prisma/prisma.service";
-import { Prisma, Document } from "@prisma/client";
+
+import {
+  Prisma,
+  Document,
+  DocumentDetail,
+  ReceiptDetail,
+  Business,
+  ClientsAndSupplier,
+} from "@prisma/client";
 
 export class DocumentServiceBase {
   constructor(protected readonly prisma: PrismaService) {}
@@ -45,5 +53,45 @@ export class DocumentServiceBase {
     args: Prisma.SelectSubset<T, Prisma.DocumentDeleteArgs>
   ): Promise<Document> {
     return this.prisma.document.delete(args);
+  }
+
+  async findDocumentDetails(
+    parentId: string,
+    args: Prisma.DocumentDetailFindManyArgs
+  ): Promise<DocumentDetail[]> {
+    return this.prisma.document
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .documentDetails(args);
+  }
+
+  async findReceiptDetails(
+    parentId: string,
+    args: Prisma.ReceiptDetailFindManyArgs
+  ): Promise<ReceiptDetail[]> {
+    return this.prisma.document
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .receiptDetails(args);
+  }
+
+  async getBusiness(parentId: string): Promise<Business | null> {
+    return this.prisma.document
+      .findUnique({
+        where: { id: parentId },
+      })
+      .business();
+  }
+
+  async getClientSupplier(
+    parentId: string
+  ): Promise<ClientsAndSupplier | null> {
+    return this.prisma.document
+      .findUnique({
+        where: { id: parentId },
+      })
+      .clientSupplier();
   }
 }

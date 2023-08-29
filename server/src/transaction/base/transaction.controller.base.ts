@@ -50,9 +50,22 @@ export class TransactionControllerBase {
     @common.Body() data: TransactionCreateInput
   ): Promise<Transaction> {
     return await this.service.create({
-      data: data,
+      data: {
+        ...data,
+
+        accountInTransaction: data.accountInTransaction
+          ? {
+              connect: data.accountInTransaction,
+            }
+          : undefined,
+      },
       select: {
-        accountInTransaction: true,
+        accountInTransaction: {
+          select: {
+            id: true,
+          },
+        },
+
         actionAmount: true,
         actionIndicator: true,
         actionOperation: true,
@@ -98,7 +111,12 @@ export class TransactionControllerBase {
     return this.service.findMany({
       ...args,
       select: {
-        accountInTransaction: true,
+        accountInTransaction: {
+          select: {
+            id: true,
+          },
+        },
+
         actionAmount: true,
         actionIndicator: true,
         actionOperation: true,
@@ -145,7 +163,12 @@ export class TransactionControllerBase {
     const result = await this.service.findOne({
       where: params,
       select: {
-        accountInTransaction: true,
+        accountInTransaction: {
+          select: {
+            id: true,
+          },
+        },
+
         actionAmount: true,
         actionIndicator: true,
         actionOperation: true,
@@ -199,9 +222,22 @@ export class TransactionControllerBase {
     try {
       return await this.service.update({
         where: params,
-        data: data,
+        data: {
+          ...data,
+
+          accountInTransaction: data.accountInTransaction
+            ? {
+                connect: data.accountInTransaction,
+              }
+            : undefined,
+        },
         select: {
-          accountInTransaction: true,
+          accountInTransaction: {
+            select: {
+              id: true,
+            },
+          },
+
           actionAmount: true,
           actionIndicator: true,
           actionOperation: true,
@@ -256,7 +292,12 @@ export class TransactionControllerBase {
       return await this.service.delete({
         where: params,
         select: {
-          accountInTransaction: true,
+          accountInTransaction: {
+            select: {
+              id: true,
+            },
+          },
+
           actionAmount: true,
           actionIndicator: true,
           actionOperation: true,

@@ -3,18 +3,23 @@ import {
   Show,
   SimpleShowLayout,
   ShowProps,
+  ReferenceField,
   TextField,
   DateField,
 } from "react-admin";
+import { ACCOUNT_TITLE_FIELD } from "../account/AccountTitle";
 
 export const TransactionShow = (props: ShowProps): React.ReactElement => {
   return (
     <Show {...props}>
       <SimpleShowLayout>
-        <TextField
+        <ReferenceField
           label="Account in Transaction"
-          source="accountInTransaction"
-        />
+          source="account.id"
+          reference="Account"
+        >
+          <TextField source={ACCOUNT_TITLE_FIELD} />
+        </ReferenceField>
         <TextField label="Action Amount" source="actionAmount" />
         <TextField label="Action Indicator" source="actionIndicator" />
         <TextField label="Action Operation" source="actionOperation" />

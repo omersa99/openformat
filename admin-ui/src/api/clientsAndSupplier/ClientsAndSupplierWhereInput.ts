@@ -1,4 +1,5 @@
 import { StringNullableFilter } from "../../util/StringNullableFilter";
+import { DocumentListRelationFilter } from "../document/DocumentListRelationFilter";
 import { StringFilter } from "../../util/StringFilter";
 
 export type ClientsAndSupplierWhereInput = {
@@ -9,5 +10,6 @@ export type ClientsAndSupplierWhereInput = {
   addressStreet?: StringNullableFilter;
   businessNumber?: StringNullableFilter;
   countryCode?: StringNullableFilter;
+  documents?: DocumentListRelationFilter;
   id?: StringFilter;
 };

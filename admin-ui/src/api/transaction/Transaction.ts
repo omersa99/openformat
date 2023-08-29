@@ -1,7 +1,8 @@
+import { Account } from "../account/Account";
 import { JsonValue } from "type-fest";
 
 export type Transaction = {
-  accountInTransaction: string | null;
+  accountInTransaction?: Account | null;
   actionAmount: number | null;
   actionIndicator: number | null;
   actionOperation: string | null;

@@ -1,7 +1,8 @@
+import { AccountWhereUniqueInput } from "../account/AccountWhereUniqueInput";
 import { InputJsonValue } from "../../types";
 
 export type TransactionCreateInput = {
-  accountInTransaction?: string | null;
+  accountInTransaction?: AccountWhereUniqueInput | null;
   actionAmount?: number | null;
   actionIndicator?: number | null;
   actionOperation?: string | null;

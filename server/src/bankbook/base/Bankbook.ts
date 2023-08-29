@@ -11,14 +11,34 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { ObjectType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { IsDate, IsOptional, IsString } from "class-validator";
+import { Account } from "../../account/base/Account";
+import { ValidateNested, IsOptional, IsDate, IsString } from "class-validator";
 import { Type } from "class-transformer";
+import { Business } from "../../business/base/Business";
 import { IsJSONValue } from "@app/custom-validators";
 import { GraphQLJSON } from "graphql-type-json";
 import { JsonValue } from "type-fest";
 
 @ObjectType()
 class Bankbook {
+  @ApiProperty({
+    required: false,
+    type: () => [Account],
+  })
+  @ValidateNested()
+  @Type(() => Account)
+  @IsOptional()
+  accounts?: Array<Account>;
+
+  @ApiProperty({
+    required: false,
+    type: () => Business,
+  })
+  @ValidateNested()
+  @Type(() => Business)
+  @IsOptional()
+  business?: Business | null;
+
   @ApiProperty({
     required: true,
   })

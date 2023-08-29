@@ -1,7 +1,7 @@
 import { SortOrder } from "../../util/SortOrder";
 
 export type TransactionOrderByInput = {
-  accountInTransaction?: SortOrder;
+  accountInTransactionId?: SortOrder;
   actionAmount?: SortOrder;
   actionIndicator?: SortOrder;
   actionOperation?: SortOrder;

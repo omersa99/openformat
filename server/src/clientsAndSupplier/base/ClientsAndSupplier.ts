@@ -11,8 +11,9 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { ObjectType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { IsString, IsOptional, IsDate } from "class-validator";
+import { IsString, IsOptional, IsDate, ValidateNested } from "class-validator";
 import { Type } from "class-transformer";
+import { Document } from "../../document/base/Document";
 
 @ObjectType()
 class ClientsAndSupplier {
@@ -100,6 +101,15 @@ class ClientsAndSupplier {
   @Type(() => Date)
   @Field(() => Date)
   createdAt!: Date;
+
+  @ApiProperty({
+    required: false,
+    type: () => [Document],
+  })
+  @ValidateNested()
+  @Type(() => Document)
+  @IsOptional()
+  documents?: Array<Document>;
 
   @ApiProperty({
     required: true,

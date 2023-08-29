@@ -1,6 +1,8 @@
 import { IntNullableFilter } from "../../util/IntNullableFilter";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
+import { BankbookWhereUniqueInput } from "../bankbook/BankbookWhereUniqueInput";
 import { StringFilter } from "../../util/StringFilter";
+import { TransactionListRelationFilter } from "../transaction/TransactionListRelationFilter";
 
 export type AccountWhereInput = {
   accountantClassificationCode?: IntNullableFilter;
@@ -8,6 +10,7 @@ export type AccountWhereInput = {
   accountBalanceInForeignCurrency?: IntNullableFilter;
   accountKey?: StringNullableFilter;
   accountName?: StringNullableFilter;
+  bankbook?: BankbookWhereUniqueInput;
   centerAccount?: StringNullableFilter;
   currencyCodeForForeignCurrency?: StringNullableFilter;
   examinedBalanceCode?: StringNullableFilter;
@@ -15,4 +18,5 @@ export type AccountWhereInput = {
   id?: StringFilter;
   totalCredit?: IntNullableFilter;
   totalDebit?: IntNullableFilter;
+  transaction?: TransactionListRelationFilter;
 };

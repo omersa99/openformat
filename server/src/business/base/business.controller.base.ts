@@ -27,6 +27,9 @@ import { BusinessWhereUniqueInput } from "./BusinessWhereUniqueInput";
 import { BusinessFindManyArgs } from "./BusinessFindManyArgs";
 import { BusinessUpdateInput } from "./BusinessUpdateInput";
 import { Business } from "./Business";
+import { DocumentFindManyArgs } from "../../document/base/DocumentFindManyArgs";
+import { Document } from "../../document/base/Document";
+import { DocumentWhereUniqueInput } from "../../document/base/DocumentWhereUniqueInput";
 
 @swagger.ApiBearerAuth()
 @common.UseGuards(defaultAuthGuard.DefaultAuthGuard, nestAccessControl.ACGuard)
@@ -48,8 +51,22 @@ export class BusinessControllerBase {
   })
   async create(@common.Body() data: BusinessCreateInput): Promise<Business> {
     return await this.service.create({
-      data: data,
+      data: {
+        ...data,
+
+        bankbooks: data.bankbooks
+          ? {
+              connect: data.bankbooks,
+            }
+          : undefined,
+      },
       select: {
+        bankbooks: {
+          select: {
+            id: true,
+          },
+        },
+
         createdAt: true,
         data: true,
         id: true,
@@ -75,6 +92,12 @@ export class BusinessControllerBase {
     return this.service.findMany({
       ...args,
       select: {
+        bankbooks: {
+          select: {
+            id: true,
+          },
+        },
+
         createdAt: true,
         data: true,
         id: true,
@@ -101,6 +124,12 @@ export class BusinessControllerBase {
     const result = await this.service.findOne({
       where: params,
       select: {
+        bankbooks: {
+          select: {
+            id: true,
+          },
+        },
+
         createdAt: true,
         data: true,
         id: true,
@@ -134,8 +163,22 @@ export class BusinessControllerBase {
     try {
       return await this.service.update({
         where: params,
-        data: data,
+        data: {
+          ...data,
+
+          bankbooks: data.bankbooks
+            ? {
+                connect: data.bankbooks,
+              }
+            : undefined,
+        },
         select: {
+          bankbooks: {
+            select: {
+              id: true,
+            },
+          },
+
           createdAt: true,
           data: true,
           id: true,
@@ -170,6 +213,12 @@ export class BusinessControllerBase {
       return await this.service.delete({
         where: params,
         select: {
+          bankbooks: {
+            select: {
+              id: true,
+            },
+          },
+
           createdAt: true,
           data: true,
           id: true,
@@ -184,5 +233,112 @@ export class BusinessControllerBase {
       }
       throw error;
     }
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @common.Get("/:id/documents")
+  @ApiNestedQuery(DocumentFindManyArgs)
+  @nestAccessControl.UseRoles({
+    resource: "Document",
+    action: "read",
+    possession: "any",
+  })
+  async findManyDocuments(
+    @common.Req() request: Request,
+    @common.Param() params: BusinessWhereUniqueInput
+  ): Promise<Document[]> {
+    const query = plainToClass(DocumentFindManyArgs, request.query);
+    const results = await this.service.findDocuments(params.id, {
+      ...query,
+      select: {
+        business: {
+          select: {
+            id: true,
+          },
+        },
+
+        clientSupplier: {
+          select: {
+            id: true,
+          },
+        },
+
+        createdAt: true,
+        id: true,
+        updatedAt: true,
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @common.Post("/:id/documents")
+  @nestAccessControl.UseRoles({
+    resource: "Business",
+    action: "update",
+    possession: "any",
+  })
+  async connectDocuments(
+    @common.Param() params: BusinessWhereUniqueInput,
+    @common.Body() body: DocumentWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      documents: {
+        connect: body,
+      },
+    };
+    await this.service.update({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Patch("/:id/documents")
+  @nestAccessControl.UseRoles({
+    resource: "Business",
+    action: "update",
+    possession: "any",
+  })
+  async updateDocuments(
+    @common.Param() params: BusinessWhereUniqueInput,
+    @common.Body() body: DocumentWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      documents: {
+        set: body,
+      },
+    };
+    await this.service.update({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Delete("/:id/documents")
+  @nestAccessControl.UseRoles({
+    resource: "Business",
+    action: "update",
+    possession: "any",
+  })
+  async disconnectDocuments(
+    @common.Param() params: BusinessWhereUniqueInput,
+    @common.Body() body: DocumentWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      documents: {
+        disconnect: body,
+      },
+    };
+    await this.service.update({
+      where: params,
+      data,
+      select: { id: true },
+    });
   }
 }
