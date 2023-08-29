@@ -2,6 +2,210 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type Account {
+  accountBalanceAtStartOfSegment: Float
+  accountBalanceInForeignCurrency: Float
+  accountKey: String
+  accountName: String
+  accountantClassificationCode: Float
+  centerAccount: String
+  createdAt: DateTime!
+  currencyCodeForForeignCurrency: String
+  examinedBalanceCode: String
+  examinedBalanceCodeDescription: String
+  id: String!
+  totalCredit: Float
+  totalDebit: Float
+  updatedAt: DateTime!
+}
+
+input AccountCreateInput {
+  accountBalanceAtStartOfSegment: Float
+  accountBalanceInForeignCurrency: Float
+  accountKey: String
+  accountName: String
+  accountantClassificationCode: Float
+  centerAccount: String
+  currencyCodeForForeignCurrency: String
+  examinedBalanceCode: String
+  examinedBalanceCodeDescription: String
+  totalCredit: Float
+  totalDebit: Float
+}
+
+input AccountOrderByInput {
+  accountBalanceAtStartOfSegment: SortOrder
+  accountBalanceInForeignCurrency: SortOrder
+  accountKey: SortOrder
+  accountName: SortOrder
+  accountantClassificationCode: SortOrder
+  centerAccount: SortOrder
+  createdAt: SortOrder
+  currencyCodeForForeignCurrency: SortOrder
+  examinedBalanceCode: SortOrder
+  examinedBalanceCodeDescription: SortOrder
+  id: SortOrder
+  totalCredit: SortOrder
+  totalDebit: SortOrder
+  updatedAt: SortOrder
+}
+
+input AccountUpdateInput {
+  accountBalanceAtStartOfSegment: Float
+  accountBalanceInForeignCurrency: Float
+  accountKey: String
+  accountName: String
+  accountantClassificationCode: Float
+  centerAccount: String
+  currencyCodeForForeignCurrency: String
+  examinedBalanceCode: String
+  examinedBalanceCodeDescription: String
+  totalCredit: Float
+  totalDebit: Float
+}
+
+input AccountWhereInput {
+  accountBalanceAtStartOfSegment: IntNullableFilter
+  accountBalanceInForeignCurrency: IntNullableFilter
+  accountKey: StringNullableFilter
+  accountName: StringNullableFilter
+  accountantClassificationCode: IntNullableFilter
+  centerAccount: StringNullableFilter
+  currencyCodeForForeignCurrency: StringNullableFilter
+  examinedBalanceCode: StringNullableFilter
+  examinedBalanceCodeDescription: StringNullableFilter
+  id: StringFilter
+  totalCredit: IntNullableFilter
+  totalDebit: IntNullableFilter
+}
+
+input AccountWhereUniqueInput {
+  id: String!
+}
+
+type Bankbook {
+  createdAt: DateTime!
+  data: JSON
+  id: String!
+  updatedAt: DateTime!
+}
+
+input BankbookCreateInput {
+  data: JSON
+}
+
+input BankbookOrderByInput {
+  createdAt: SortOrder
+  data: SortOrder
+  id: SortOrder
+  updatedAt: SortOrder
+}
+
+input BankbookUpdateInput {
+  data: JSON
+}
+
+input BankbookWhereInput {
+  data: JsonFilter
+  id: StringFilter
+}
+
+input BankbookWhereUniqueInput {
+  id: String!
+}
+
+type Business {
+  createdAt: DateTime!
+  data: JSON
+  id: String!
+  updatedAt: DateTime!
+}
+
+input BusinessCreateInput {
+  data: JSON
+}
+
+input BusinessOrderByInput {
+  createdAt: SortOrder
+  data: SortOrder
+  id: SortOrder
+  updatedAt: SortOrder
+}
+
+input BusinessUpdateInput {
+  data: JSON
+}
+
+input BusinessWhereInput {
+  data: JsonFilter
+  id: StringFilter
+}
+
+input BusinessWhereUniqueInput {
+  id: String!
+}
+
+type ClientsAndSupplier {
+  addressCity: String
+  addressCountry: String
+  addressHouseNumber: String
+  addressPostalCode: String
+  addressStreet: String
+  businessNumber: String
+  countryCode: String
+  createdAt: DateTime!
+  id: String!
+  updatedAt: DateTime!
+}
+
+input ClientsAndSupplierCreateInput {
+  addressCity: String
+  addressCountry: String
+  addressHouseNumber: String
+  addressPostalCode: String
+  addressStreet: String
+  businessNumber: String
+  countryCode: String
+}
+
+input ClientsAndSupplierOrderByInput {
+  addressCity: SortOrder
+  addressCountry: SortOrder
+  addressHouseNumber: SortOrder
+  addressPostalCode: SortOrder
+  addressStreet: SortOrder
+  businessNumber: SortOrder
+  countryCode: SortOrder
+  createdAt: SortOrder
+  id: SortOrder
+  updatedAt: SortOrder
+}
+
+input ClientsAndSupplierUpdateInput {
+  addressCity: String
+  addressCountry: String
+  addressHouseNumber: String
+  addressPostalCode: String
+  addressStreet: String
+  businessNumber: String
+  countryCode: String
+}
+
+input ClientsAndSupplierWhereInput {
+  addressCity: StringNullableFilter
+  addressCountry: StringNullableFilter
+  addressHouseNumber: StringNullableFilter
+  addressPostalCode: StringNullableFilter
+  addressStreet: StringNullableFilter
+  businessNumber: StringNullableFilter
+  countryCode: StringNullableFilter
+  id: StringFilter
+}
+
+input ClientsAndSupplierWhereUniqueInput {
+  id: String!
+}
+
 input Credentials {
   password: String!
   username: String!
@@ -12,24 +216,229 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 """
 scalar DateTime
 
+input DateTimeNullableFilter {
+  equals: DateTime
+  gt: DateTime
+  gte: DateTime
+  in: [DateTime!]
+  lt: DateTime
+  lte: DateTime
+  not: DateTime
+  notIn: [DateTime!]
+}
+
+type Document {
+  createdAt: DateTime!
+  id: String!
+  updatedAt: DateTime!
+}
+
+input DocumentOrderByInput {
+  createdAt: SortOrder
+  id: SortOrder
+  updatedAt: SortOrder
+}
+
+input DocumentWhereInput {
+  id: StringFilter
+}
+
+input DocumentWhereUniqueInput {
+  id: String!
+}
+
+input IntNullableFilter {
+  equals: Int
+  gt: Int
+  gte: Int
+  in: [Int!]
+  lt: Int
+  lte: Int
+  not: Int
+  notIn: [Int!]
+}
+
+type Item {
+  createdAt: DateTime!
+  data: JSON
+  id: String!
+  internalItemCode: String
+  itemName: String
+  sortingCode: String
+  sortingCodeDescription: String
+  supplierManufacturerCodeInProcurement: String
+  unitOfMeasurementDescription: String
+  universalItemCode: String
+  updatedAt: DateTime!
+}
+
+input ItemCreateInput {
+  data: JSON
+  internalItemCode: String
+  itemName: String
+  sortingCode: String
+  sortingCodeDescription: String
+  supplierManufacturerCodeInProcurement: String
+  unitOfMeasurementDescription: String
+  universalItemCode: String
+}
+
+input ItemOrderByInput {
+  createdAt: SortOrder
+  data: SortOrder
+  id: SortOrder
+  internalItemCode: SortOrder
+  itemName: SortOrder
+  sortingCode: SortOrder
+  sortingCodeDescription: SortOrder
+  supplierManufacturerCodeInProcurement: SortOrder
+  unitOfMeasurementDescription: SortOrder
+  universalItemCode: SortOrder
+  updatedAt: SortOrder
+}
+
+type ItemTransaction {
+  createdAt: DateTime!
+  id: String!
+  inflows: Float
+  internalItemCode: String
+  outflows: Float
+  updatedAt: DateTime!
+}
+
+input ItemTransactionCreateInput {
+  inflows: Float
+  internalItemCode: String
+  outflows: Float
+}
+
+input ItemTransactionOrderByInput {
+  createdAt: SortOrder
+  id: SortOrder
+  inflows: SortOrder
+  internalItemCode: SortOrder
+  outflows: SortOrder
+  updatedAt: SortOrder
+}
+
+input ItemTransactionUpdateInput {
+  inflows: Float
+  internalItemCode: String
+  outflows: Float
+}
+
+input ItemTransactionWhereInput {
+  id: StringFilter
+  inflows: IntNullableFilter
+  internalItemCode: StringNullableFilter
+  outflows: IntNullableFilter
+}
+
+input ItemTransactionWhereUniqueInput {
+  id: String!
+}
+
+input ItemUpdateInput {
+  data: JSON
+  internalItemCode: String
+  itemName: String
+  sortingCode: String
+  sortingCodeDescription: String
+  supplierManufacturerCodeInProcurement: String
+  unitOfMeasurementDescription: String
+  universalItemCode: String
+}
+
+input ItemWhereInput {
+  data: JsonFilter
+  id: StringFilter
+  internalItemCode: StringNullableFilter
+  itemName: StringNullableFilter
+  sortingCode: StringNullableFilter
+  sortingCodeDescription: StringNullableFilter
+  supplierManufacturerCodeInProcurement: StringNullableFilter
+  unitOfMeasurementDescription: StringNullableFilter
+  universalItemCode: StringNullableFilter
+}
+
+input ItemWhereUniqueInput {
+  id: String!
+}
+
 """
 The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
 """
 scalar JSON @specifiedBy(url: "http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf")
+
+"""
+The `JSONObject` scalar type represents JSON objects as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
+"""
+scalar JSONObject @specifiedBy(url: "http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf")
+
+input JsonFilter {
+  equals: JSONObject
+  not: JSONObject
+}
 
 type MetaQueryPayload {
   count: Float!
 }
 
 type Mutation {
+  createAccount(data: AccountCreateInput!): Account!
+  createBankbook(data: BankbookCreateInput!): Bankbook!
+  createBusiness(data: BusinessCreateInput!): Business!
+  createClientsAndSupplier(data: ClientsAndSupplierCreateInput!): ClientsAndSupplier!
+  createItem(data: ItemCreateInput!): Item!
+  createItemTransaction(data: ItemTransactionCreateInput!): ItemTransaction!
+  createTransaction(data: TransactionCreateInput!): Transaction!
   createUser(data: UserCreateInput!): User!
+  deleteAccount(where: AccountWhereUniqueInput!): Account!
+  deleteBankbook(where: BankbookWhereUniqueInput!): Bankbook!
+  deleteBusiness(where: BusinessWhereUniqueInput!): Business!
+  deleteClientsAndSupplier(where: ClientsAndSupplierWhereUniqueInput!): ClientsAndSupplier!
+  deleteDocument(where: DocumentWhereUniqueInput!): Document!
+  deleteItem(where: ItemWhereUniqueInput!): Item!
+  deleteItemTransaction(where: ItemTransactionWhereUniqueInput!): ItemTransaction!
+  deleteTransaction(where: TransactionWhereUniqueInput!): Transaction!
   deleteUser(where: UserWhereUniqueInput!): User!
   login(credentials: Credentials!): UserInfo!
+  updateAccount(data: AccountUpdateInput!, where: AccountWhereUniqueInput!): Account!
+  updateBankbook(data: BankbookUpdateInput!, where: BankbookWhereUniqueInput!): Bankbook!
+  updateBusiness(data: BusinessUpdateInput!, where: BusinessWhereUniqueInput!): Business!
+  updateClientsAndSupplier(data: ClientsAndSupplierUpdateInput!, where: ClientsAndSupplierWhereUniqueInput!): ClientsAndSupplier!
+  updateItem(data: ItemUpdateInput!, where: ItemWhereUniqueInput!): Item!
+  updateItemTransaction(data: ItemTransactionUpdateInput!, where: ItemTransactionWhereUniqueInput!): ItemTransaction!
+  updateTransaction(data: TransactionUpdateInput!, where: TransactionWhereUniqueInput!): Transaction!
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User!
 }
 
 type Query {
+  _accountsMeta(where: AccountWhereInput): MetaQueryPayload!
+  _bankbooksMeta(where: BankbookWhereInput): MetaQueryPayload!
+  _businessesMeta(where: BusinessWhereInput): MetaQueryPayload!
+  _clientsAndSuppliersMeta(where: ClientsAndSupplierWhereInput): MetaQueryPayload!
+  _documentsMeta(where: DocumentWhereInput): MetaQueryPayload!
+  _itemTransactionsMeta(where: ItemTransactionWhereInput): MetaQueryPayload!
+  _itemsMeta(where: ItemWhereInput): MetaQueryPayload!
+  _transactionsMeta(where: TransactionWhereInput): MetaQueryPayload!
   _usersMeta(where: UserWhereInput): MetaQueryPayload!
+  account(where: AccountWhereUniqueInput!): Account
+  accounts(orderBy: [AccountOrderByInput!], skip: Float, take: Float, where: AccountWhereInput): [Account!]!
+  bankbook(where: BankbookWhereUniqueInput!): Bankbook
+  bankbooks(orderBy: [BankbookOrderByInput!], skip: Float, take: Float, where: BankbookWhereInput): [Bankbook!]!
+  business(where: BusinessWhereUniqueInput!): Business
+  businesses(orderBy: [BusinessOrderByInput!], skip: Float, take: Float, where: BusinessWhereInput): [Business!]!
+  clientsAndSupplier(where: ClientsAndSupplierWhereUniqueInput!): ClientsAndSupplier
+  clientsAndSuppliers(orderBy: [ClientsAndSupplierOrderByInput!], skip: Float, take: Float, where: ClientsAndSupplierWhereInput): [ClientsAndSupplier!]!
+  document(where: DocumentWhereUniqueInput!): Document
+  documents(orderBy: [DocumentOrderByInput!], skip: Float, take: Float, where: DocumentWhereInput): [Document!]!
+  item(where: ItemWhereUniqueInput!): Item
+  itemTransaction(where: ItemTransactionWhereUniqueInput!): ItemTransaction
+  itemTransactions(orderBy: [ItemTransactionOrderByInput!], skip: Float, take: Float, where: ItemTransactionWhereInput): [ItemTransaction!]!
+  items(orderBy: [ItemOrderByInput!], skip: Float, take: Float, where: ItemWhereInput): [Item!]!
+  transaction(where: TransactionWhereUniqueInput!): Transaction
+  transactions(orderBy: [TransactionOrderByInput!], skip: Float, take: Float, where: TransactionWhereInput): [Transaction!]!
   user(where: UserWhereUniqueInput!): User
   userInfo: UserInfo!
   users(orderBy: [UserOrderByInput!], skip: Float, take: Float, where: UserWhereInput): [User!]!
@@ -73,6 +482,142 @@ input StringNullableFilter {
   not: String
   notIn: [String!]
   startsWith: String
+}
+
+type Transaction {
+  accountInTransaction: String
+  actionAmount: Float
+  actionIndicator: Float
+  actionOperation: String
+  counterAccount: String
+  createdAt: DateTime!
+  data: JSON
+  date: DateTime
+  details: String
+  entryDate: DateTime
+  foreignCurrencyAmount: Float
+  foreignCurrencyCode: String
+  id: String!
+  lineNumberInTransaction: Float
+  matchingField_1: String
+  matchingField_2: String
+  modifiedDate: DateTime
+  portion: Float
+  reference: String
+  referenceDocumentType: Float
+  referenceDocumentType_2: Float
+  reference_2: String
+  transactionNumber: Float
+  transactionType: String
+  updatedAt: DateTime!
+}
+
+input TransactionCreateInput {
+  accountInTransaction: String
+  actionAmount: Float
+  actionIndicator: Float
+  actionOperation: String
+  counterAccount: String
+  data: JSON
+  date: DateTime
+  details: String
+  entryDate: DateTime
+  foreignCurrencyAmount: Float
+  foreignCurrencyCode: String
+  lineNumberInTransaction: Float
+  matchingField_1: String
+  matchingField_2: String
+  modifiedDate: DateTime
+  portion: Float
+  reference: String
+  referenceDocumentType: Float
+  referenceDocumentType_2: Float
+  reference_2: String
+  transactionNumber: Float
+  transactionType: String
+}
+
+input TransactionOrderByInput {
+  accountInTransaction: SortOrder
+  actionAmount: SortOrder
+  actionIndicator: SortOrder
+  actionOperation: SortOrder
+  counterAccount: SortOrder
+  createdAt: SortOrder
+  data: SortOrder
+  date: SortOrder
+  details: SortOrder
+  entryDate: SortOrder
+  foreignCurrencyAmount: SortOrder
+  foreignCurrencyCode: SortOrder
+  id: SortOrder
+  lineNumberInTransaction: SortOrder
+  matchingField_1: SortOrder
+  matchingField_2: SortOrder
+  modifiedDate: SortOrder
+  portion: SortOrder
+  reference: SortOrder
+  referenceDocumentType: SortOrder
+  referenceDocumentType_2: SortOrder
+  reference_2: SortOrder
+  transactionNumber: SortOrder
+  transactionType: SortOrder
+  updatedAt: SortOrder
+}
+
+input TransactionUpdateInput {
+  accountInTransaction: String
+  actionAmount: Float
+  actionIndicator: Float
+  actionOperation: String
+  counterAccount: String
+  data: JSON
+  date: DateTime
+  details: String
+  entryDate: DateTime
+  foreignCurrencyAmount: Float
+  foreignCurrencyCode: String
+  lineNumberInTransaction: Float
+  matchingField_1: String
+  matchingField_2: String
+  modifiedDate: DateTime
+  portion: Float
+  reference: String
+  referenceDocumentType: Float
+  referenceDocumentType_2: Float
+  reference_2: String
+  transactionNumber: Float
+  transactionType: String
+}
+
+input TransactionWhereInput {
+  accountInTransaction: StringNullableFilter
+  actionAmount: IntNullableFilter
+  actionIndicator: IntNullableFilter
+  actionOperation: StringNullableFilter
+  counterAccount: StringNullableFilter
+  data: JsonFilter
+  date: DateTimeNullableFilter
+  details: StringNullableFilter
+  entryDate: DateTimeNullableFilter
+  foreignCurrencyAmount: IntNullableFilter
+  foreignCurrencyCode: StringNullableFilter
+  id: StringFilter
+  lineNumberInTransaction: IntNullableFilter
+  matchingField_1: StringNullableFilter
+  matchingField_2: StringNullableFilter
+  modifiedDate: DateTimeNullableFilter
+  portion: IntNullableFilter
+  reference: StringNullableFilter
+  referenceDocumentType: IntNullableFilter
+  referenceDocumentType_2: IntNullableFilter
+  reference_2: StringNullableFilter
+  transactionNumber: IntNullableFilter
+  transactionType: StringNullableFilter
+}
+
+input TransactionWhereUniqueInput {
+  id: String!
 }
 
 type User {
