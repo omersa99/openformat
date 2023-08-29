@@ -1,4 +1,4 @@
-import { Bankbook } from "../bankbook/Bankbook";
+import { Business } from "../business/Business";
 import { Transaction } from "../transaction/Transaction";
 
 export type Account = {
@@ -7,7 +7,7 @@ export type Account = {
   accountBalanceInForeignCurrency: number | null;
   accountKey: string | null;
   accountName: string | null;
-  bankbook?: Bankbook | null;
+  business?: Business | null;
   centerAccount: string | null;
   createdAt: Date;
   currencyCodeForForeignCurrency: string | null;

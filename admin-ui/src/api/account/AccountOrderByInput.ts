@@ -6,7 +6,7 @@ export type AccountOrderByInput = {
   accountBalanceInForeignCurrency?: SortOrder;
   accountKey?: SortOrder;
   accountName?: SortOrder;
-  bankbookId?: SortOrder;
+  businessId?: SortOrder;
   centerAccount?: SortOrder;
   createdAt?: SortOrder;
   currencyCodeForForeignCurrency?: SortOrder;

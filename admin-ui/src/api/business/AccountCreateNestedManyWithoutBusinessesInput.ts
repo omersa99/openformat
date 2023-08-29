@@ -1,5 +1,5 @@
 import { AccountWhereUniqueInput } from "../account/AccountWhereUniqueInput";
 
-export type AccountCreateNestedManyWithoutBankbooksInput = {
+export type AccountCreateNestedManyWithoutBusinessesInput = {
   connect?: Array<AccountWhereUniqueInput>;
 };

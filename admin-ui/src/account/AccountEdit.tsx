@@ -12,7 +12,7 @@ import {
   SelectArrayInput,
 } from "react-admin";
 
-import { BankbookTitle } from "../bankbook/BankbookTitle";
+import { BusinessTitle } from "../business/BusinessTitle";
 import { TransactionTitle } from "../transaction/TransactionTitle";
 
 export const AccountEdit = (props: EditProps): React.ReactElement => {
@@ -37,11 +37,11 @@ export const AccountEdit = (props: EditProps): React.ReactElement => {
         <TextInput label="Account Key" source="accountKey" />
         <TextInput label="Account Name" source="accountName" />
         <ReferenceInput
-          source="bankbook.id"
-          reference="Bankbook"
-          label="bankbook"
+          source="business.id"
+          reference="Business"
+          label="business"
         >
-          <SelectInput optionText={BankbookTitle} />
+          <SelectInput optionText={BusinessTitle} />
         </ReferenceInput>
         <TextInput label="Center Account" source="centerAccount" />
         <TextInput

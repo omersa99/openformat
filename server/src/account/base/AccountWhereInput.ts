@@ -15,7 +15,7 @@ import { IntNullableFilter } from "../../util/IntNullableFilter";
 import { Type } from "class-transformer";
 import { IsOptional, ValidateNested } from "class-validator";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
-import { BankbookWhereUniqueInput } from "../../bankbook/base/BankbookWhereUniqueInput";
+import { BusinessWhereUniqueInput } from "../../business/base/BusinessWhereUniqueInput";
 import { StringFilter } from "../../util/StringFilter";
 import { TransactionListRelationFilter } from "../../transaction/base/TransactionListRelationFilter";
 
@@ -78,15 +78,15 @@ class AccountWhereInput {
 
   @ApiProperty({
     required: false,
-    type: () => BankbookWhereUniqueInput,
+    type: () => BusinessWhereUniqueInput,
   })
   @ValidateNested()
-  @Type(() => BankbookWhereUniqueInput)
+  @Type(() => BusinessWhereUniqueInput)
   @IsOptional()
-  @Field(() => BankbookWhereUniqueInput, {
+  @Field(() => BusinessWhereUniqueInput, {
     nullable: true,
   })
-  bankbook?: BankbookWhereUniqueInput;
+  business?: BusinessWhereUniqueInput;
 
   @ApiProperty({
     required: false,

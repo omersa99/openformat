@@ -7,7 +7,6 @@ import { AccountModule } from "./account/account.module";
 import { TransactionModule } from "./transaction/transaction.module";
 import { DocumentModule } from "./document/document.module";
 import { ItemModule } from "./item/item.module";
-import { BankbookModule } from "./bankbook/bankbook.module";
 import { ClientsAndSupplierModule } from "./clientsAndSupplier/clientsAndSupplier.module";
 import { ItemTransactionModule } from "./itemTransaction/itemTransaction.module";
 import { DocumentDetailModule } from "./documentDetail/documentDetail.module";
@@ -34,7 +33,6 @@ import { AuthModule } from "./auth/auth.module";
     TransactionModule,
     DocumentModule,
     ItemModule,
-    BankbookModule,
     ClientsAndSupplierModule,
     ItemTransactionModule,
     DocumentDetailModule,

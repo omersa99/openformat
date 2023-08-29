@@ -28,7 +28,7 @@ import { AccountFindUniqueArgs } from "./AccountFindUniqueArgs";
 import { Account } from "./Account";
 import { TransactionFindManyArgs } from "../../transaction/base/TransactionFindManyArgs";
 import { Transaction } from "../../transaction/base/Transaction";
-import { Bankbook } from "../../bankbook/base/Bankbook";
+import { Business } from "../../business/base/Business";
 import { AccountService } from "../account.service";
 @common.UseGuards(GqlDefaultAuthGuard, gqlACGuard.GqlACGuard)
 @graphql.Resolver(() => Account)
@@ -98,9 +98,9 @@ export class AccountResolverBase {
       data: {
         ...args.data,
 
-        bankbook: args.data.bankbook
+        business: args.data.business
           ? {
-              connect: args.data.bankbook,
+              connect: args.data.business,
             }
           : undefined,
       },
@@ -123,9 +123,9 @@ export class AccountResolverBase {
         data: {
           ...args.data,
 
-          bankbook: args.data.bankbook
+          business: args.data.business
             ? {
-                connect: args.data.bankbook,
+                connect: args.data.business,
               }
             : undefined,
         },
@@ -182,19 +182,19 @@ export class AccountResolverBase {
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)
-  @graphql.ResolveField(() => Bankbook, {
+  @graphql.ResolveField(() => Business, {
     nullable: true,
-    name: "bankbook",
+    name: "business",
   })
   @nestAccessControl.UseRoles({
-    resource: "Bankbook",
+    resource: "Business",
     action: "read",
     possession: "any",
   })
-  async resolveFieldBankbook(
+  async resolveFieldBusiness(
     @graphql.Parent() parent: Account
-  ): Promise<Bankbook | null> {
-    const result = await this.service.getBankbook(parent.id);
+  ): Promise<Business | null> {
+    const result = await this.service.getBusiness(parent.id);
 
     if (!result) {
       return null;

@@ -1,4 +1,4 @@
-import { BankbookWhereUniqueInput } from "../bankbook/BankbookWhereUniqueInput";
+import { BusinessWhereUniqueInput } from "../business/BusinessWhereUniqueInput";
 import { TransactionUpdateManyWithoutAccountsInput } from "./TransactionUpdateManyWithoutAccountsInput";
 
 export type AccountUpdateInput = {
@@ -7,7 +7,7 @@ export type AccountUpdateInput = {
   accountBalanceInForeignCurrency?: number | null;
   accountKey?: string | null;
   accountName?: string | null;
-  bankbook?: BankbookWhereUniqueInput | null;
+  business?: BusinessWhereUniqueInput | null;
   centerAccount?: string | null;
   currencyCodeForForeignCurrency?: string | null;
   examinedBalanceCode?: string | null;

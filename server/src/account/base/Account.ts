@@ -18,7 +18,7 @@ import {
   ValidateNested,
   IsDate,
 } from "class-validator";
-import { Bankbook } from "../../bankbook/base/Bankbook";
+import { Business } from "../../business/base/Business";
 import { Type } from "class-transformer";
 import { Transaction } from "../../transaction/base/Transaction";
 
@@ -81,12 +81,12 @@ class Account {
 
   @ApiProperty({
     required: false,
-    type: () => Bankbook,
+    type: () => Business,
   })
   @ValidateNested()
-  @Type(() => Bankbook)
+  @Type(() => Business)
   @IsOptional()
-  bankbook?: Bankbook | null;
+  business?: Business | null;
 
   @ApiProperty({
     required: false,

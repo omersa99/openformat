@@ -27,6 +27,9 @@ import { BusinessWhereUniqueInput } from "./BusinessWhereUniqueInput";
 import { BusinessFindManyArgs } from "./BusinessFindManyArgs";
 import { BusinessUpdateInput } from "./BusinessUpdateInput";
 import { Business } from "./Business";
+import { AccountFindManyArgs } from "../../account/base/AccountFindManyArgs";
+import { Account } from "../../account/base/Account";
+import { AccountWhereUniqueInput } from "../../account/base/AccountWhereUniqueInput";
 import { DocumentFindManyArgs } from "../../document/base/DocumentFindManyArgs";
 import { Document } from "../../document/base/Document";
 import { DocumentWhereUniqueInput } from "../../document/base/DocumentWhereUniqueInput";
@@ -51,22 +54,8 @@ export class BusinessControllerBase {
   })
   async create(@common.Body() data: BusinessCreateInput): Promise<Business> {
     return await this.service.create({
-      data: {
-        ...data,
-
-        bankbooks: data.bankbooks
-          ? {
-              connect: data.bankbooks,
-            }
-          : undefined,
-      },
+      data: data,
       select: {
-        bankbooks: {
-          select: {
-            id: true,
-          },
-        },
-
         createdAt: true,
         data: true,
         id: true,
@@ -92,12 +81,6 @@ export class BusinessControllerBase {
     return this.service.findMany({
       ...args,
       select: {
-        bankbooks: {
-          select: {
-            id: true,
-          },
-        },
-
         createdAt: true,
         data: true,
         id: true,
@@ -124,12 +107,6 @@ export class BusinessControllerBase {
     const result = await this.service.findOne({
       where: params,
       select: {
-        bankbooks: {
-          select: {
-            id: true,
-          },
-        },
-
         createdAt: true,
         data: true,
         id: true,
@@ -163,22 +140,8 @@ export class BusinessControllerBase {
     try {
       return await this.service.update({
         where: params,
-        data: {
-          ...data,
-
-          bankbooks: data.bankbooks
-            ? {
-                connect: data.bankbooks,
-              }
-            : undefined,
-        },
+        data: data,
         select: {
-          bankbooks: {
-            select: {
-              id: true,
-            },
-          },
-
           createdAt: true,
           data: true,
           id: true,
@@ -213,12 +176,6 @@ export class BusinessControllerBase {
       return await this.service.delete({
         where: params,
         select: {
-          bankbooks: {
-            select: {
-              id: true,
-            },
-          },
-
           createdAt: true,
           data: true,
           id: true,
@@ -233,6 +190,119 @@ export class BusinessControllerBase {
       }
       throw error;
     }
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @common.Get("/:id/accounts")
+  @ApiNestedQuery(AccountFindManyArgs)
+  @nestAccessControl.UseRoles({
+    resource: "Account",
+    action: "read",
+    possession: "any",
+  })
+  async findManyAccounts(
+    @common.Req() request: Request,
+    @common.Param() params: BusinessWhereUniqueInput
+  ): Promise<Account[]> {
+    const query = plainToClass(AccountFindManyArgs, request.query);
+    const results = await this.service.findAccounts(params.id, {
+      ...query,
+      select: {
+        accountantClassificationCode: true,
+        accountBalanceAtStartOfSegment: true,
+        accountBalanceInForeignCurrency: true,
+        accountKey: true,
+        accountName: true,
+
+        business: {
+          select: {
+            id: true,
+          },
+        },
+
+        centerAccount: true,
+        createdAt: true,
+        currencyCodeForForeignCurrency: true,
+        examinedBalanceCode: true,
+        examinedBalanceCodeDescription: true,
+        id: true,
+        totalCredit: true,
+        totalDebit: true,
+        updatedAt: true,
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @common.Post("/:id/accounts")
+  @nestAccessControl.UseRoles({
+    resource: "Business",
+    action: "update",
+    possession: "any",
+  })
+  async connectAccounts(
+    @common.Param() params: BusinessWhereUniqueInput,
+    @common.Body() body: AccountWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      accounts: {
+        connect: body,
+      },
+    };
+    await this.service.update({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Patch("/:id/accounts")
+  @nestAccessControl.UseRoles({
+    resource: "Business",
+    action: "update",
+    possession: "any",
+  })
+  async updateAccounts(
+    @common.Param() params: BusinessWhereUniqueInput,
+    @common.Body() body: AccountWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      accounts: {
+        set: body,
+      },
+    };
+    await this.service.update({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Delete("/:id/accounts")
+  @nestAccessControl.UseRoles({
+    resource: "Business",
+    action: "update",
+    possession: "any",
+  })
+  async disconnectAccounts(
+    @common.Param() params: BusinessWhereUniqueInput,
+    @common.Body() body: AccountWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      accounts: {
+        disconnect: body,
+      },
+    };
+    await this.service.update({
+      where: params,
+      data,
+      select: { id: true },
+    });
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)

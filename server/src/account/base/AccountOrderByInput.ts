@@ -83,7 +83,7 @@ class AccountOrderByInput {
   @Field(() => SortOrder, {
     nullable: true,
   })
-  bankbookId?: SortOrder;
+  businessId?: SortOrder;
 
   @ApiProperty({
     required: false,
