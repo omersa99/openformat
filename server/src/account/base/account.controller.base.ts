@@ -54,9 +54,9 @@ export class AccountControllerBase {
       data: {
         ...data,
 
-        bankbook: data.bankbook
+        business: data.business
           ? {
-              connect: data.bankbook,
+              connect: data.business,
             }
           : undefined,
       },
@@ -67,7 +67,7 @@ export class AccountControllerBase {
         accountKey: true,
         accountName: true,
 
-        bankbook: {
+        business: {
           select: {
             id: true,
           },
@@ -109,7 +109,7 @@ export class AccountControllerBase {
         accountKey: true,
         accountName: true,
 
-        bankbook: {
+        business: {
           select: {
             id: true,
           },
@@ -152,7 +152,7 @@ export class AccountControllerBase {
         accountKey: true,
         accountName: true,
 
-        bankbook: {
+        business: {
           select: {
             id: true,
           },
@@ -199,9 +199,9 @@ export class AccountControllerBase {
         data: {
           ...data,
 
-          bankbook: data.bankbook
+          business: data.business
             ? {
-                connect: data.bankbook,
+                connect: data.business,
               }
             : undefined,
         },
@@ -212,7 +212,7 @@ export class AccountControllerBase {
           accountKey: true,
           accountName: true,
 
-          bankbook: {
+          business: {
             select: {
               id: true,
             },
@@ -263,7 +263,7 @@ export class AccountControllerBase {
           accountKey: true,
           accountName: true,
 
-          bankbook: {
+          business: {
             select: {
               id: true,
             },

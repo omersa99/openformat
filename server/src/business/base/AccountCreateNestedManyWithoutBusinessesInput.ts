@@ -14,7 +14,7 @@ import { AccountWhereUniqueInput } from "../../account/base/AccountWhereUniqueIn
 import { ApiProperty } from "@nestjs/swagger";
 
 @InputType()
-class AccountUpdateManyWithoutBankbooksInput {
+class AccountCreateNestedManyWithoutBusinessesInput {
   @Field(() => [AccountWhereUniqueInput], {
     nullable: true,
   })
@@ -23,24 +23,6 @@ class AccountUpdateManyWithoutBankbooksInput {
     type: () => [AccountWhereUniqueInput],
   })
   connect?: Array<AccountWhereUniqueInput>;
-
-  @Field(() => [AccountWhereUniqueInput], {
-    nullable: true,
-  })
-  @ApiProperty({
-    required: false,
-    type: () => [AccountWhereUniqueInput],
-  })
-  disconnect?: Array<AccountWhereUniqueInput>;
-
-  @Field(() => [AccountWhereUniqueInput], {
-    nullable: true,
-  })
-  @ApiProperty({
-    required: false,
-    type: () => [AccountWhereUniqueInput],
-  })
-  set?: Array<AccountWhereUniqueInput>;
 }
 
-export { AccountUpdateManyWithoutBankbooksInput as AccountUpdateManyWithoutBankbooksInput };
+export { AccountCreateNestedManyWithoutBusinessesInput as AccountCreateNestedManyWithoutBusinessesInput };

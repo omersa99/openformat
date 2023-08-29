@@ -10,7 +10,7 @@ https://docs.amplication.com/how-to/custom-code
 ------------------------------------------------------------------------------
   */
 import { PrismaService } from "../../prisma/prisma.service";
-import { Prisma, Account, Transaction, Bankbook } from "@prisma/client";
+import { Prisma, Account, Transaction, Business } from "@prisma/client";
 
 export class AccountServiceBase {
   constructor(protected readonly prisma: PrismaService) {}
@@ -58,11 +58,11 @@ export class AccountServiceBase {
       .transaction(args);
   }
 
-  async getBankbook(parentId: string): Promise<Bankbook | null> {
+  async getBusiness(parentId: string): Promise<Business | null> {
     return this.prisma.account
       .findUnique({
         where: { id: parentId },
       })
-      .bankbook();
+      .business();
   }
 }

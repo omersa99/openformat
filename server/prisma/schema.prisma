@@ -19,13 +19,12 @@ model User {
 }
 
 model Business {
-  bankbooks   Bankbook?  @relation(fields: [bankbooksId], references: [id])
-  bankbooksId String?    @unique
-  createdAt   DateTime   @default(now())
-  data        Json?
-  documents   Document[]
-  id          String     @id @default(cuid())
-  updatedAt   DateTime   @updatedAt
+  accounts  Account[]
+  createdAt DateTime   @default(now())
+  data      Json?
+  documents Document[]
+  id        String     @id @default(cuid())
+  updatedAt DateTime   @updatedAt
 }
 
 model Account {
@@ -34,8 +33,8 @@ model Account {
   accountBalanceInForeignCurrency Int?
   accountKey                      String?
   accountName                     String?
-  bankbook                        Bankbook?     @relation(fields: [bankbookId], references: [id])
-  bankbookId                      String?
+  business                        Business?     @relation(fields: [businessId], references: [id])
+  businessId                      String?
   centerAccount                   String?
   createdAt                       DateTime      @default(now())
   currencyCodeForForeignCurrency  String?
@@ -101,15 +100,6 @@ model Item {
   unitOfMeasurementDescription          String?
   universalItemCode                     String?
   updatedAt                             DateTime @updatedAt
-}
-
-model Bankbook {
-  accounts  Account[]
-  business  Business?
-  createdAt DateTime  @default(now())
-  data      Json?
-  id        String    @id @default(cuid())
-  updatedAt DateTime  @updatedAt
 }
 
 model ClientsAndSupplier {

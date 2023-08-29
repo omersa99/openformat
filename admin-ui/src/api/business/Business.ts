@@ -1,9 +1,9 @@
-import { Bankbook } from "../bankbook/Bankbook";
+import { Account } from "../account/Account";
 import { JsonValue } from "type-fest";
 import { Document } from "../document/Document";
 
 export type Business = {
-  bankbooks?: Bankbook | null;
+  accounts?: Array<Account>;
   createdAt: Date;
   data: JsonValue;
   documents?: Array<Document>;

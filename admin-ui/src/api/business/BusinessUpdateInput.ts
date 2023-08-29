@@ -1,9 +1,9 @@
-import { BankbookWhereUniqueInput } from "../bankbook/BankbookWhereUniqueInput";
+import { AccountUpdateManyWithoutBusinessesInput } from "./AccountUpdateManyWithoutBusinessesInput";
 import { InputJsonValue } from "../../types";
 import { DocumentUpdateManyWithoutBusinessesInput } from "./DocumentUpdateManyWithoutBusinessesInput";
 
 export type BusinessUpdateInput = {
-  bankbooks?: BankbookWhereUniqueInput | null;
+  accounts?: AccountUpdateManyWithoutBusinessesInput;
   data?: InputJsonValue;
   documents?: DocumentUpdateManyWithoutBusinessesInput;
 };

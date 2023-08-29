@@ -1,29 +1,26 @@
 import * as React from "react";
-
 import {
   Create,
   SimpleForm,
   CreateProps,
-  ReferenceInput,
-  SelectInput,
   ReferenceArrayInput,
   SelectArrayInput,
 } from "react-admin";
-
-import { BankbookTitle } from "../bankbook/BankbookTitle";
+import { AccountTitle } from "../account/AccountTitle";
 import { DocumentTitle } from "../document/DocumentTitle";
 
 export const BusinessCreate = (props: CreateProps): React.ReactElement => {
   return (
     <Create {...props}>
       <SimpleForm>
-        <ReferenceInput
-          source="bankbooks.id"
-          reference="Bankbook"
-          label="bankbooks"
+        <ReferenceArrayInput
+          source="accounts"
+          reference="Account"
+          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
+          format={(value: any) => value && value.map((v: any) => v.id)}
         >
-          <SelectInput optionText={BankbookTitle} />
-        </ReferenceInput>
+          <SelectArrayInput optionText={AccountTitle} />
+        </ReferenceArrayInput>
         <div />
         <ReferenceArrayInput
           source="documents"

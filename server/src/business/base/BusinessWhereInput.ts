@@ -11,7 +11,7 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { BankbookWhereUniqueInput } from "../../bankbook/base/BankbookWhereUniqueInput";
+import { AccountListRelationFilter } from "../../account/base/AccountListRelationFilter";
 import { ValidateNested, IsOptional } from "class-validator";
 import { Type } from "class-transformer";
 import { JsonFilter } from "../../util/JsonFilter";
@@ -22,15 +22,15 @@ import { StringFilter } from "../../util/StringFilter";
 class BusinessWhereInput {
   @ApiProperty({
     required: false,
-    type: () => BankbookWhereUniqueInput,
+    type: () => AccountListRelationFilter,
   })
   @ValidateNested()
-  @Type(() => BankbookWhereUniqueInput)
+  @Type(() => AccountListRelationFilter)
   @IsOptional()
-  @Field(() => BankbookWhereUniqueInput, {
+  @Field(() => AccountListRelationFilter, {
     nullable: true,
   })
-  bankbooks?: BankbookWhereUniqueInput;
+  accounts?: AccountListRelationFilter;
 
   @ApiProperty({
     required: false,

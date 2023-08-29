@@ -1,4 +1,4 @@
-import { BankbookWhereUniqueInput } from "../bankbook/BankbookWhereUniqueInput";
+import { BusinessWhereUniqueInput } from "../business/BusinessWhereUniqueInput";
 import { TransactionCreateNestedManyWithoutAccountsInput } from "./TransactionCreateNestedManyWithoutAccountsInput";
 
 export type AccountCreateInput = {
@@ -7,7 +7,7 @@ export type AccountCreateInput = {
   accountBalanceInForeignCurrency?: number | null;
   accountKey?: string | null;
   accountName?: string | null;
-  bankbook?: BankbookWhereUniqueInput | null;
+  business?: BusinessWhereUniqueInput | null;
   centerAccount?: string | null;
   currencyCodeForForeignCurrency?: string | null;
   examinedBalanceCode?: string | null;

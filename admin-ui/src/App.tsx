@@ -29,10 +29,6 @@ import { ItemList } from "./item/ItemList";
 import { ItemCreate } from "./item/ItemCreate";
 import { ItemEdit } from "./item/ItemEdit";
 import { ItemShow } from "./item/ItemShow";
-import { BankbookList } from "./bankbook/BankbookList";
-import { BankbookCreate } from "./bankbook/BankbookCreate";
-import { BankbookEdit } from "./bankbook/BankbookEdit";
-import { BankbookShow } from "./bankbook/BankbookShow";
 import { ClientsAndSupplierList } from "./clientsAndSupplier/ClientsAndSupplierList";
 import { ClientsAndSupplierCreate } from "./clientsAndSupplier/ClientsAndSupplierCreate";
 import { ClientsAndSupplierEdit } from "./clientsAndSupplier/ClientsAndSupplierEdit";
@@ -116,13 +112,6 @@ const App = (): React.ReactElement => {
           edit={ItemEdit}
           create={ItemCreate}
           show={ItemShow}
-        />
-        <Resource
-          name="Bankbook"
-          list={BankbookList}
-          edit={BankbookEdit}
-          create={BankbookCreate}
-          show={BankbookShow}
         />
         <Resource
           name="ClientsAndSupplier"
