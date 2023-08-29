@@ -18,6 +18,7 @@ import { IsJSONValue } from "@app/custom-validators";
 import { GraphQLJSON } from "graphql-type-json";
 import { JsonValue } from "type-fest";
 import { Document } from "../../document/base/Document";
+import { User } from "../../user/base/User";
 
 @ObjectType()
 class Business {
@@ -64,6 +65,15 @@ class Business {
   @IsString()
   @Field(() => String)
   id!: string;
+
+  @ApiProperty({
+    required: false,
+    type: () => User,
+  })
+  @ValidateNested()
+  @Type(() => User)
+  @IsOptional()
+  owner?: User | null;
 
   @ApiProperty({
     required: true,

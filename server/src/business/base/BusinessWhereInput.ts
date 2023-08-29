@@ -17,6 +17,7 @@ import { Type } from "class-transformer";
 import { JsonFilter } from "../../util/JsonFilter";
 import { DocumentListRelationFilter } from "../../document/base/DocumentListRelationFilter";
 import { StringFilter } from "../../util/StringFilter";
+import { UserWhereUniqueInput } from "../../user/base/UserWhereUniqueInput";
 
 @InputType()
 class BusinessWhereInput {
@@ -65,6 +66,18 @@ class BusinessWhereInput {
     nullable: true,
   })
   id?: StringFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => UserWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => UserWhereUniqueInput)
+  @IsOptional()
+  @Field(() => UserWhereUniqueInput, {
+    nullable: true,
+  })
+  owner?: UserWhereUniqueInput;
 }
 
 export { BusinessWhereInput as BusinessWhereInput };
