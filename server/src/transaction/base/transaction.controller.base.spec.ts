@@ -19,7 +19,6 @@ import { TransactionService } from "../transaction.service";
 const nonExistingId = "nonExistingId";
 const existingId = "existingId";
 const CREATE_INPUT = {
-  accountInTransaction: "exampleAccountInTransaction",
   actionAmount: 42,
   actionIndicator: 42,
   actionOperation: "exampleActionOperation",
@@ -45,7 +44,6 @@ const CREATE_INPUT = {
   updatedAt: new Date(),
 };
 const CREATE_RESULT = {
-  accountInTransaction: "exampleAccountInTransaction",
   actionAmount: 42,
   actionIndicator: 42,
   actionOperation: "exampleActionOperation",
@@ -72,7 +70,6 @@ const CREATE_RESULT = {
 };
 const FIND_MANY_RESULT = [
   {
-    accountInTransaction: "exampleAccountInTransaction",
     actionAmount: 42,
     actionIndicator: 42,
     actionOperation: "exampleActionOperation",
@@ -99,7 +96,6 @@ const FIND_MANY_RESULT = [
   },
 ];
 const FIND_ONE_RESULT = {
-  accountInTransaction: "exampleAccountInTransaction",
   actionAmount: 42,
   actionIndicator: 42,
   actionOperation: "exampleActionOperation",

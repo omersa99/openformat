@@ -11,11 +11,33 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { ObjectType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { IsDate, IsString } from "class-validator";
+import { Business } from "../../business/base/Business";
+import { ValidateNested, IsOptional, IsDate, IsString } from "class-validator";
 import { Type } from "class-transformer";
+import { ClientsAndSupplier } from "../../clientsAndSupplier/base/ClientsAndSupplier";
+import { DocumentDetail } from "../../documentDetail/base/DocumentDetail";
+import { ReceiptDetail } from "../../receiptDetail/base/ReceiptDetail";
 
 @ObjectType()
 class Document {
+  @ApiProperty({
+    required: false,
+    type: () => Business,
+  })
+  @ValidateNested()
+  @Type(() => Business)
+  @IsOptional()
+  business?: Business | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => ClientsAndSupplier,
+  })
+  @ValidateNested()
+  @Type(() => ClientsAndSupplier)
+  @IsOptional()
+  clientSupplier?: ClientsAndSupplier | null;
+
   @ApiProperty({
     required: true,
   })
@@ -25,12 +47,30 @@ class Document {
   createdAt!: Date;
 
   @ApiProperty({
+    required: false,
+    type: () => [DocumentDetail],
+  })
+  @ValidateNested()
+  @Type(() => DocumentDetail)
+  @IsOptional()
+  documentDetails?: Array<DocumentDetail>;
+
+  @ApiProperty({
     required: true,
     type: String,
   })
   @IsString()
   @Field(() => String)
   id!: string;
+
+  @ApiProperty({
+    required: false,
+    type: () => [ReceiptDetail],
+  })
+  @ValidateNested()
+  @Type(() => ReceiptDetail)
+  @IsOptional()
+  receiptDetails?: Array<ReceiptDetail>;
 
   @ApiProperty({
     required: true,

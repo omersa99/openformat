@@ -11,13 +11,27 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { JsonFilter } from "../../util/JsonFilter";
+import { BankbookWhereUniqueInput } from "../../bankbook/base/BankbookWhereUniqueInput";
+import { ValidateNested, IsOptional } from "class-validator";
 import { Type } from "class-transformer";
-import { IsOptional } from "class-validator";
+import { JsonFilter } from "../../util/JsonFilter";
+import { DocumentListRelationFilter } from "../../document/base/DocumentListRelationFilter";
 import { StringFilter } from "../../util/StringFilter";
 
 @InputType()
 class BusinessWhereInput {
+  @ApiProperty({
+    required: false,
+    type: () => BankbookWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => BankbookWhereUniqueInput)
+  @IsOptional()
+  @Field(() => BankbookWhereUniqueInput, {
+    nullable: true,
+  })
+  bankbooks?: BankbookWhereUniqueInput;
+
   @ApiProperty({
     required: false,
     type: JsonFilter,
@@ -28,6 +42,18 @@ class BusinessWhereInput {
     nullable: true,
   })
   data?: JsonFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => DocumentListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => DocumentListRelationFilter)
+  @IsOptional()
+  @Field(() => DocumentListRelationFilter, {
+    nullable: true,
+  })
+  documents?: DocumentListRelationFilter;
 
   @ApiProperty({
     required: false,

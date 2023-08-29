@@ -27,6 +27,9 @@ import { AccountWhereUniqueInput } from "./AccountWhereUniqueInput";
 import { AccountFindManyArgs } from "./AccountFindManyArgs";
 import { AccountUpdateInput } from "./AccountUpdateInput";
 import { Account } from "./Account";
+import { TransactionFindManyArgs } from "../../transaction/base/TransactionFindManyArgs";
+import { Transaction } from "../../transaction/base/Transaction";
+import { TransactionWhereUniqueInput } from "../../transaction/base/TransactionWhereUniqueInput";
 
 @swagger.ApiBearerAuth()
 @common.UseGuards(defaultAuthGuard.DefaultAuthGuard, nestAccessControl.ACGuard)
@@ -48,13 +51,28 @@ export class AccountControllerBase {
   })
   async create(@common.Body() data: AccountCreateInput): Promise<Account> {
     return await this.service.create({
-      data: data,
+      data: {
+        ...data,
+
+        bankbook: data.bankbook
+          ? {
+              connect: data.bankbook,
+            }
+          : undefined,
+      },
       select: {
         accountantClassificationCode: true,
         accountBalanceAtStartOfSegment: true,
         accountBalanceInForeignCurrency: true,
         accountKey: true,
         accountName: true,
+
+        bankbook: {
+          select: {
+            id: true,
+          },
+        },
+
         centerAccount: true,
         createdAt: true,
         currencyCodeForForeignCurrency: true,
@@ -90,6 +108,13 @@ export class AccountControllerBase {
         accountBalanceInForeignCurrency: true,
         accountKey: true,
         accountName: true,
+
+        bankbook: {
+          select: {
+            id: true,
+          },
+        },
+
         centerAccount: true,
         createdAt: true,
         currencyCodeForForeignCurrency: true,
@@ -126,6 +151,13 @@ export class AccountControllerBase {
         accountBalanceInForeignCurrency: true,
         accountKey: true,
         accountName: true,
+
+        bankbook: {
+          select: {
+            id: true,
+          },
+        },
+
         centerAccount: true,
         createdAt: true,
         currencyCodeForForeignCurrency: true,
@@ -164,13 +196,28 @@ export class AccountControllerBase {
     try {
       return await this.service.update({
         where: params,
-        data: data,
+        data: {
+          ...data,
+
+          bankbook: data.bankbook
+            ? {
+                connect: data.bankbook,
+              }
+            : undefined,
+        },
         select: {
           accountantClassificationCode: true,
           accountBalanceAtStartOfSegment: true,
           accountBalanceInForeignCurrency: true,
           accountKey: true,
           accountName: true,
+
+          bankbook: {
+            select: {
+              id: true,
+            },
+          },
+
           centerAccount: true,
           createdAt: true,
           currencyCodeForForeignCurrency: true,
@@ -215,6 +262,13 @@ export class AccountControllerBase {
           accountBalanceInForeignCurrency: true,
           accountKey: true,
           accountName: true,
+
+          bankbook: {
+            select: {
+              id: true,
+            },
+          },
+
           centerAccount: true,
           createdAt: true,
           currencyCodeForForeignCurrency: true,
@@ -234,5 +288,127 @@ export class AccountControllerBase {
       }
       throw error;
     }
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @common.Get("/:id/transaction")
+  @ApiNestedQuery(TransactionFindManyArgs)
+  @nestAccessControl.UseRoles({
+    resource: "Transaction",
+    action: "read",
+    possession: "any",
+  })
+  async findManyTransaction(
+    @common.Req() request: Request,
+    @common.Param() params: AccountWhereUniqueInput
+  ): Promise<Transaction[]> {
+    const query = plainToClass(TransactionFindManyArgs, request.query);
+    const results = await this.service.findTransaction(params.id, {
+      ...query,
+      select: {
+        accountInTransaction: {
+          select: {
+            id: true,
+          },
+        },
+
+        actionAmount: true,
+        actionIndicator: true,
+        actionOperation: true,
+        counterAccount: true,
+        createdAt: true,
+        data: true,
+        date: true,
+        details: true,
+        entryDate: true,
+        foreignCurrencyAmount: true,
+        foreignCurrencyCode: true,
+        id: true,
+        lineNumberInTransaction: true,
+        matchingField_1: true,
+        matchingField_2: true,
+        modifiedDate: true,
+        portion: true,
+        reference: true,
+        reference_2: true,
+        referenceDocumentType: true,
+        referenceDocumentType_2: true,
+        transactionNumber: true,
+        transactionType: true,
+        updatedAt: true,
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @common.Post("/:id/transaction")
+  @nestAccessControl.UseRoles({
+    resource: "Account",
+    action: "update",
+    possession: "any",
+  })
+  async connectTransaction(
+    @common.Param() params: AccountWhereUniqueInput,
+    @common.Body() body: TransactionWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      transaction: {
+        connect: body,
+      },
+    };
+    await this.service.update({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Patch("/:id/transaction")
+  @nestAccessControl.UseRoles({
+    resource: "Account",
+    action: "update",
+    possession: "any",
+  })
+  async updateTransaction(
+    @common.Param() params: AccountWhereUniqueInput,
+    @common.Body() body: TransactionWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      transaction: {
+        set: body,
+      },
+    };
+    await this.service.update({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Delete("/:id/transaction")
+  @nestAccessControl.UseRoles({
+    resource: "Account",
+    action: "update",
+    possession: "any",
+  })
+  async disconnectTransaction(
+    @common.Param() params: AccountWhereUniqueInput,
+    @common.Body() body: TransactionWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      transaction: {
+        disconnect: body,
+      },
+    };
+    await this.service.update({
+      where: params,
+      data,
+      select: { id: true },
+    });
   }
 }

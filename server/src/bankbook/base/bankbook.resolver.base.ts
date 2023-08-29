@@ -26,6 +26,9 @@ import { BankbookCountArgs } from "./BankbookCountArgs";
 import { BankbookFindManyArgs } from "./BankbookFindManyArgs";
 import { BankbookFindUniqueArgs } from "./BankbookFindUniqueArgs";
 import { Bankbook } from "./Bankbook";
+import { AccountFindManyArgs } from "../../account/base/AccountFindManyArgs";
+import { Account } from "../../account/base/Account";
+import { Business } from "../../business/base/Business";
 import { BankbookService } from "../bankbook.service";
 @common.UseGuards(GqlDefaultAuthGuard, gqlACGuard.GqlACGuard)
 @graphql.Resolver(() => Bankbook)
@@ -92,7 +95,15 @@ export class BankbookResolverBase {
   ): Promise<Bankbook> {
     return await this.service.create({
       ...args,
-      data: args.data,
+      data: {
+        ...args.data,
+
+        business: args.data.business
+          ? {
+              connect: args.data.business,
+            }
+          : undefined,
+      },
     });
   }
 
@@ -109,7 +120,15 @@ export class BankbookResolverBase {
     try {
       return await this.service.update({
         ...args,
-        data: args.data,
+        data: {
+          ...args.data,
+
+          business: args.data.business
+            ? {
+                connect: args.data.business,
+              }
+            : undefined,
+        },
       });
     } catch (error) {
       if (isRecordNotFoundError(error)) {
@@ -140,5 +159,46 @@ export class BankbookResolverBase {
       }
       throw error;
     }
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [Account], { name: "accounts" })
+  @nestAccessControl.UseRoles({
+    resource: "Account",
+    action: "read",
+    possession: "any",
+  })
+  async resolveFieldAccounts(
+    @graphql.Parent() parent: Bankbook,
+    @graphql.Args() args: AccountFindManyArgs
+  ): Promise<Account[]> {
+    const results = await this.service.findAccounts(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => Business, {
+    nullable: true,
+    name: "business",
+  })
+  @nestAccessControl.UseRoles({
+    resource: "Business",
+    action: "read",
+    possession: "any",
+  })
+  async resolveFieldBusiness(
+    @graphql.Parent() parent: Bankbook
+  ): Promise<Business | null> {
+    const result = await this.service.getBusiness(parent.id);
+
+    if (!result) {
+      return null;
+    }
+    return result;
   }
 }

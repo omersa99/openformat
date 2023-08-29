@@ -9,5 +9,64 @@ https://docs.amplication.com/how-to/custom-code
 
 ------------------------------------------------------------------------------
   */
-class DocumentUpdateInput {}
+import { InputType, Field } from "@nestjs/graphql";
+import { ApiProperty } from "@nestjs/swagger";
+import { BusinessWhereUniqueInput } from "../../business/base/BusinessWhereUniqueInput";
+import { ValidateNested, IsOptional } from "class-validator";
+import { Type } from "class-transformer";
+import { ClientsAndSupplierWhereUniqueInput } from "../../clientsAndSupplier/base/ClientsAndSupplierWhereUniqueInput";
+import { DocumentDetailUpdateManyWithoutDocumentsInput } from "./DocumentDetailUpdateManyWithoutDocumentsInput";
+import { ReceiptDetailUpdateManyWithoutDocumentsInput } from "./ReceiptDetailUpdateManyWithoutDocumentsInput";
+
+@InputType()
+class DocumentUpdateInput {
+  @ApiProperty({
+    required: false,
+    type: () => BusinessWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => BusinessWhereUniqueInput)
+  @IsOptional()
+  @Field(() => BusinessWhereUniqueInput, {
+    nullable: true,
+  })
+  business?: BusinessWhereUniqueInput | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => ClientsAndSupplierWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => ClientsAndSupplierWhereUniqueInput)
+  @IsOptional()
+  @Field(() => ClientsAndSupplierWhereUniqueInput, {
+    nullable: true,
+  })
+  clientSupplier?: ClientsAndSupplierWhereUniqueInput | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => DocumentDetailUpdateManyWithoutDocumentsInput,
+  })
+  @ValidateNested()
+  @Type(() => DocumentDetailUpdateManyWithoutDocumentsInput)
+  @IsOptional()
+  @Field(() => DocumentDetailUpdateManyWithoutDocumentsInput, {
+    nullable: true,
+  })
+  documentDetails?: DocumentDetailUpdateManyWithoutDocumentsInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => ReceiptDetailUpdateManyWithoutDocumentsInput,
+  })
+  @ValidateNested()
+  @Type(() => ReceiptDetailUpdateManyWithoutDocumentsInput)
+  @IsOptional()
+  @Field(() => ReceiptDetailUpdateManyWithoutDocumentsInput, {
+    nullable: true,
+  })
+  receiptDetails?: ReceiptDetailUpdateManyWithoutDocumentsInput;
+}
+
 export { DocumentUpdateInput as DocumentUpdateInput };

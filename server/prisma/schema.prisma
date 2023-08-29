@@ -19,10 +19,13 @@ model User {
 }
 
 model Business {
-  createdAt DateTime @default(now())
-  data      Json?
-  id        String   @id @default(cuid())
-  updatedAt DateTime @updatedAt
+  bankbooks   Bankbook?  @relation(fields: [bankbooksId], references: [id])
+  bankbooksId String?    @unique
+  createdAt   DateTime   @default(now())
+  data        Json?
+  documents   Document[]
+  id          String     @id @default(cuid())
+  updatedAt   DateTime   @updatedAt
 }
 
 model Account {
@@ -31,19 +34,23 @@ model Account {
   accountBalanceInForeignCurrency Int?
   accountKey                      String?
   accountName                     String?
+  bankbook                        Bankbook?     @relation(fields: [bankbookId], references: [id])
+  bankbookId                      String?
   centerAccount                   String?
-  createdAt                       DateTime @default(now())
+  createdAt                       DateTime      @default(now())
   currencyCodeForForeignCurrency  String?
   examinedBalanceCode             String?
   examinedBalanceCodeDescription  String?
-  id                              String   @id @default(cuid())
+  id                              String        @id @default(cuid())
   totalCredit                     Int?
   totalDebit                      Int?
-  updatedAt                       DateTime @updatedAt
+  transaction                     Transaction[]
+  updatedAt                       DateTime      @updatedAt
 }
 
 model Transaction {
-  accountInTransaction    String?
+  accountInTransaction    Account?  @relation(fields: [accountInTransactionId], references: [id])
+  accountInTransactionId  String?
   actionAmount            Int?
   actionIndicator         Int?
   actionOperation         String?
@@ -71,9 +78,15 @@ model Transaction {
 }
 
 model Document {
-  createdAt DateTime @default(now())
-  id        String   @id @default(cuid())
-  updatedAt DateTime @updatedAt
+  business         Business?           @relation(fields: [businessId], references: [id])
+  businessId       String?
+  clientSupplier   ClientsAndSupplier? @relation(fields: [clientSupplierId], references: [id])
+  clientSupplierId String?
+  createdAt        DateTime            @default(now())
+  documentDetails  DocumentDetail[]
+  id               String              @id @default(cuid())
+  receiptDetails   ReceiptDetail[]
+  updatedAt        DateTime            @updatedAt
 }
 
 model Item {
@@ -91,10 +104,12 @@ model Item {
 }
 
 model Bankbook {
-  createdAt DateTime @default(now())
+  accounts  Account[]
+  business  Business?
+  createdAt DateTime  @default(now())
   data      Json?
-  id        String   @id @default(cuid())
-  updatedAt DateTime @updatedAt
+  id        String    @id @default(cuid())
+  updatedAt DateTime  @updatedAt
 }
 
 model ClientsAndSupplier {
@@ -105,9 +120,10 @@ model ClientsAndSupplier {
   addressStreet      String?
   businessNumber     String?
   countryCode        String?
-  createdAt          DateTime @default(now())
-  id                 String   @id @default(cuid())
-  updatedAt          DateTime @updatedAt
+  createdAt          DateTime   @default(now())
+  documents          Document[]
+  id                 String     @id @default(cuid())
+  updatedAt          DateTime   @updatedAt
 }
 
 model ItemTransaction {
@@ -117,4 +133,20 @@ model ItemTransaction {
   internalItemCode String?
   outflows         Int?
   updatedAt        DateTime @updatedAt
+}
+
+model DocumentDetail {
+  createdAt  DateTime  @default(now())
+  document   Document? @relation(fields: [documentId], references: [id])
+  documentId String?
+  id         String    @id @default(cuid())
+  updatedAt  DateTime  @updatedAt
+}
+
+model ReceiptDetail {
+  createdAt  DateTime  @default(now())
+  document   Document? @relation(fields: [documentId], references: [id])
+  documentId String?
+  id         String    @id @default(cuid())
+  updatedAt  DateTime  @updatedAt
 }

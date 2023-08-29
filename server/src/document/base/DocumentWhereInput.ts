@@ -11,12 +11,52 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { StringFilter } from "../../util/StringFilter";
+import { BusinessWhereUniqueInput } from "../../business/base/BusinessWhereUniqueInput";
+import { ValidateNested, IsOptional } from "class-validator";
 import { Type } from "class-transformer";
-import { IsOptional } from "class-validator";
+import { ClientsAndSupplierWhereUniqueInput } from "../../clientsAndSupplier/base/ClientsAndSupplierWhereUniqueInput";
+import { DocumentDetailListRelationFilter } from "../../documentDetail/base/DocumentDetailListRelationFilter";
+import { StringFilter } from "../../util/StringFilter";
+import { ReceiptDetailListRelationFilter } from "../../receiptDetail/base/ReceiptDetailListRelationFilter";
 
 @InputType()
 class DocumentWhereInput {
+  @ApiProperty({
+    required: false,
+    type: () => BusinessWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => BusinessWhereUniqueInput)
+  @IsOptional()
+  @Field(() => BusinessWhereUniqueInput, {
+    nullable: true,
+  })
+  business?: BusinessWhereUniqueInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => ClientsAndSupplierWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => ClientsAndSupplierWhereUniqueInput)
+  @IsOptional()
+  @Field(() => ClientsAndSupplierWhereUniqueInput, {
+    nullable: true,
+  })
+  clientSupplier?: ClientsAndSupplierWhereUniqueInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => DocumentDetailListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => DocumentDetailListRelationFilter)
+  @IsOptional()
+  @Field(() => DocumentDetailListRelationFilter, {
+    nullable: true,
+  })
+  documentDetails?: DocumentDetailListRelationFilter;
+
   @ApiProperty({
     required: false,
     type: StringFilter,
@@ -27,6 +67,18 @@ class DocumentWhereInput {
     nullable: true,
   })
   id?: StringFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => ReceiptDetailListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => ReceiptDetailListRelationFilter)
+  @IsOptional()
+  @Field(() => ReceiptDetailListRelationFilter, {
+    nullable: true,
+  })
+  receiptDetails?: ReceiptDetailListRelationFilter;
 }
 
 export { DocumentWhereInput as DocumentWhereInput };

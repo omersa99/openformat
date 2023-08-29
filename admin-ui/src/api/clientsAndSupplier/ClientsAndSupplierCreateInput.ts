@@ -1,3 +1,5 @@
+import { DocumentCreateNestedManyWithoutClientsAndSuppliersInput } from "./DocumentCreateNestedManyWithoutClientsAndSuppliersInput";
+
 export type ClientsAndSupplierCreateInput = {
   addressCity?: string | null;
   addressCountry?: string | null;
@@ -6,4 +8,5 @@ export type ClientsAndSupplierCreateInput = {
   addressStreet?: string | null;
   businessNumber?: string | null;
   countryCode?: string | null;
+  documents?: DocumentCreateNestedManyWithoutClientsAndSuppliersInput;
 };

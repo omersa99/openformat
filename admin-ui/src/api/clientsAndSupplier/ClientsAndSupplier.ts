@@ -1,3 +1,5 @@
+import { Document } from "../document/Document";
+
 export type ClientsAndSupplier = {
   addressCity: string | null;
   addressCountry: string | null;
@@ -7,6 +9,7 @@ export type ClientsAndSupplier = {
   businessNumber: string | null;
   countryCode: string | null;
   createdAt: Date;
+  documents?: Array<Document>;
   id: string;
   updatedAt: Date;
 };

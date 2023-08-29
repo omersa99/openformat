@@ -13,9 +13,11 @@ import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
 import { IntNullableFilter } from "../../util/IntNullableFilter";
 import { Type } from "class-transformer";
-import { IsOptional } from "class-validator";
+import { IsOptional, ValidateNested } from "class-validator";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
+import { BankbookWhereUniqueInput } from "../../bankbook/base/BankbookWhereUniqueInput";
 import { StringFilter } from "../../util/StringFilter";
+import { TransactionListRelationFilter } from "../../transaction/base/TransactionListRelationFilter";
 
 @InputType()
 class AccountWhereInput {
@@ -73,6 +75,18 @@ class AccountWhereInput {
     nullable: true,
   })
   accountName?: StringNullableFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => BankbookWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => BankbookWhereUniqueInput)
+  @IsOptional()
+  @Field(() => BankbookWhereUniqueInput, {
+    nullable: true,
+  })
+  bankbook?: BankbookWhereUniqueInput;
 
   @ApiProperty({
     required: false,
@@ -150,6 +164,18 @@ class AccountWhereInput {
     nullable: true,
   })
   totalDebit?: IntNullableFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => TransactionListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => TransactionListRelationFilter)
+  @IsOptional()
+  @Field(() => TransactionListRelationFilter, {
+    nullable: true,
+  })
+  transaction?: TransactionListRelationFilter;
 }
 
 export { AccountWhereInput as AccountWhereInput };

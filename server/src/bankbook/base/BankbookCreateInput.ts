@@ -11,13 +11,40 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
+import { AccountCreateNestedManyWithoutBankbooksInput } from "./AccountCreateNestedManyWithoutBankbooksInput";
+import { ValidateNested, IsOptional } from "class-validator";
+import { Type } from "class-transformer";
+import { BusinessWhereUniqueInput } from "../../business/base/BusinessWhereUniqueInput";
 import { IsJSONValue } from "@app/custom-validators";
-import { IsOptional } from "class-validator";
 import { GraphQLJSON } from "graphql-type-json";
 import { InputJsonValue } from "../../types";
 
 @InputType()
 class BankbookCreateInput {
+  @ApiProperty({
+    required: false,
+    type: () => AccountCreateNestedManyWithoutBankbooksInput,
+  })
+  @ValidateNested()
+  @Type(() => AccountCreateNestedManyWithoutBankbooksInput)
+  @IsOptional()
+  @Field(() => AccountCreateNestedManyWithoutBankbooksInput, {
+    nullable: true,
+  })
+  accounts?: AccountCreateNestedManyWithoutBankbooksInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => BusinessWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => BusinessWhereUniqueInput)
+  @IsOptional()
+  @Field(() => BusinessWhereUniqueInput, {
+    nullable: true,
+  })
+  business?: BusinessWhereUniqueInput | null;
+
   @ApiProperty({
     required: false,
   })

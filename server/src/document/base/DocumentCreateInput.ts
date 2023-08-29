@@ -9,5 +9,64 @@ https://docs.amplication.com/how-to/custom-code
 
 ------------------------------------------------------------------------------
   */
-class DocumentCreateInput {}
+import { InputType, Field } from "@nestjs/graphql";
+import { ApiProperty } from "@nestjs/swagger";
+import { BusinessWhereUniqueInput } from "../../business/base/BusinessWhereUniqueInput";
+import { ValidateNested, IsOptional } from "class-validator";
+import { Type } from "class-transformer";
+import { ClientsAndSupplierWhereUniqueInput } from "../../clientsAndSupplier/base/ClientsAndSupplierWhereUniqueInput";
+import { DocumentDetailCreateNestedManyWithoutDocumentsInput } from "./DocumentDetailCreateNestedManyWithoutDocumentsInput";
+import { ReceiptDetailCreateNestedManyWithoutDocumentsInput } from "./ReceiptDetailCreateNestedManyWithoutDocumentsInput";
+
+@InputType()
+class DocumentCreateInput {
+  @ApiProperty({
+    required: false,
+    type: () => BusinessWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => BusinessWhereUniqueInput)
+  @IsOptional()
+  @Field(() => BusinessWhereUniqueInput, {
+    nullable: true,
+  })
+  business?: BusinessWhereUniqueInput | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => ClientsAndSupplierWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => ClientsAndSupplierWhereUniqueInput)
+  @IsOptional()
+  @Field(() => ClientsAndSupplierWhereUniqueInput, {
+    nullable: true,
+  })
+  clientSupplier?: ClientsAndSupplierWhereUniqueInput | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => DocumentDetailCreateNestedManyWithoutDocumentsInput,
+  })
+  @ValidateNested()
+  @Type(() => DocumentDetailCreateNestedManyWithoutDocumentsInput)
+  @IsOptional()
+  @Field(() => DocumentDetailCreateNestedManyWithoutDocumentsInput, {
+    nullable: true,
+  })
+  documentDetails?: DocumentDetailCreateNestedManyWithoutDocumentsInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => ReceiptDetailCreateNestedManyWithoutDocumentsInput,
+  })
+  @ValidateNested()
+  @Type(() => ReceiptDetailCreateNestedManyWithoutDocumentsInput)
+  @IsOptional()
+  @Field(() => ReceiptDetailCreateNestedManyWithoutDocumentsInput, {
+    nullable: true,
+  })
+  receiptDetails?: ReceiptDetailCreateNestedManyWithoutDocumentsInput;
+}
+
 export { DocumentCreateInput as DocumentCreateInput };

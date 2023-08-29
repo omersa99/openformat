@@ -1,3 +1,5 @@
+import { DocumentUpdateManyWithoutClientsAndSuppliersInput } from "./DocumentUpdateManyWithoutClientsAndSuppliersInput";
+
 export type ClientsAndSupplierUpdateInput = {
   addressCity?: string | null;
   addressCountry?: string | null;
@@ -6,4 +8,5 @@ export type ClientsAndSupplierUpdateInput = {
   addressStreet?: string | null;
   businessNumber?: string | null;
   countryCode?: string | null;
+  documents?: DocumentUpdateManyWithoutClientsAndSuppliersInput;
 };
