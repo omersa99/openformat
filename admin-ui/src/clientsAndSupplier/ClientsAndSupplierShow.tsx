@@ -1,11 +1,18 @@
 import * as React from "react";
+
 import {
   Show,
   SimpleShowLayout,
   ShowProps,
   TextField,
   DateField,
+  ReferenceManyField,
+  Datagrid,
+  ReferenceField,
 } from "react-admin";
+
+import { BUSINESS_TITLE_FIELD } from "../business/BusinessTitle";
+import { CLIENTSANDSUPPLIER_TITLE_FIELD } from "./ClientsAndSupplierTitle";
 
 export const ClientsAndSupplierShow = (
   props: ShowProps
@@ -23,6 +30,31 @@ export const ClientsAndSupplierShow = (
         <DateField source="createdAt" label="Created At" />
         <TextField label="ID" source="id" />
         <DateField source="updatedAt" label="Updated At" />
+        <ReferenceManyField
+          reference="Document"
+          target="clientSupplierId"
+          label="documents"
+        >
+          <Datagrid rowClick="show">
+            <ReferenceField
+              label="business"
+              source="business.id"
+              reference="Business"
+            >
+              <TextField source={BUSINESS_TITLE_FIELD} />
+            </ReferenceField>
+            <ReferenceField
+              label="clientSupplier"
+              source="clientsandsupplier.id"
+              reference="ClientsAndSupplier"
+            >
+              <TextField source={CLIENTSANDSUPPLIER_TITLE_FIELD} />
+            </ReferenceField>
+            <DateField source="createdAt" label="Created At" />
+            <TextField label="ID" source="id" />
+            <DateField source="updatedAt" label="Updated At" />
+          </Datagrid>
+        </ReferenceManyField>
       </SimpleShowLayout>
     </Show>
   );

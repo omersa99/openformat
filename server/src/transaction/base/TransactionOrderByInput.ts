@@ -28,7 +28,7 @@ class TransactionOrderByInput {
   @Field(() => SortOrder, {
     nullable: true,
   })
-  accountInTransaction?: SortOrder;
+  accountInTransactionId?: SortOrder;
 
   @ApiProperty({
     required: false,

@@ -11,7 +11,9 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { IsString, IsOptional } from "class-validator";
+import { IsString, IsOptional, ValidateNested } from "class-validator";
+import { DocumentUpdateManyWithoutClientsAndSuppliersInput } from "./DocumentUpdateManyWithoutClientsAndSuppliersInput";
+import { Type } from "class-transformer";
 
 @InputType()
 class ClientsAndSupplierUpdateInput {
@@ -91,6 +93,18 @@ class ClientsAndSupplierUpdateInput {
     nullable: true,
   })
   countryCode?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => DocumentUpdateManyWithoutClientsAndSuppliersInput,
+  })
+  @ValidateNested()
+  @Type(() => DocumentUpdateManyWithoutClientsAndSuppliersInput)
+  @IsOptional()
+  @Field(() => DocumentUpdateManyWithoutClientsAndSuppliersInput, {
+    nullable: true,
+  })
+  documents?: DocumentUpdateManyWithoutClientsAndSuppliersInput;
 }
 
 export { ClientsAndSupplierUpdateInput as ClientsAndSupplierUpdateInput };

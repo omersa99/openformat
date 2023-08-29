@@ -18,11 +18,20 @@ import * as gqlACGuard from "../../auth/gqlAC.guard";
 import { GqlDefaultAuthGuard } from "../../auth/gqlDefaultAuth.guard";
 import * as common from "@nestjs/common";
 import { AclFilterResponseInterceptor } from "../../interceptors/aclFilterResponse.interceptor";
+import { AclValidateRequestInterceptor } from "../../interceptors/aclValidateRequest.interceptor";
+import { CreateDocumentArgs } from "./CreateDocumentArgs";
+import { UpdateDocumentArgs } from "./UpdateDocumentArgs";
 import { DeleteDocumentArgs } from "./DeleteDocumentArgs";
 import { DocumentCountArgs } from "./DocumentCountArgs";
 import { DocumentFindManyArgs } from "./DocumentFindManyArgs";
 import { DocumentFindUniqueArgs } from "./DocumentFindUniqueArgs";
 import { Document } from "./Document";
+import { DocumentDetailFindManyArgs } from "../../documentDetail/base/DocumentDetailFindManyArgs";
+import { DocumentDetail } from "../../documentDetail/base/DocumentDetail";
+import { ReceiptDetailFindManyArgs } from "../../receiptDetail/base/ReceiptDetailFindManyArgs";
+import { ReceiptDetail } from "../../receiptDetail/base/ReceiptDetail";
+import { Business } from "../../business/base/Business";
+import { ClientsAndSupplier } from "../../clientsAndSupplier/base/ClientsAndSupplier";
 import { DocumentService } from "../document.service";
 @common.UseGuards(GqlDefaultAuthGuard, gqlACGuard.GqlACGuard)
 @graphql.Resolver(() => Document)
@@ -77,6 +86,75 @@ export class DocumentResolverBase {
     return result;
   }
 
+  @common.UseInterceptors(AclValidateRequestInterceptor)
+  @graphql.Mutation(() => Document)
+  @nestAccessControl.UseRoles({
+    resource: "Document",
+    action: "create",
+    possession: "any",
+  })
+  async createDocument(
+    @graphql.Args() args: CreateDocumentArgs
+  ): Promise<Document> {
+    return await this.service.create({
+      ...args,
+      data: {
+        ...args.data,
+
+        business: args.data.business
+          ? {
+              connect: args.data.business,
+            }
+          : undefined,
+
+        clientSupplier: args.data.clientSupplier
+          ? {
+              connect: args.data.clientSupplier,
+            }
+          : undefined,
+      },
+    });
+  }
+
+  @common.UseInterceptors(AclValidateRequestInterceptor)
+  @graphql.Mutation(() => Document)
+  @nestAccessControl.UseRoles({
+    resource: "Document",
+    action: "update",
+    possession: "any",
+  })
+  async updateDocument(
+    @graphql.Args() args: UpdateDocumentArgs
+  ): Promise<Document | null> {
+    try {
+      return await this.service.update({
+        ...args,
+        data: {
+          ...args.data,
+
+          business: args.data.business
+            ? {
+                connect: args.data.business,
+              }
+            : undefined,
+
+          clientSupplier: args.data.clientSupplier
+            ? {
+                connect: args.data.clientSupplier,
+              }
+            : undefined,
+        },
+      });
+    } catch (error) {
+      if (isRecordNotFoundError(error)) {
+        throw new apollo.ApolloError(
+          `No resource was found for ${JSON.stringify(args.where)}`
+        );
+      }
+      throw error;
+    }
+  }
+
   @graphql.Mutation(() => Document)
   @nestAccessControl.UseRoles({
     resource: "Document",
@@ -96,5 +174,87 @@ export class DocumentResolverBase {
       }
       throw error;
     }
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [DocumentDetail], { name: "documentDetails" })
+  @nestAccessControl.UseRoles({
+    resource: "DocumentDetail",
+    action: "read",
+    possession: "any",
+  })
+  async resolveFieldDocumentDetails(
+    @graphql.Parent() parent: Document,
+    @graphql.Args() args: DocumentDetailFindManyArgs
+  ): Promise<DocumentDetail[]> {
+    const results = await this.service.findDocumentDetails(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [ReceiptDetail], { name: "receiptDetails" })
+  @nestAccessControl.UseRoles({
+    resource: "ReceiptDetail",
+    action: "read",
+    possession: "any",
+  })
+  async resolveFieldReceiptDetails(
+    @graphql.Parent() parent: Document,
+    @graphql.Args() args: ReceiptDetailFindManyArgs
+  ): Promise<ReceiptDetail[]> {
+    const results = await this.service.findReceiptDetails(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => Business, {
+    nullable: true,
+    name: "business",
+  })
+  @nestAccessControl.UseRoles({
+    resource: "Business",
+    action: "read",
+    possession: "any",
+  })
+  async resolveFieldBusiness(
+    @graphql.Parent() parent: Document
+  ): Promise<Business | null> {
+    const result = await this.service.getBusiness(parent.id);
+
+    if (!result) {
+      return null;
+    }
+    return result;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => ClientsAndSupplier, {
+    nullable: true,
+    name: "clientSupplier",
+  })
+  @nestAccessControl.UseRoles({
+    resource: "ClientsAndSupplier",
+    action: "read",
+    possession: "any",
+  })
+  async resolveFieldClientSupplier(
+    @graphql.Parent() parent: Document
+  ): Promise<ClientsAndSupplier | null> {
+    const result = await this.service.getClientSupplier(parent.id);
+
+    if (!result) {
+      return null;
+    }
+    return result;
   }
 }

@@ -11,13 +11,39 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { JsonFilter } from "../../util/JsonFilter";
+import { AccountListRelationFilter } from "../../account/base/AccountListRelationFilter";
+import { ValidateNested, IsOptional } from "class-validator";
 import { Type } from "class-transformer";
-import { IsOptional } from "class-validator";
+import { BusinessWhereUniqueInput } from "../../business/base/BusinessWhereUniqueInput";
+import { JsonFilter } from "../../util/JsonFilter";
 import { StringFilter } from "../../util/StringFilter";
 
 @InputType()
 class BankbookWhereInput {
+  @ApiProperty({
+    required: false,
+    type: () => AccountListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => AccountListRelationFilter)
+  @IsOptional()
+  @Field(() => AccountListRelationFilter, {
+    nullable: true,
+  })
+  accounts?: AccountListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => BusinessWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => BusinessWhereUniqueInput)
+  @IsOptional()
+  @Field(() => BusinessWhereUniqueInput, {
+    nullable: true,
+  })
+  business?: BusinessWhereUniqueInput;
+
   @ApiProperty({
     required: false,
     type: JsonFilter,

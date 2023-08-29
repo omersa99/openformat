@@ -41,6 +41,14 @@ import { ItemTransactionList } from "./itemTransaction/ItemTransactionList";
 import { ItemTransactionCreate } from "./itemTransaction/ItemTransactionCreate";
 import { ItemTransactionEdit } from "./itemTransaction/ItemTransactionEdit";
 import { ItemTransactionShow } from "./itemTransaction/ItemTransactionShow";
+import { DocumentDetailList } from "./documentDetail/DocumentDetailList";
+import { DocumentDetailCreate } from "./documentDetail/DocumentDetailCreate";
+import { DocumentDetailEdit } from "./documentDetail/DocumentDetailEdit";
+import { DocumentDetailShow } from "./documentDetail/DocumentDetailShow";
+import { ReceiptDetailList } from "./receiptDetail/ReceiptDetailList";
+import { ReceiptDetailCreate } from "./receiptDetail/ReceiptDetailCreate";
+import { ReceiptDetailEdit } from "./receiptDetail/ReceiptDetailEdit";
+import { ReceiptDetailShow } from "./receiptDetail/ReceiptDetailShow";
 import { jwtAuthProvider } from "./auth-provider/ra-auth-jwt";
 
 const App = (): React.ReactElement => {
@@ -129,6 +137,20 @@ const App = (): React.ReactElement => {
           edit={ItemTransactionEdit}
           create={ItemTransactionCreate}
           show={ItemTransactionShow}
+        />
+        <Resource
+          name="DocumentDetail"
+          list={DocumentDetailList}
+          edit={DocumentDetailEdit}
+          create={DocumentDetailCreate}
+          show={DocumentDetailShow}
+        />
+        <Resource
+          name="ReceiptDetail"
+          list={ReceiptDetailList}
+          edit={ReceiptDetailEdit}
+          create={ReceiptDetailCreate}
+          show={ReceiptDetailShow}
         />
       </Admin>
     </div>

@@ -11,13 +11,28 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
+import { BankbookWhereUniqueInput } from "../../bankbook/base/BankbookWhereUniqueInput";
+import { ValidateNested, IsOptional } from "class-validator";
+import { Type } from "class-transformer";
 import { IsJSONValue } from "@app/custom-validators";
-import { IsOptional } from "class-validator";
 import { GraphQLJSON } from "graphql-type-json";
 import { InputJsonValue } from "../../types";
+import { DocumentCreateNestedManyWithoutBusinessesInput } from "./DocumentCreateNestedManyWithoutBusinessesInput";
 
 @InputType()
 class BusinessCreateInput {
+  @ApiProperty({
+    required: false,
+    type: () => BankbookWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => BankbookWhereUniqueInput)
+  @IsOptional()
+  @Field(() => BankbookWhereUniqueInput, {
+    nullable: true,
+  })
+  bankbooks?: BankbookWhereUniqueInput | null;
+
   @ApiProperty({
     required: false,
   })
@@ -27,6 +42,18 @@ class BusinessCreateInput {
     nullable: true,
   })
   data?: InputJsonValue;
+
+  @ApiProperty({
+    required: false,
+    type: () => DocumentCreateNestedManyWithoutBusinessesInput,
+  })
+  @ValidateNested()
+  @Type(() => DocumentCreateNestedManyWithoutBusinessesInput)
+  @IsOptional()
+  @Field(() => DocumentCreateNestedManyWithoutBusinessesInput, {
+    nullable: true,
+  })
+  documents?: DocumentCreateNestedManyWithoutBusinessesInput;
 }
 
 export { BusinessCreateInput as BusinessCreateInput };

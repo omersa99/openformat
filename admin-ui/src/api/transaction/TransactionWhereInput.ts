@@ -1,11 +1,12 @@
-import { StringNullableFilter } from "../../util/StringNullableFilter";
+import { AccountWhereUniqueInput } from "../account/AccountWhereUniqueInput";
 import { IntNullableFilter } from "../../util/IntNullableFilter";
+import { StringNullableFilter } from "../../util/StringNullableFilter";
 import { JsonFilter } from "../../util/JsonFilter";
 import { DateTimeNullableFilter } from "../../util/DateTimeNullableFilter";
 import { StringFilter } from "../../util/StringFilter";
 
 export type TransactionWhereInput = {
-  accountInTransaction?: StringNullableFilter;
+  accountInTransaction?: AccountWhereUniqueInput;
   actionAmount?: IntNullableFilter;
   actionIndicator?: IntNullableFilter;
   actionOperation?: StringNullableFilter;
