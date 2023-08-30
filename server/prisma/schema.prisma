@@ -20,14 +20,15 @@ model User {
 }
 
 model Business {
-  accounts  Account[]
-  createdAt DateTime   @default(now())
-  data      Json?
-  documents Document[]
-  id        String     @id @default(cuid())
-  owner     User?      @relation(fields: [ownerId], references: [id])
-  ownerId   String?    @unique
-  updatedAt DateTime   @updatedAt
+  accounts   Account[]
+  createdAt  DateTime   @default(now())
+  documents  Document[]
+  id         String     @id @default(cuid())
+  owner      User?      @relation(fields: [ownerId], references: [id])
+  ownerId    String?    @unique
+  settings   Setting?   @relation(fields: [settingsId], references: [id])
+  settingsId String?    @unique
+  updatedAt  DateTime   @updatedAt
 }
 
 model Account {
@@ -142,4 +143,13 @@ model ReceiptDetail {
   documentId String?
   id         String    @id @default(cuid())
   updatedAt  DateTime  @updatedAt
+}
+
+model Setting {
+  accountingSettings Json?
+  business           Business?
+  businessSettings   Json?
+  createdAt          DateTime  @default(now())
+  id                 String    @id @default(cuid())
+  updatedAt          DateTime  @updatedAt
 }

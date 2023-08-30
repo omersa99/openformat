@@ -11,23 +11,43 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { ObjectType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { Account } from "../../account/base/Account";
-import { ValidateNested, IsOptional, IsDate, IsString } from "class-validator";
+import { IsJSONValue } from "@app/custom-validators";
+import { IsOptional, ValidateNested, IsDate, IsString } from "class-validator";
+import { GraphQLJSON } from "graphql-type-json";
+import { JsonValue } from "type-fest";
+import { Business } from "../../business/base/Business";
 import { Type } from "class-transformer";
-import { Document } from "../../document/base/Document";
-import { User } from "../../user/base/User";
-import { Setting } from "../../setting/base/Setting";
 
 @ObjectType()
-class Business {
+class Setting {
   @ApiProperty({
     required: false,
-    type: () => [Account],
+  })
+  @IsJSONValue()
+  @IsOptional()
+  @Field(() => GraphQLJSON, {
+    nullable: true,
+  })
+  accountingSettings!: JsonValue;
+
+  @ApiProperty({
+    required: false,
+    type: () => Business,
   })
   @ValidateNested()
-  @Type(() => Account)
+  @Type(() => Business)
   @IsOptional()
-  accounts?: Array<Account>;
+  business?: Business | null;
+
+  @ApiProperty({
+    required: false,
+  })
+  @IsJSONValue()
+  @IsOptional()
+  @Field(() => GraphQLJSON, {
+    nullable: true,
+  })
+  businessSettings!: JsonValue;
 
   @ApiProperty({
     required: true,
@@ -38,39 +58,12 @@ class Business {
   createdAt!: Date;
 
   @ApiProperty({
-    required: false,
-    type: () => [Document],
-  })
-  @ValidateNested()
-  @Type(() => Document)
-  @IsOptional()
-  documents?: Array<Document>;
-
-  @ApiProperty({
     required: true,
     type: String,
   })
   @IsString()
   @Field(() => String)
   id!: string;
-
-  @ApiProperty({
-    required: false,
-    type: () => User,
-  })
-  @ValidateNested()
-  @Type(() => User)
-  @IsOptional()
-  owner?: User | null;
-
-  @ApiProperty({
-    required: false,
-    type: () => Setting,
-  })
-  @ValidateNested()
-  @Type(() => Setting)
-  @IsOptional()
-  settings?: Setting | null;
 
   @ApiProperty({
     required: true,
@@ -81,4 +74,4 @@ class Business {
   updatedAt!: Date;
 }
 
-export { Business as Business };
+export { Setting as Setting };
