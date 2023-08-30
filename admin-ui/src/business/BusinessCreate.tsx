@@ -13,6 +13,7 @@ import {
 import { AccountTitle } from "../account/AccountTitle";
 import { DocumentTitle } from "../document/DocumentTitle";
 import { UserTitle } from "../user/UserTitle";
+import { SettingTitle } from "../setting/SettingTitle";
 
 export const BusinessCreate = (props: CreateProps): React.ReactElement => {
   return (
@@ -26,7 +27,6 @@ export const BusinessCreate = (props: CreateProps): React.ReactElement => {
         >
           <SelectArrayInput optionText={AccountTitle} />
         </ReferenceArrayInput>
-        <div />
         <ReferenceArrayInput
           source="documents"
           reference="Document"
@@ -37,6 +37,13 @@ export const BusinessCreate = (props: CreateProps): React.ReactElement => {
         </ReferenceArrayInput>
         <ReferenceInput source="owner.id" reference="User" label="owner">
           <SelectInput optionText={UserTitle} />
+        </ReferenceInput>
+        <ReferenceInput
+          source="settings.id"
+          reference="Setting"
+          label="settings"
+        >
+          <SelectInput optionText={SettingTitle} />
         </ReferenceInput>
       </SimpleForm>
     </Create>

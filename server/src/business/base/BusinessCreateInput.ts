@@ -14,11 +14,9 @@ import { ApiProperty } from "@nestjs/swagger";
 import { AccountCreateNestedManyWithoutBusinessesInput } from "./AccountCreateNestedManyWithoutBusinessesInput";
 import { ValidateNested, IsOptional } from "class-validator";
 import { Type } from "class-transformer";
-import { IsJSONValue } from "@app/custom-validators";
-import { GraphQLJSON } from "graphql-type-json";
-import { InputJsonValue } from "../../types";
 import { DocumentCreateNestedManyWithoutBusinessesInput } from "./DocumentCreateNestedManyWithoutBusinessesInput";
 import { UserWhereUniqueInput } from "../../user/base/UserWhereUniqueInput";
+import { SettingWhereUniqueInput } from "../../setting/base/SettingWhereUniqueInput";
 
 @InputType()
 class BusinessCreateInput {
@@ -33,16 +31,6 @@ class BusinessCreateInput {
     nullable: true,
   })
   accounts?: AccountCreateNestedManyWithoutBusinessesInput;
-
-  @ApiProperty({
-    required: false,
-  })
-  @IsJSONValue()
-  @IsOptional()
-  @Field(() => GraphQLJSON, {
-    nullable: true,
-  })
-  data?: InputJsonValue;
 
   @ApiProperty({
     required: false,
@@ -67,6 +55,18 @@ class BusinessCreateInput {
     nullable: true,
   })
   owner?: UserWhereUniqueInput | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => SettingWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => SettingWhereUniqueInput)
+  @IsOptional()
+  @Field(() => SettingWhereUniqueInput, {
+    nullable: true,
+  })
+  settings?: SettingWhereUniqueInput | null;
 }
 
 export { BusinessCreateInput as BusinessCreateInput };

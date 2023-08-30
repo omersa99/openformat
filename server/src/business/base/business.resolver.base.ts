@@ -31,6 +31,7 @@ import { Account } from "../../account/base/Account";
 import { DocumentFindManyArgs } from "../../document/base/DocumentFindManyArgs";
 import { Document } from "../../document/base/Document";
 import { User } from "../../user/base/User";
+import { Setting } from "../../setting/base/Setting";
 import { BusinessService } from "../business.service";
 @common.UseGuards(GqlDefaultAuthGuard, gqlACGuard.GqlACGuard)
 @graphql.Resolver(() => Business)
@@ -105,6 +106,12 @@ export class BusinessResolverBase {
               connect: args.data.owner,
             }
           : undefined,
+
+        settings: args.data.settings
+          ? {
+              connect: args.data.settings,
+            }
+          : undefined,
       },
     });
   }
@@ -128,6 +135,12 @@ export class BusinessResolverBase {
           owner: args.data.owner
             ? {
                 connect: args.data.owner,
+              }
+            : undefined,
+
+          settings: args.data.settings
+            ? {
+                connect: args.data.settings,
               }
             : undefined,
         },
@@ -217,6 +230,27 @@ export class BusinessResolverBase {
     @graphql.Parent() parent: Business
   ): Promise<User | null> {
     const result = await this.service.getOwner(parent.id);
+
+    if (!result) {
+      return null;
+    }
+    return result;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => Setting, {
+    nullable: true,
+    name: "settings",
+  })
+  @nestAccessControl.UseRoles({
+    resource: "Setting",
+    action: "read",
+    possession: "any",
+  })
+  async resolveFieldSettings(
+    @graphql.Parent() parent: Business
+  ): Promise<Setting | null> {
+    const result = await this.service.getSettings(parent.id);
 
     if (!result) {
       return null;
