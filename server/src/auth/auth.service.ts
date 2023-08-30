@@ -50,6 +50,7 @@ export class AuthService {
         roles: true,
         updatedAt: true,
         username: true,
+        businesses: true,
       },
     });
     if (!result) {

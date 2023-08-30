@@ -8,7 +8,7 @@ type Account {
   accountKey: String
   accountName: String
   accountantClassificationCode: Float
-  bankbook: Bankbook
+  business: Business
   centerAccount: String
   createdAt: DateTime!
   currencyCodeForForeignCurrency: String
@@ -27,7 +27,7 @@ input AccountCreateInput {
   accountKey: String
   accountName: String
   accountantClassificationCode: Float
-  bankbook: BankbookWhereUniqueInput
+  business: BusinessWhereUniqueInput
   centerAccount: String
   currencyCodeForForeignCurrency: String
   examinedBalanceCode: String
@@ -37,7 +37,7 @@ input AccountCreateInput {
   transaction: TransactionCreateNestedManyWithoutAccountsInput
 }
 
-input AccountCreateNestedManyWithoutBankbooksInput {
+input AccountCreateNestedManyWithoutBusinessesInput {
   connect: [AccountWhereUniqueInput!]
 }
 
@@ -53,7 +53,7 @@ input AccountOrderByInput {
   accountKey: SortOrder
   accountName: SortOrder
   accountantClassificationCode: SortOrder
-  bankbookId: SortOrder
+  businessId: SortOrder
   centerAccount: SortOrder
   createdAt: SortOrder
   currencyCodeForForeignCurrency: SortOrder
@@ -71,7 +71,7 @@ input AccountUpdateInput {
   accountKey: String
   accountName: String
   accountantClassificationCode: Float
-  bankbook: BankbookWhereUniqueInput
+  business: BusinessWhereUniqueInput
   centerAccount: String
   currencyCodeForForeignCurrency: String
   examinedBalanceCode: String
@@ -81,7 +81,7 @@ input AccountUpdateInput {
   transaction: TransactionUpdateManyWithoutAccountsInput
 }
 
-input AccountUpdateManyWithoutBankbooksInput {
+input AccountUpdateManyWithoutBusinessesInput {
   connect: [AccountWhereUniqueInput!]
   disconnect: [AccountWhereUniqueInput!]
   set: [AccountWhereUniqueInput!]
@@ -93,7 +93,7 @@ input AccountWhereInput {
   accountKey: StringNullableFilter
   accountName: StringNullableFilter
   accountantClassificationCode: IntNullableFilter
-  bankbook: BankbookWhereUniqueInput
+  business: BusinessWhereUniqueInput
   centerAccount: StringNullableFilter
   currencyCodeForForeignCurrency: StringNullableFilter
   examinedBalanceCode: StringNullableFilter
@@ -108,80 +108,44 @@ input AccountWhereUniqueInput {
   id: String!
 }
 
-type Bankbook {
-  accounts(orderBy: [AccountOrderByInput!], skip: Float, take: Float, where: AccountWhereInput): [Account!]!
-  business: Business
-  createdAt: DateTime!
-  data: JSON
-  id: String!
-  updatedAt: DateTime!
-}
-
-input BankbookCreateInput {
-  accounts: AccountCreateNestedManyWithoutBankbooksInput
-  business: BusinessWhereUniqueInput
-  data: JSON
-}
-
-input BankbookOrderByInput {
-  businessId: SortOrder
-  createdAt: SortOrder
-  data: SortOrder
-  id: SortOrder
-  updatedAt: SortOrder
-}
-
-input BankbookUpdateInput {
-  accounts: AccountUpdateManyWithoutBankbooksInput
-  business: BusinessWhereUniqueInput
-  data: JSON
-}
-
-input BankbookWhereInput {
-  accounts: AccountListRelationFilter
-  business: BusinessWhereUniqueInput
-  data: JsonFilter
-  id: StringFilter
-}
-
-input BankbookWhereUniqueInput {
-  id: String!
-}
-
 type Business {
-  bankbooks: Bankbook
+  accounts(orderBy: [AccountOrderByInput!], skip: Float, take: Float, where: AccountWhereInput): [Account!]!
   createdAt: DateTime!
   data: JSON
   documents(orderBy: [DocumentOrderByInput!], skip: Float, take: Float, where: DocumentWhereInput): [Document!]!
   id: String!
+  owner: User
   updatedAt: DateTime!
 }
 
 input BusinessCreateInput {
-  bankbooks: BankbookWhereUniqueInput
+  accounts: AccountCreateNestedManyWithoutBusinessesInput
   data: JSON
   documents: DocumentCreateNestedManyWithoutBusinessesInput
+  owner: UserWhereUniqueInput
 }
 
 input BusinessOrderByInput {
-  bankbooksId: SortOrder
   createdAt: SortOrder
   data: SortOrder
   id: SortOrder
+  ownerId: SortOrder
   updatedAt: SortOrder
 }
 
 input BusinessUpdateInput {
-  bankbooks: BankbookWhereUniqueInput
+  accounts: AccountUpdateManyWithoutBusinessesInput
   data: JSON
   documents: DocumentUpdateManyWithoutBusinessesInput
+  owner: UserWhereUniqueInput
 }
 
 input BusinessWhereInput {
-  bankbooks: BankbookWhereUniqueInput
+  accounts: AccountListRelationFilter
   data: JsonFilter
   documents: DocumentListRelationFilter
   id: StringFilter
+  owner: UserWhereUniqueInput
 }
 
 input BusinessWhereUniqueInput {
@@ -530,7 +494,6 @@ type MetaQueryPayload {
 
 type Mutation {
   createAccount(data: AccountCreateInput!): Account!
-  createBankbook(data: BankbookCreateInput!): Bankbook!
   createBusiness(data: BusinessCreateInput!): Business!
   createClientsAndSupplier(data: ClientsAndSupplierCreateInput!): ClientsAndSupplier!
   createDocument(data: DocumentCreateInput!): Document!
@@ -541,7 +504,6 @@ type Mutation {
   createTransaction(data: TransactionCreateInput!): Transaction!
   createUser(data: UserCreateInput!): User!
   deleteAccount(where: AccountWhereUniqueInput!): Account!
-  deleteBankbook(where: BankbookWhereUniqueInput!): Bankbook!
   deleteBusiness(where: BusinessWhereUniqueInput!): Business!
   deleteClientsAndSupplier(where: ClientsAndSupplierWhereUniqueInput!): ClientsAndSupplier!
   deleteDocument(where: DocumentWhereUniqueInput!): Document!
@@ -553,7 +515,6 @@ type Mutation {
   deleteUser(where: UserWhereUniqueInput!): User!
   login(credentials: Credentials!): UserInfo!
   updateAccount(data: AccountUpdateInput!, where: AccountWhereUniqueInput!): Account!
-  updateBankbook(data: BankbookUpdateInput!, where: BankbookWhereUniqueInput!): Bankbook!
   updateBusiness(data: BusinessUpdateInput!, where: BusinessWhereUniqueInput!): Business!
   updateClientsAndSupplier(data: ClientsAndSupplierUpdateInput!, where: ClientsAndSupplierWhereUniqueInput!): ClientsAndSupplier!
   updateDocument(data: DocumentUpdateInput!, where: DocumentWhereUniqueInput!): Document!
@@ -567,7 +528,6 @@ type Mutation {
 
 type Query {
   _accountsMeta(where: AccountWhereInput): MetaQueryPayload!
-  _bankbooksMeta(where: BankbookWhereInput): MetaQueryPayload!
   _businessesMeta(where: BusinessWhereInput): MetaQueryPayload!
   _clientsAndSuppliersMeta(where: ClientsAndSupplierWhereInput): MetaQueryPayload!
   _documentDetailsMeta(where: DocumentDetailWhereInput): MetaQueryPayload!
@@ -579,8 +539,6 @@ type Query {
   _usersMeta(where: UserWhereInput): MetaQueryPayload!
   account(where: AccountWhereUniqueInput!): Account
   accounts(orderBy: [AccountOrderByInput!], skip: Float, take: Float, where: AccountWhereInput): [Account!]!
-  bankbook(where: BankbookWhereUniqueInput!): Bankbook
-  bankbooks(orderBy: [BankbookOrderByInput!], skip: Float, take: Float, where: BankbookWhereInput): [Bankbook!]!
   business(where: BusinessWhereUniqueInput!): Business
   businesses(orderBy: [BusinessOrderByInput!], skip: Float, take: Float, where: BusinessWhereInput): [Business!]!
   clientsAndSupplier(where: ClientsAndSupplierWhereUniqueInput!): ClientsAndSupplier
@@ -843,6 +801,7 @@ input TransactionWhereUniqueInput {
 }
 
 type User {
+  businesses: Business
   createdAt: DateTime!
   firstName: String
   id: String!
@@ -853,6 +812,7 @@ type User {
 }
 
 input UserCreateInput {
+  businesses: BusinessWhereUniqueInput
   firstName: String
   lastName: String
   password: String!
@@ -868,6 +828,7 @@ type UserInfo {
 }
 
 input UserOrderByInput {
+  businessesId: SortOrder
   createdAt: SortOrder
   firstName: SortOrder
   id: SortOrder
@@ -879,6 +840,7 @@ input UserOrderByInput {
 }
 
 input UserUpdateInput {
+  businesses: BusinessWhereUniqueInput
   firstName: String
   lastName: String
   password: String
@@ -887,6 +849,7 @@ input UserUpdateInput {
 }
 
 input UserWhereInput {
+  businesses: BusinessWhereUniqueInput
   firstName: StringNullableFilter
   id: StringFilter
   lastName: StringNullableFilter
