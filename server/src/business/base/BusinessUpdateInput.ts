@@ -15,6 +15,7 @@ import { AccountUpdateManyWithoutBusinessesInput } from "./AccountUpdateManyWith
 import { ValidateNested, IsOptional } from "class-validator";
 import { Type } from "class-transformer";
 import { DocumentUpdateManyWithoutBusinessesInput } from "./DocumentUpdateManyWithoutBusinessesInput";
+import { ItemUpdateManyWithoutBusinessesInput } from "./ItemUpdateManyWithoutBusinessesInput";
 import { UserWhereUniqueInput } from "../../user/base/UserWhereUniqueInput";
 import { SettingWhereUniqueInput } from "../../setting/base/SettingWhereUniqueInput";
 
@@ -43,6 +44,18 @@ class BusinessUpdateInput {
     nullable: true,
   })
   documents?: DocumentUpdateManyWithoutBusinessesInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => ItemUpdateManyWithoutBusinessesInput,
+  })
+  @ValidateNested()
+  @Type(() => ItemUpdateManyWithoutBusinessesInput)
+  @IsOptional()
+  @Field(() => ItemUpdateManyWithoutBusinessesInput, {
+    nullable: true,
+  })
+  items?: ItemUpdateManyWithoutBusinessesInput;
 
   @ApiProperty({
     required: false,

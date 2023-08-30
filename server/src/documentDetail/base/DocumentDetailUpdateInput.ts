@@ -12,8 +12,10 @@ https://docs.amplication.com/how-to/custom-code
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
 import { DocumentWhereUniqueInput } from "../../document/base/DocumentWhereUniqueInput";
-import { ValidateNested, IsOptional } from "class-validator";
+import { ValidateNested, IsOptional, IsInt, IsEnum } from "class-validator";
 import { Type } from "class-transformer";
+import { ItemWhereUniqueInput } from "../../item/base/ItemWhereUniqueInput";
+import { EnumDocumentDetailTransactionType } from "./EnumDocumentDetailTransactionType";
 
 @InputType()
 class DocumentDetailUpdateInput {
@@ -28,6 +30,62 @@ class DocumentDetailUpdateInput {
     nullable: true,
   })
   document?: DocumentWhereUniqueInput | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => ItemWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => ItemWhereUniqueInput)
+  @IsOptional()
+  @Field(() => ItemWhereUniqueInput, {
+    nullable: true,
+  })
+  item?: ItemWhereUniqueInput | null;
+
+  @ApiProperty({
+    required: false,
+    type: Number,
+  })
+  @IsInt()
+  @IsOptional()
+  @Field(() => Number, {
+    nullable: true,
+  })
+  priceWithoutVat?: number | null;
+
+  @ApiProperty({
+    required: false,
+    type: Number,
+  })
+  @IsInt()
+  @IsOptional()
+  @Field(() => Number, {
+    nullable: true,
+  })
+  quantity?: number | null;
+
+  @ApiProperty({
+    required: false,
+    enum: EnumDocumentDetailTransactionType,
+  })
+  @IsEnum(EnumDocumentDetailTransactionType)
+  @IsOptional()
+  @Field(() => EnumDocumentDetailTransactionType, {
+    nullable: true,
+  })
+  transactionType?: "Service" | "Sale" | "ServiceAndSales" | null;
+
+  @ApiProperty({
+    required: false,
+    type: Number,
+  })
+  @IsInt()
+  @IsOptional()
+  @Field(() => Number, {
+    nullable: true,
+  })
+  vatRate?: number | null;
 }
 
 export { DocumentDetailUpdateInput as DocumentDetailUpdateInput };

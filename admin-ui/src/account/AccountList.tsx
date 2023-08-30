@@ -9,6 +9,7 @@ import {
 } from "react-admin";
 import Pagination from "../Components/Pagination";
 import { BUSINESS_TITLE_FIELD } from "../business/BusinessTitle";
+import { CLIENTSANDSUPPLIER_TITLE_FIELD } from "../clientsAndSupplier/ClientsAndSupplierTitle";
 
 export const AccountList = (props: ListProps): React.ReactElement => {
   return (
@@ -42,6 +43,13 @@ export const AccountList = (props: ListProps): React.ReactElement => {
           <TextField source={BUSINESS_TITLE_FIELD} />
         </ReferenceField>
         <TextField label="Center Account" source="centerAccount" />
+        <ReferenceField
+          label="clients and suppliers"
+          source="clientsandsupplier.id"
+          reference="ClientsAndSupplier"
+        >
+          <TextField source={CLIENTSANDSUPPLIER_TITLE_FIELD} />
+        </ReferenceField>
         <DateField source="createdAt" label="Created At" />
         <TextField
           label="Currency Code for Foreign Currency"

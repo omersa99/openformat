@@ -27,6 +27,9 @@ import { ItemWhereUniqueInput } from "./ItemWhereUniqueInput";
 import { ItemFindManyArgs } from "./ItemFindManyArgs";
 import { ItemUpdateInput } from "./ItemUpdateInput";
 import { Item } from "./Item";
+import { DocumentDetailFindManyArgs } from "../../documentDetail/base/DocumentDetailFindManyArgs";
+import { DocumentDetail } from "../../documentDetail/base/DocumentDetail";
+import { DocumentDetailWhereUniqueInput } from "../../documentDetail/base/DocumentDetailWhereUniqueInput";
 
 @swagger.ApiBearerAuth()
 @common.UseGuards(defaultAuthGuard.DefaultAuthGuard, nestAccessControl.ACGuard)
@@ -48,8 +51,22 @@ export class ItemControllerBase {
   })
   async create(@common.Body() data: ItemCreateInput): Promise<Item> {
     return await this.service.create({
-      data: data,
+      data: {
+        ...data,
+
+        business: data.business
+          ? {
+              connect: data.business,
+            }
+          : undefined,
+      },
       select: {
+        business: {
+          select: {
+            id: true,
+          },
+        },
+
         createdAt: true,
         data: true,
         id: true,
@@ -82,6 +99,12 @@ export class ItemControllerBase {
     return this.service.findMany({
       ...args,
       select: {
+        business: {
+          select: {
+            id: true,
+          },
+        },
+
         createdAt: true,
         data: true,
         id: true,
@@ -115,6 +138,12 @@ export class ItemControllerBase {
     const result = await this.service.findOne({
       where: params,
       select: {
+        business: {
+          select: {
+            id: true,
+          },
+        },
+
         createdAt: true,
         data: true,
         id: true,
@@ -155,8 +184,22 @@ export class ItemControllerBase {
     try {
       return await this.service.update({
         where: params,
-        data: data,
+        data: {
+          ...data,
+
+          business: data.business
+            ? {
+                connect: data.business,
+              }
+            : undefined,
+        },
         select: {
+          business: {
+            select: {
+              id: true,
+            },
+          },
+
           createdAt: true,
           data: true,
           id: true,
@@ -198,6 +241,12 @@ export class ItemControllerBase {
       return await this.service.delete({
         where: params,
         select: {
+          business: {
+            select: {
+              id: true,
+            },
+          },
+
           createdAt: true,
           data: true,
           id: true,
@@ -219,5 +268,118 @@ export class ItemControllerBase {
       }
       throw error;
     }
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @common.Get("/:id/documentDetails")
+  @ApiNestedQuery(DocumentDetailFindManyArgs)
+  @nestAccessControl.UseRoles({
+    resource: "DocumentDetail",
+    action: "read",
+    possession: "any",
+  })
+  async findManyDocumentDetails(
+    @common.Req() request: Request,
+    @common.Param() params: ItemWhereUniqueInput
+  ): Promise<DocumentDetail[]> {
+    const query = plainToClass(DocumentDetailFindManyArgs, request.query);
+    const results = await this.service.findDocumentDetails(params.id, {
+      ...query,
+      select: {
+        createdAt: true,
+
+        document: {
+          select: {
+            id: true,
+          },
+        },
+
+        id: true,
+
+        item: {
+          select: {
+            id: true,
+          },
+        },
+
+        priceWithoutVat: true,
+        quantity: true,
+        transactionType: true,
+        updatedAt: true,
+        vatRate: true,
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @common.Post("/:id/documentDetails")
+  @nestAccessControl.UseRoles({
+    resource: "Item",
+    action: "update",
+    possession: "any",
+  })
+  async connectDocumentDetails(
+    @common.Param() params: ItemWhereUniqueInput,
+    @common.Body() body: DocumentDetailWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      documentDetails: {
+        connect: body,
+      },
+    };
+    await this.service.update({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Patch("/:id/documentDetails")
+  @nestAccessControl.UseRoles({
+    resource: "Item",
+    action: "update",
+    possession: "any",
+  })
+  async updateDocumentDetails(
+    @common.Param() params: ItemWhereUniqueInput,
+    @common.Body() body: DocumentDetailWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      documentDetails: {
+        set: body,
+      },
+    };
+    await this.service.update({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Delete("/:id/documentDetails")
+  @nestAccessControl.UseRoles({
+    resource: "Item",
+    action: "update",
+    possession: "any",
+  })
+  async disconnectDocumentDetails(
+    @common.Param() params: ItemWhereUniqueInput,
+    @common.Body() body: DocumentDetailWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      documentDetails: {
+        disconnect: body,
+      },
+    };
+    await this.service.update({
+      where: params,
+      data,
+      select: { id: true },
+    });
   }
 }

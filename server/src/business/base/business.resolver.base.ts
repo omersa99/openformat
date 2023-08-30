@@ -30,6 +30,8 @@ import { AccountFindManyArgs } from "../../account/base/AccountFindManyArgs";
 import { Account } from "../../account/base/Account";
 import { DocumentFindManyArgs } from "../../document/base/DocumentFindManyArgs";
 import { Document } from "../../document/base/Document";
+import { ItemFindManyArgs } from "../../item/base/ItemFindManyArgs";
+import { Item } from "../../item/base/Item";
 import { User } from "../../user/base/User";
 import { Setting } from "../../setting/base/Setting";
 import { BusinessService } from "../business.service";
@@ -208,6 +210,26 @@ export class BusinessResolverBase {
     @graphql.Args() args: DocumentFindManyArgs
   ): Promise<Document[]> {
     const results = await this.service.findDocuments(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [Item], { name: "items" })
+  @nestAccessControl.UseRoles({
+    resource: "Item",
+    action: "read",
+    possession: "any",
+  })
+  async resolveFieldItems(
+    @graphql.Parent() parent: Business,
+    @graphql.Args() args: ItemFindManyArgs
+  ): Promise<Item[]> {
+    const results = await this.service.findItems(parent.id, args);
 
     if (!results) {
       return [];

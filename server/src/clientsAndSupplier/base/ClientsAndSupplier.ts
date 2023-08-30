@@ -11,12 +11,22 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { ObjectType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { IsString, IsOptional, IsDate, ValidateNested } from "class-validator";
+import { Account } from "../../account/base/Account";
+import { ValidateNested, IsOptional, IsString, IsDate } from "class-validator";
 import { Type } from "class-transformer";
 import { Document } from "../../document/base/Document";
 
 @ObjectType()
 class ClientsAndSupplier {
+  @ApiProperty({
+    required: false,
+    type: () => Account,
+  })
+  @ValidateNested()
+  @Type(() => Account)
+  @IsOptional()
+  account?: Account | null;
+
   @ApiProperty({
     required: false,
     type: String,

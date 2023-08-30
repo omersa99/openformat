@@ -28,6 +28,7 @@ import { ClientsAndSupplierFindUniqueArgs } from "./ClientsAndSupplierFindUnique
 import { ClientsAndSupplier } from "./ClientsAndSupplier";
 import { DocumentFindManyArgs } from "../../document/base/DocumentFindManyArgs";
 import { Document } from "../../document/base/Document";
+import { Account } from "../../account/base/Account";
 import { ClientsAndSupplierService } from "../clientsAndSupplier.service";
 @common.UseGuards(GqlDefaultAuthGuard, gqlACGuard.GqlACGuard)
 @graphql.Resolver(() => ClientsAndSupplier)
@@ -94,7 +95,15 @@ export class ClientsAndSupplierResolverBase {
   ): Promise<ClientsAndSupplier> {
     return await this.service.create({
       ...args,
-      data: args.data,
+      data: {
+        ...args.data,
+
+        account: args.data.account
+          ? {
+              connect: args.data.account,
+            }
+          : undefined,
+      },
     });
   }
 
@@ -111,7 +120,15 @@ export class ClientsAndSupplierResolverBase {
     try {
       return await this.service.update({
         ...args,
-        data: args.data,
+        data: {
+          ...args.data,
+
+          account: args.data.account
+            ? {
+                connect: args.data.account,
+              }
+            : undefined,
+        },
       });
     } catch (error) {
       if (isRecordNotFoundError(error)) {
@@ -162,5 +179,26 @@ export class ClientsAndSupplierResolverBase {
     }
 
     return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => Account, {
+    nullable: true,
+    name: "account",
+  })
+  @nestAccessControl.UseRoles({
+    resource: "Account",
+    action: "read",
+    possession: "any",
+  })
+  async resolveFieldAccount(
+    @graphql.Parent() parent: ClientsAndSupplier
+  ): Promise<Account | null> {
+    const result = await this.service.getAccount(parent.id);
+
+    if (!result) {
+      return null;
+    }
+    return result;
   }
 }

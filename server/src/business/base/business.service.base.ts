@@ -15,6 +15,7 @@ import {
   Business,
   Account,
   Document,
+  Item,
   User,
   Setting,
 } from "@prisma/client";
@@ -74,6 +75,17 @@ export class BusinessServiceBase {
         where: { id: parentId },
       })
       .documents(args);
+  }
+
+  async findItems(
+    parentId: string,
+    args: Prisma.ItemFindManyArgs
+  ): Promise<Item[]> {
+    return this.prisma.business
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .items(args);
   }
 
   async getOwner(parentId: string): Promise<User | null> {

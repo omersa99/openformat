@@ -1,11 +1,39 @@
 import * as React from "react";
-import { Create, SimpleForm, CreateProps, TextInput } from "react-admin";
+
+import {
+  Create,
+  SimpleForm,
+  CreateProps,
+  ReferenceInput,
+  SelectInput,
+  ReferenceArrayInput,
+  SelectArrayInput,
+  TextInput,
+} from "react-admin";
+
+import { BusinessTitle } from "../business/BusinessTitle";
+import { DocumentDetailTitle } from "../documentDetail/DocumentDetailTitle";
 
 export const ItemCreate = (props: CreateProps): React.ReactElement => {
   return (
     <Create {...props}>
       <SimpleForm>
+        <ReferenceInput
+          source="business.id"
+          reference="Business"
+          label="business"
+        >
+          <SelectInput optionText={BusinessTitle} />
+        </ReferenceInput>
         <div />
+        <ReferenceArrayInput
+          source="documentDetails"
+          reference="DocumentDetail"
+          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
+          format={(value: any) => value && value.map((v: any) => v.id)}
+        >
+          <SelectArrayInput optionText={DocumentDetailTitle} />
+        </ReferenceArrayInput>
         <TextInput label="Internal Item Code" source="internalItemCode" />
         <TextInput label="Item Name" source="itemName" />
         <TextInput label="Sorting Code" source="sortingCode" />

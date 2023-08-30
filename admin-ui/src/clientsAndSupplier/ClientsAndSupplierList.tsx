@@ -1,6 +1,14 @@
 import * as React from "react";
-import { List, Datagrid, ListProps, TextField, DateField } from "react-admin";
+import {
+  List,
+  Datagrid,
+  ListProps,
+  ReferenceField,
+  TextField,
+  DateField,
+} from "react-admin";
 import Pagination from "../Components/Pagination";
+import { ACCOUNT_TITLE_FIELD } from "../account/AccountTitle";
 
 export const ClientsAndSupplierList = (
   props: ListProps
@@ -14,6 +22,9 @@ export const ClientsAndSupplierList = (
       pagination={<Pagination />}
     >
       <Datagrid rowClick="show">
+        <ReferenceField label="account" source="account.id" reference="Account">
+          <TextField source={ACCOUNT_TITLE_FIELD} />
+        </ReferenceField>
         <TextField label=" Address - City" source="addressCity" />
         <TextField label=" Address - Country" source="addressCountry" />
         <TextField label="Address House Number" source="addressHouseNumber" />

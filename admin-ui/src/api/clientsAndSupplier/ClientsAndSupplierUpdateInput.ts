@@ -1,6 +1,8 @@
+import { AccountWhereUniqueInput } from "../account/AccountWhereUniqueInput";
 import { DocumentUpdateManyWithoutClientsAndSuppliersInput } from "./DocumentUpdateManyWithoutClientsAndSuppliersInput";
 
 export type ClientsAndSupplierUpdateInput = {
+  account?: AccountWhereUniqueInput | null;
   addressCity?: string | null;
   addressCountry?: string | null;
   addressHouseNumber?: string | null;

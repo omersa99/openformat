@@ -13,6 +13,7 @@ import {
 
 import { ACCOUNT_TITLE_FIELD } from "./AccountTitle";
 import { BUSINESS_TITLE_FIELD } from "../business/BusinessTitle";
+import { CLIENTSANDSUPPLIER_TITLE_FIELD } from "../clientsAndSupplier/ClientsAndSupplierTitle";
 
 export const AccountShow = (props: ShowProps): React.ReactElement => {
   return (
@@ -40,6 +41,13 @@ export const AccountShow = (props: ShowProps): React.ReactElement => {
           <TextField source={BUSINESS_TITLE_FIELD} />
         </ReferenceField>
         <TextField label="Center Account" source="centerAccount" />
+        <ReferenceField
+          label="clients and suppliers"
+          source="clientsandsupplier.id"
+          reference="ClientsAndSupplier"
+        >
+          <TextField source={CLIENTSANDSUPPLIER_TITLE_FIELD} />
+        </ReferenceField>
         <DateField source="createdAt" label="Created At" />
         <TextField
           label="Currency Code for Foreign Currency"

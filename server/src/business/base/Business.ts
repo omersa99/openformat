@@ -15,6 +15,7 @@ import { Account } from "../../account/base/Account";
 import { ValidateNested, IsOptional, IsDate, IsString } from "class-validator";
 import { Type } from "class-transformer";
 import { Document } from "../../document/base/Document";
+import { Item } from "../../item/base/Item";
 import { User } from "../../user/base/User";
 import { Setting } from "../../setting/base/Setting";
 
@@ -53,6 +54,15 @@ class Business {
   @IsString()
   @Field(() => String)
   id!: string;
+
+  @ApiProperty({
+    required: false,
+    type: () => [Item],
+  })
+  @ValidateNested()
+  @Type(() => Item)
+  @IsOptional()
+  items?: Array<Item>;
 
   @ApiProperty({
     required: false,

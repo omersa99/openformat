@@ -26,6 +26,9 @@ import { ItemCountArgs } from "./ItemCountArgs";
 import { ItemFindManyArgs } from "./ItemFindManyArgs";
 import { ItemFindUniqueArgs } from "./ItemFindUniqueArgs";
 import { Item } from "./Item";
+import { DocumentDetailFindManyArgs } from "../../documentDetail/base/DocumentDetailFindManyArgs";
+import { DocumentDetail } from "../../documentDetail/base/DocumentDetail";
+import { Business } from "../../business/base/Business";
 import { ItemService } from "../item.service";
 @common.UseGuards(GqlDefaultAuthGuard, gqlACGuard.GqlACGuard)
 @graphql.Resolver(() => Item)
@@ -86,7 +89,15 @@ export class ItemResolverBase {
   async createItem(@graphql.Args() args: CreateItemArgs): Promise<Item> {
     return await this.service.create({
       ...args,
-      data: args.data,
+      data: {
+        ...args.data,
+
+        business: args.data.business
+          ? {
+              connect: args.data.business,
+            }
+          : undefined,
+      },
     });
   }
 
@@ -101,7 +112,15 @@ export class ItemResolverBase {
     try {
       return await this.service.update({
         ...args,
-        data: args.data,
+        data: {
+          ...args.data,
+
+          business: args.data.business
+            ? {
+                connect: args.data.business,
+              }
+            : undefined,
+        },
       });
     } catch (error) {
       if (isRecordNotFoundError(error)) {
@@ -130,5 +149,46 @@ export class ItemResolverBase {
       }
       throw error;
     }
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [DocumentDetail], { name: "documentDetails" })
+  @nestAccessControl.UseRoles({
+    resource: "DocumentDetail",
+    action: "read",
+    possession: "any",
+  })
+  async resolveFieldDocumentDetails(
+    @graphql.Parent() parent: Item,
+    @graphql.Args() args: DocumentDetailFindManyArgs
+  ): Promise<DocumentDetail[]> {
+    const results = await this.service.findDocumentDetails(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => Business, {
+    nullable: true,
+    name: "business",
+  })
+  @nestAccessControl.UseRoles({
+    resource: "Business",
+    action: "read",
+    possession: "any",
+  })
+  async resolveFieldBusiness(
+    @graphql.Parent() parent: Item
+  ): Promise<Business | null> {
+    const result = await this.service.getBusiness(parent.id);
+
+    if (!result) {
+      return null;
+    }
+    return result;
   }
 }

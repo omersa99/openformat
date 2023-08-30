@@ -15,6 +15,7 @@ import { AccountCreateNestedManyWithoutBusinessesInput } from "./AccountCreateNe
 import { ValidateNested, IsOptional } from "class-validator";
 import { Type } from "class-transformer";
 import { DocumentCreateNestedManyWithoutBusinessesInput } from "./DocumentCreateNestedManyWithoutBusinessesInput";
+import { ItemCreateNestedManyWithoutBusinessesInput } from "./ItemCreateNestedManyWithoutBusinessesInput";
 import { UserWhereUniqueInput } from "../../user/base/UserWhereUniqueInput";
 import { SettingWhereUniqueInput } from "../../setting/base/SettingWhereUniqueInput";
 
@@ -43,6 +44,18 @@ class BusinessCreateInput {
     nullable: true,
   })
   documents?: DocumentCreateNestedManyWithoutBusinessesInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => ItemCreateNestedManyWithoutBusinessesInput,
+  })
+  @ValidateNested()
+  @Type(() => ItemCreateNestedManyWithoutBusinessesInput)
+  @IsOptional()
+  @Field(() => ItemCreateNestedManyWithoutBusinessesInput, {
+    nullable: true,
+  })
+  items?: ItemCreateNestedManyWithoutBusinessesInput;
 
   @ApiProperty({
     required: false,

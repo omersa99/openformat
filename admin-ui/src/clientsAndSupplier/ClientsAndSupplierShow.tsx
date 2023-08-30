@@ -4,15 +4,16 @@ import {
   Show,
   SimpleShowLayout,
   ShowProps,
+  ReferenceField,
   TextField,
   DateField,
   ReferenceManyField,
   Datagrid,
-  ReferenceField,
 } from "react-admin";
 
 import { BUSINESS_TITLE_FIELD } from "../business/BusinessTitle";
 import { CLIENTSANDSUPPLIER_TITLE_FIELD } from "./ClientsAndSupplierTitle";
+import { ACCOUNT_TITLE_FIELD } from "../account/AccountTitle";
 
 export const ClientsAndSupplierShow = (
   props: ShowProps
@@ -20,6 +21,9 @@ export const ClientsAndSupplierShow = (
   return (
     <Show {...props}>
       <SimpleShowLayout>
+        <ReferenceField label="account" source="account.id" reference="Account">
+          <TextField source={ACCOUNT_TITLE_FIELD} />
+        </ReferenceField>
         <TextField label=" Address - City" source="addressCity" />
         <TextField label=" Address - Country" source="addressCountry" />
         <TextField label="Address House Number" source="addressHouseNumber" />

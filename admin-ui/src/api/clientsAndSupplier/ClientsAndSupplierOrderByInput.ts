@@ -1,6 +1,7 @@
 import { SortOrder } from "../../util/SortOrder";
 
 export type ClientsAndSupplierOrderByInput = {
+  accountId?: SortOrder;
   addressCity?: SortOrder;
   addressCountry?: SortOrder;
   addressHouseNumber?: SortOrder;
