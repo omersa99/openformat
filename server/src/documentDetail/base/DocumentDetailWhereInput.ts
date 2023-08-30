@@ -12,9 +12,12 @@ https://docs.amplication.com/how-to/custom-code
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
 import { DocumentWhereUniqueInput } from "../../document/base/DocumentWhereUniqueInput";
-import { ValidateNested, IsOptional } from "class-validator";
+import { ValidateNested, IsOptional, IsEnum } from "class-validator";
 import { Type } from "class-transformer";
 import { StringFilter } from "../../util/StringFilter";
+import { ItemWhereUniqueInput } from "../../item/base/ItemWhereUniqueInput";
+import { IntNullableFilter } from "../../util/IntNullableFilter";
+import { EnumDocumentDetailTransactionType } from "./EnumDocumentDetailTransactionType";
 
 @InputType()
 class DocumentDetailWhereInput {
@@ -40,6 +43,62 @@ class DocumentDetailWhereInput {
     nullable: true,
   })
   id?: StringFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => ItemWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => ItemWhereUniqueInput)
+  @IsOptional()
+  @Field(() => ItemWhereUniqueInput, {
+    nullable: true,
+  })
+  item?: ItemWhereUniqueInput;
+
+  @ApiProperty({
+    required: false,
+    type: IntNullableFilter,
+  })
+  @Type(() => IntNullableFilter)
+  @IsOptional()
+  @Field(() => IntNullableFilter, {
+    nullable: true,
+  })
+  priceWithoutVat?: IntNullableFilter;
+
+  @ApiProperty({
+    required: false,
+    type: IntNullableFilter,
+  })
+  @Type(() => IntNullableFilter)
+  @IsOptional()
+  @Field(() => IntNullableFilter, {
+    nullable: true,
+  })
+  quantity?: IntNullableFilter;
+
+  @ApiProperty({
+    required: false,
+    enum: EnumDocumentDetailTransactionType,
+  })
+  @IsEnum(EnumDocumentDetailTransactionType)
+  @IsOptional()
+  @Field(() => EnumDocumentDetailTransactionType, {
+    nullable: true,
+  })
+  transactionType?: "Service" | "Sale" | "ServiceAndSales";
+
+  @ApiProperty({
+    required: false,
+    type: IntNullableFilter,
+  })
+  @Type(() => IntNullableFilter)
+  @IsOptional()
+  @Field(() => IntNullableFilter, {
+    nullable: true,
+  })
+  vatRate?: IntNullableFilter;
 }
 
 export { DocumentDetailWhereInput as DocumentDetailWhereInput };

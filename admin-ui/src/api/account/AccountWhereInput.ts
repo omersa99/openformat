@@ -1,6 +1,7 @@
 import { IntNullableFilter } from "../../util/IntNullableFilter";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
 import { BusinessWhereUniqueInput } from "../business/BusinessWhereUniqueInput";
+import { ClientsAndSupplierWhereUniqueInput } from "../clientsAndSupplier/ClientsAndSupplierWhereUniqueInput";
 import { StringFilter } from "../../util/StringFilter";
 import { TransactionListRelationFilter } from "../transaction/TransactionListRelationFilter";
 
@@ -12,6 +13,7 @@ export type AccountWhereInput = {
   accountName?: StringNullableFilter;
   business?: BusinessWhereUniqueInput;
   centerAccount?: StringNullableFilter;
+  clientsAndSuppliers?: ClientsAndSupplierWhereUniqueInput;
   currencyCodeForForeignCurrency?: StringNullableFilter;
   examinedBalanceCode?: StringNullableFilter;
   examinedBalanceCodeDescription?: StringNullableFilter;

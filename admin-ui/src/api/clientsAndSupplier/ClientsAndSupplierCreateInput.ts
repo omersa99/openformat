@@ -1,6 +1,8 @@
+import { AccountWhereUniqueInput } from "../account/AccountWhereUniqueInput";
 import { DocumentCreateNestedManyWithoutClientsAndSuppliersInput } from "./DocumentCreateNestedManyWithoutClientsAndSuppliersInput";
 
 export type ClientsAndSupplierCreateInput = {
+  account?: AccountWhereUniqueInput | null;
   addressCity?: string | null;
   addressCountry?: string | null;
   addressHouseNumber?: string | null;

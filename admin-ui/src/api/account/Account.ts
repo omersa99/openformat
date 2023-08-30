@@ -1,4 +1,5 @@
 import { Business } from "../business/Business";
+import { ClientsAndSupplier } from "../clientsAndSupplier/ClientsAndSupplier";
 import { Transaction } from "../transaction/Transaction";
 
 export type Account = {
@@ -9,6 +10,7 @@ export type Account = {
   accountName: string | null;
   business?: Business | null;
   centerAccount: string | null;
+  clientsAndSuppliers?: ClientsAndSupplier | null;
   createdAt: Date;
   currencyCodeForForeignCurrency: string | null;
   examinedBalanceCode: string | null;

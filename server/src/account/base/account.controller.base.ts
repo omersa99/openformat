@@ -59,6 +59,12 @@ export class AccountControllerBase {
               connect: data.business,
             }
           : undefined,
+
+        clientsAndSuppliers: data.clientsAndSuppliers
+          ? {
+              connect: data.clientsAndSuppliers,
+            }
+          : undefined,
       },
       select: {
         accountantClassificationCode: true,
@@ -74,6 +80,13 @@ export class AccountControllerBase {
         },
 
         centerAccount: true,
+
+        clientsAndSuppliers: {
+          select: {
+            id: true,
+          },
+        },
+
         createdAt: true,
         currencyCodeForForeignCurrency: true,
         examinedBalanceCode: true,
@@ -116,6 +129,13 @@ export class AccountControllerBase {
         },
 
         centerAccount: true,
+
+        clientsAndSuppliers: {
+          select: {
+            id: true,
+          },
+        },
+
         createdAt: true,
         currencyCodeForForeignCurrency: true,
         examinedBalanceCode: true,
@@ -159,6 +179,13 @@ export class AccountControllerBase {
         },
 
         centerAccount: true,
+
+        clientsAndSuppliers: {
+          select: {
+            id: true,
+          },
+        },
+
         createdAt: true,
         currencyCodeForForeignCurrency: true,
         examinedBalanceCode: true,
@@ -204,6 +231,12 @@ export class AccountControllerBase {
                 connect: data.business,
               }
             : undefined,
+
+          clientsAndSuppliers: data.clientsAndSuppliers
+            ? {
+                connect: data.clientsAndSuppliers,
+              }
+            : undefined,
         },
         select: {
           accountantClassificationCode: true,
@@ -219,6 +252,13 @@ export class AccountControllerBase {
           },
 
           centerAccount: true,
+
+          clientsAndSuppliers: {
+            select: {
+              id: true,
+            },
+          },
+
           createdAt: true,
           currencyCodeForForeignCurrency: true,
           examinedBalanceCode: true,
@@ -270,6 +310,13 @@ export class AccountControllerBase {
           },
 
           centerAccount: true,
+
+          clientsAndSuppliers: {
+            select: {
+              id: true,
+            },
+          },
+
           createdAt: true,
           currencyCodeForForeignCurrency: true,
           examinedBalanceCode: true,

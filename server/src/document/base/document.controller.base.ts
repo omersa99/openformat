@@ -300,7 +300,18 @@ export class DocumentControllerBase {
         },
 
         id: true,
+
+        item: {
+          select: {
+            id: true,
+          },
+        },
+
+        priceWithoutVat: true,
+        quantity: true,
+        transactionType: true,
         updatedAt: true,
+        vatRate: true,
       },
     });
     if (results === null) {

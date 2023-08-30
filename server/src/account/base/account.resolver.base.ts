@@ -29,6 +29,7 @@ import { Account } from "./Account";
 import { TransactionFindManyArgs } from "../../transaction/base/TransactionFindManyArgs";
 import { Transaction } from "../../transaction/base/Transaction";
 import { Business } from "../../business/base/Business";
+import { ClientsAndSupplier } from "../../clientsAndSupplier/base/ClientsAndSupplier";
 import { AccountService } from "../account.service";
 @common.UseGuards(GqlDefaultAuthGuard, gqlACGuard.GqlACGuard)
 @graphql.Resolver(() => Account)
@@ -103,6 +104,12 @@ export class AccountResolverBase {
               connect: args.data.business,
             }
           : undefined,
+
+        clientsAndSuppliers: args.data.clientsAndSuppliers
+          ? {
+              connect: args.data.clientsAndSuppliers,
+            }
+          : undefined,
       },
     });
   }
@@ -126,6 +133,12 @@ export class AccountResolverBase {
           business: args.data.business
             ? {
                 connect: args.data.business,
+              }
+            : undefined,
+
+          clientsAndSuppliers: args.data.clientsAndSuppliers
+            ? {
+                connect: args.data.clientsAndSuppliers,
               }
             : undefined,
         },
@@ -195,6 +208,27 @@ export class AccountResolverBase {
     @graphql.Parent() parent: Account
   ): Promise<Business | null> {
     const result = await this.service.getBusiness(parent.id);
+
+    if (!result) {
+      return null;
+    }
+    return result;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => ClientsAndSupplier, {
+    nullable: true,
+    name: "clientsAndSuppliers",
+  })
+  @nestAccessControl.UseRoles({
+    resource: "ClientsAndSupplier",
+    action: "read",
+    possession: "any",
+  })
+  async resolveFieldClientsAndSuppliers(
+    @graphql.Parent() parent: Account
+  ): Promise<ClientsAndSupplier | null> {
+    const result = await this.service.getClientsAndSuppliers(parent.id);
 
     if (!result) {
       return null;

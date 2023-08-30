@@ -27,6 +27,7 @@ import { DocumentDetailFindManyArgs } from "./DocumentDetailFindManyArgs";
 import { DocumentDetailFindUniqueArgs } from "./DocumentDetailFindUniqueArgs";
 import { DocumentDetail } from "./DocumentDetail";
 import { Document } from "../../document/base/Document";
+import { Item } from "../../item/base/Item";
 import { DocumentDetailService } from "../documentDetail.service";
 @common.UseGuards(GqlDefaultAuthGuard, gqlACGuard.GqlACGuard)
 @graphql.Resolver(() => DocumentDetail)
@@ -101,6 +102,12 @@ export class DocumentDetailResolverBase {
               connect: args.data.document,
             }
           : undefined,
+
+        item: args.data.item
+          ? {
+              connect: args.data.item,
+            }
+          : undefined,
       },
     });
   }
@@ -124,6 +131,12 @@ export class DocumentDetailResolverBase {
           document: args.data.document
             ? {
                 connect: args.data.document,
+              }
+            : undefined,
+
+          item: args.data.item
+            ? {
+                connect: args.data.item,
               }
             : undefined,
         },
@@ -173,6 +186,27 @@ export class DocumentDetailResolverBase {
     @graphql.Parent() parent: DocumentDetail
   ): Promise<Document | null> {
     const result = await this.service.getDocument(parent.id);
+
+    if (!result) {
+      return null;
+    }
+    return result;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => Item, {
+    nullable: true,
+    name: "item",
+  })
+  @nestAccessControl.UseRoles({
+    resource: "Item",
+    action: "read",
+    possession: "any",
+  })
+  async resolveFieldItem(
+    @graphql.Parent() parent: DocumentDetail
+  ): Promise<Item | null> {
+    const result = await this.service.getItem(parent.id);
 
     if (!result) {
       return null;

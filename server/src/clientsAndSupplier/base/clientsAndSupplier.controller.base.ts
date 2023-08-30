@@ -53,8 +53,22 @@ export class ClientsAndSupplierControllerBase {
     @common.Body() data: ClientsAndSupplierCreateInput
   ): Promise<ClientsAndSupplier> {
     return await this.service.create({
-      data: data,
+      data: {
+        ...data,
+
+        account: data.account
+          ? {
+              connect: data.account,
+            }
+          : undefined,
+      },
       select: {
+        account: {
+          select: {
+            id: true,
+          },
+        },
+
         addressCity: true,
         addressCountry: true,
         addressHouseNumber: true,
@@ -88,6 +102,12 @@ export class ClientsAndSupplierControllerBase {
     return this.service.findMany({
       ...args,
       select: {
+        account: {
+          select: {
+            id: true,
+          },
+        },
+
         addressCity: true,
         addressCountry: true,
         addressHouseNumber: true,
@@ -120,6 +140,12 @@ export class ClientsAndSupplierControllerBase {
     const result = await this.service.findOne({
       where: params,
       select: {
+        account: {
+          select: {
+            id: true,
+          },
+        },
+
         addressCity: true,
         addressCountry: true,
         addressHouseNumber: true,
@@ -159,8 +185,22 @@ export class ClientsAndSupplierControllerBase {
     try {
       return await this.service.update({
         where: params,
-        data: data,
+        data: {
+          ...data,
+
+          account: data.account
+            ? {
+                connect: data.account,
+              }
+            : undefined,
+        },
         select: {
+          account: {
+            select: {
+              id: true,
+            },
+          },
+
           addressCity: true,
           addressCountry: true,
           addressHouseNumber: true,
@@ -201,6 +241,12 @@ export class ClientsAndSupplierControllerBase {
       return await this.service.delete({
         where: params,
         select: {
+          account: {
+            select: {
+              id: true,
+            },
+          },
+
           addressCity: true,
           addressCountry: true,
           addressHouseNumber: true,

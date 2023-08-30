@@ -11,14 +11,28 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { JsonFilter } from "../../util/JsonFilter";
+import { BusinessWhereUniqueInput } from "../../business/base/BusinessWhereUniqueInput";
+import { ValidateNested, IsOptional } from "class-validator";
 import { Type } from "class-transformer";
-import { IsOptional } from "class-validator";
+import { JsonFilter } from "../../util/JsonFilter";
+import { DocumentDetailListRelationFilter } from "../../documentDetail/base/DocumentDetailListRelationFilter";
 import { StringFilter } from "../../util/StringFilter";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
 
 @InputType()
 class ItemWhereInput {
+  @ApiProperty({
+    required: false,
+    type: () => BusinessWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => BusinessWhereUniqueInput)
+  @IsOptional()
+  @Field(() => BusinessWhereUniqueInput, {
+    nullable: true,
+  })
+  business?: BusinessWhereUniqueInput;
+
   @ApiProperty({
     required: false,
     type: JsonFilter,
@@ -29,6 +43,18 @@ class ItemWhereInput {
     nullable: true,
   })
   data?: JsonFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => DocumentDetailListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => DocumentDetailListRelationFilter)
+  @IsOptional()
+  @Field(() => DocumentDetailListRelationFilter, {
+    nullable: true,
+  })
+  documentDetails?: DocumentDetailListRelationFilter;
 
   @ApiProperty({
     required: false,

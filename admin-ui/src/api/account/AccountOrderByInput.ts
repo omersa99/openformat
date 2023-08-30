@@ -8,6 +8,7 @@ export type AccountOrderByInput = {
   accountName?: SortOrder;
   businessId?: SortOrder;
   centerAccount?: SortOrder;
+  clientsAndSuppliersId?: SortOrder;
   createdAt?: SortOrder;
   currencyCodeForForeignCurrency?: SortOrder;
   examinedBalanceCode?: SortOrder;

@@ -20,6 +20,7 @@ import {
 } from "class-validator";
 import { Business } from "../../business/base/Business";
 import { Type } from "class-transformer";
+import { ClientsAndSupplier } from "../../clientsAndSupplier/base/ClientsAndSupplier";
 import { Transaction } from "../../transaction/base/Transaction";
 
 @ObjectType()
@@ -98,6 +99,15 @@ class Account {
     nullable: true,
   })
   centerAccount!: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => ClientsAndSupplier,
+  })
+  @ValidateNested()
+  @Type(() => ClientsAndSupplier)
+  @IsOptional()
+  clientsAndSuppliers?: ClientsAndSupplier | null;
 
   @ApiProperty({
     required: true,

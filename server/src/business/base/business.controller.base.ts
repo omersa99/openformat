@@ -33,6 +33,9 @@ import { AccountWhereUniqueInput } from "../../account/base/AccountWhereUniqueIn
 import { DocumentFindManyArgs } from "../../document/base/DocumentFindManyArgs";
 import { Document } from "../../document/base/Document";
 import { DocumentWhereUniqueInput } from "../../document/base/DocumentWhereUniqueInput";
+import { ItemFindManyArgs } from "../../item/base/ItemFindManyArgs";
+import { Item } from "../../item/base/Item";
+import { ItemWhereUniqueInput } from "../../item/base/ItemWhereUniqueInput";
 
 @swagger.ApiBearerAuth()
 @common.UseGuards(defaultAuthGuard.DefaultAuthGuard, nestAccessControl.ACGuard)
@@ -309,6 +312,13 @@ export class BusinessControllerBase {
         },
 
         centerAccount: true,
+
+        clientsAndSuppliers: {
+          select: {
+            id: true,
+          },
+        },
+
         createdAt: true,
         currencyCodeForForeignCurrency: true,
         examinedBalanceCode: true,
@@ -490,6 +500,115 @@ export class BusinessControllerBase {
   ): Promise<void> {
     const data = {
       documents: {
+        disconnect: body,
+      },
+    };
+    await this.service.update({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @common.Get("/:id/items")
+  @ApiNestedQuery(ItemFindManyArgs)
+  @nestAccessControl.UseRoles({
+    resource: "Item",
+    action: "read",
+    possession: "any",
+  })
+  async findManyItems(
+    @common.Req() request: Request,
+    @common.Param() params: BusinessWhereUniqueInput
+  ): Promise<Item[]> {
+    const query = plainToClass(ItemFindManyArgs, request.query);
+    const results = await this.service.findItems(params.id, {
+      ...query,
+      select: {
+        business: {
+          select: {
+            id: true,
+          },
+        },
+
+        createdAt: true,
+        data: true,
+        id: true,
+        internalItemCode: true,
+        itemName: true,
+        sortingCode: true,
+        sortingCodeDescription: true,
+        supplierManufacturerCodeInProcurement: true,
+        unitOfMeasurementDescription: true,
+        universalItemCode: true,
+        updatedAt: true,
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @common.Post("/:id/items")
+  @nestAccessControl.UseRoles({
+    resource: "Business",
+    action: "update",
+    possession: "any",
+  })
+  async connectItems(
+    @common.Param() params: BusinessWhereUniqueInput,
+    @common.Body() body: ItemWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      items: {
+        connect: body,
+      },
+    };
+    await this.service.update({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Patch("/:id/items")
+  @nestAccessControl.UseRoles({
+    resource: "Business",
+    action: "update",
+    possession: "any",
+  })
+  async updateItems(
+    @common.Param() params: BusinessWhereUniqueInput,
+    @common.Body() body: ItemWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      items: {
+        set: body,
+      },
+    };
+    await this.service.update({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Delete("/:id/items")
+  @nestAccessControl.UseRoles({
+    resource: "Business",
+    action: "update",
+    possession: "any",
+  })
+  async disconnectItems(
+    @common.Param() params: BusinessWhereUniqueInput,
+    @common.Body() body: ItemWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      items: {
         disconnect: body,
       },
     };

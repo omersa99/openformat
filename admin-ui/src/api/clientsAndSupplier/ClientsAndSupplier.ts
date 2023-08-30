@@ -1,6 +1,8 @@
+import { Account } from "../account/Account";
 import { Document } from "../document/Document";
 
 export type ClientsAndSupplier = {
+  account?: Account | null;
   addressCity: string | null;
   addressCountry: string | null;
   addressHouseNumber: string | null;

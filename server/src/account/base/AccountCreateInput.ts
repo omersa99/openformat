@@ -14,6 +14,7 @@ import { ApiProperty } from "@nestjs/swagger";
 import { IsInt, IsOptional, IsString, ValidateNested } from "class-validator";
 import { BusinessWhereUniqueInput } from "../../business/base/BusinessWhereUniqueInput";
 import { Type } from "class-transformer";
+import { ClientsAndSupplierWhereUniqueInput } from "../../clientsAndSupplier/base/ClientsAndSupplierWhereUniqueInput";
 import { TransactionCreateNestedManyWithoutAccountsInput } from "./TransactionCreateNestedManyWithoutAccountsInput";
 
 @InputType()
@@ -95,6 +96,18 @@ class AccountCreateInput {
     nullable: true,
   })
   centerAccount?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => ClientsAndSupplierWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => ClientsAndSupplierWhereUniqueInput)
+  @IsOptional()
+  @Field(() => ClientsAndSupplierWhereUniqueInput, {
+    nullable: true,
+  })
+  clientsAndSuppliers?: ClientsAndSupplierWhereUniqueInput | null;
 
   @ApiProperty({
     required: false,

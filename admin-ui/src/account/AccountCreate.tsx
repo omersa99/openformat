@@ -13,6 +13,7 @@ import {
 } from "react-admin";
 
 import { BusinessTitle } from "../business/BusinessTitle";
+import { ClientsAndSupplierTitle } from "../clientsAndSupplier/ClientsAndSupplierTitle";
 import { TransactionTitle } from "../transaction/TransactionTitle";
 
 export const AccountCreate = (props: CreateProps): React.ReactElement => {
@@ -44,6 +45,13 @@ export const AccountCreate = (props: CreateProps): React.ReactElement => {
           <SelectInput optionText={BusinessTitle} />
         </ReferenceInput>
         <TextInput label="Center Account" source="centerAccount" />
+        <ReferenceInput
+          source="clientsAndSuppliers.id"
+          reference="ClientsAndSupplier"
+          label="clients and suppliers"
+        >
+          <SelectInput optionText={ClientsAndSupplierTitle} />
+        </ReferenceInput>
         <TextInput
           label="Currency Code for Foreign Currency"
           source="currencyCodeForForeignCurrency"

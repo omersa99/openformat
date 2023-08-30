@@ -4,11 +4,14 @@ import {
   Edit,
   SimpleForm,
   EditProps,
+  ReferenceInput,
+  SelectInput,
   TextInput,
   ReferenceArrayInput,
   SelectArrayInput,
 } from "react-admin";
 
+import { AccountTitle } from "../account/AccountTitle";
 import { DocumentTitle } from "../document/DocumentTitle";
 
 export const ClientsAndSupplierEdit = (
@@ -17,6 +20,9 @@ export const ClientsAndSupplierEdit = (
   return (
     <Edit {...props}>
       <SimpleForm>
+        <ReferenceInput source="account.id" reference="Account" label="account">
+          <SelectInput optionText={AccountTitle} />
+        </ReferenceInput>
         <TextInput label=" Address - City" source="addressCity" />
         <TextInput label=" Address - Country" source="addressCountry" />
         <TextInput label="Address House Number" source="addressHouseNumber" />

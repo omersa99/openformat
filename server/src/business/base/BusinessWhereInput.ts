@@ -16,6 +16,7 @@ import { ValidateNested, IsOptional } from "class-validator";
 import { Type } from "class-transformer";
 import { DocumentListRelationFilter } from "../../document/base/DocumentListRelationFilter";
 import { StringFilter } from "../../util/StringFilter";
+import { ItemListRelationFilter } from "../../item/base/ItemListRelationFilter";
 import { UserWhereUniqueInput } from "../../user/base/UserWhereUniqueInput";
 import { SettingWhereUniqueInput } from "../../setting/base/SettingWhereUniqueInput";
 
@@ -55,6 +56,18 @@ class BusinessWhereInput {
     nullable: true,
   })
   id?: StringFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => ItemListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => ItemListRelationFilter)
+  @IsOptional()
+  @Field(() => ItemListRelationFilter, {
+    nullable: true,
+  })
+  items?: ItemListRelationFilter;
 
   @ApiProperty({
     required: false,

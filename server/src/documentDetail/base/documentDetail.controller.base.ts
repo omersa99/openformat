@@ -58,6 +58,12 @@ export class DocumentDetailControllerBase {
               connect: data.document,
             }
           : undefined,
+
+        item: data.item
+          ? {
+              connect: data.item,
+            }
+          : undefined,
       },
       select: {
         createdAt: true,
@@ -69,7 +75,18 @@ export class DocumentDetailControllerBase {
         },
 
         id: true,
+
+        item: {
+          select: {
+            id: true,
+          },
+        },
+
+        priceWithoutVat: true,
+        quantity: true,
+        transactionType: true,
         updatedAt: true,
+        vatRate: true,
       },
     });
   }
@@ -100,7 +117,18 @@ export class DocumentDetailControllerBase {
         },
 
         id: true,
+
+        item: {
+          select: {
+            id: true,
+          },
+        },
+
+        priceWithoutVat: true,
+        quantity: true,
+        transactionType: true,
         updatedAt: true,
+        vatRate: true,
       },
     });
   }
@@ -132,7 +160,18 @@ export class DocumentDetailControllerBase {
         },
 
         id: true,
+
+        item: {
+          select: {
+            id: true,
+          },
+        },
+
+        priceWithoutVat: true,
+        quantity: true,
+        transactionType: true,
         updatedAt: true,
+        vatRate: true,
       },
     });
     if (result === null) {
@@ -170,6 +209,12 @@ export class DocumentDetailControllerBase {
                 connect: data.document,
               }
             : undefined,
+
+          item: data.item
+            ? {
+                connect: data.item,
+              }
+            : undefined,
         },
         select: {
           createdAt: true,
@@ -181,7 +226,18 @@ export class DocumentDetailControllerBase {
           },
 
           id: true,
+
+          item: {
+            select: {
+              id: true,
+            },
+          },
+
+          priceWithoutVat: true,
+          quantity: true,
+          transactionType: true,
           updatedAt: true,
+          vatRate: true,
         },
       });
     } catch (error) {
@@ -221,7 +277,18 @@ export class DocumentDetailControllerBase {
           },
 
           id: true,
+
+          item: {
+            select: {
+              id: true,
+            },
+          },
+
+          priceWithoutVat: true,
+          quantity: true,
+          transactionType: true,
           updatedAt: true,
+          vatRate: true,
         },
       });
     } catch (error) {

@@ -11,9 +11,18 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { ObjectType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { IsDate, ValidateNested, IsOptional, IsString } from "class-validator";
+import {
+  IsDate,
+  ValidateNested,
+  IsOptional,
+  IsString,
+  IsInt,
+  IsEnum,
+} from "class-validator";
 import { Type } from "class-transformer";
 import { Document } from "../../document/base/Document";
+import { Item } from "../../item/base/Item";
+import { EnumDocumentDetailTransactionType } from "./EnumDocumentDetailTransactionType";
 
 @ObjectType()
 class DocumentDetail {
@@ -43,12 +52,65 @@ class DocumentDetail {
   id!: string;
 
   @ApiProperty({
+    required: false,
+    type: () => Item,
+  })
+  @ValidateNested()
+  @Type(() => Item)
+  @IsOptional()
+  item?: Item | null;
+
+  @ApiProperty({
+    required: false,
+    type: Number,
+  })
+  @IsInt()
+  @IsOptional()
+  @Field(() => Number, {
+    nullable: true,
+  })
+  priceWithoutVat!: number | null;
+
+  @ApiProperty({
+    required: false,
+    type: Number,
+  })
+  @IsInt()
+  @IsOptional()
+  @Field(() => Number, {
+    nullable: true,
+  })
+  quantity!: number | null;
+
+  @ApiProperty({
+    required: false,
+    enum: EnumDocumentDetailTransactionType,
+  })
+  @IsEnum(EnumDocumentDetailTransactionType)
+  @IsOptional()
+  @Field(() => EnumDocumentDetailTransactionType, {
+    nullable: true,
+  })
+  transactionType?: "Service" | "Sale" | "ServiceAndSales" | null;
+
+  @ApiProperty({
     required: true,
   })
   @IsDate()
   @Type(() => Date)
   @Field(() => Date)
   updatedAt!: Date;
+
+  @ApiProperty({
+    required: false,
+    type: Number,
+  })
+  @IsInt()
+  @IsOptional()
+  @Field(() => Number, {
+    nullable: true,
+  })
+  vatRate!: number | null;
 }
 
 export { DocumentDetail as DocumentDetail };
