@@ -11,6 +11,7 @@ import { ClientsAndSupplierModule } from "./clientsAndSupplier/clientsAndSupplie
 import { ItemTransactionModule } from "./itemTransaction/itemTransaction.module";
 import { DocumentDetailModule } from "./documentDetail/documentDetail.module";
 import { ReceiptDetailModule } from "./receiptDetail/receiptDetail.module";
+import { SettingModule } from "./setting/setting.module";
 import { HealthModule } from "./health/health.module";
 import { PrismaModule } from "./prisma/prisma.module";
 import { SecretsManagerModule } from "./providers/secrets/secretsManager.module";
@@ -37,6 +38,7 @@ import { AuthModule } from "./auth/auth.module";
     ItemTransactionModule,
     DocumentDetailModule,
     ReceiptDetailModule,
+    SettingModule,
     HealthModule,
     PrismaModule,
     SecretsManagerModule,

@@ -14,10 +14,10 @@ import { ApiProperty } from "@nestjs/swagger";
 import { AccountListRelationFilter } from "../../account/base/AccountListRelationFilter";
 import { ValidateNested, IsOptional } from "class-validator";
 import { Type } from "class-transformer";
-import { JsonFilter } from "../../util/JsonFilter";
 import { DocumentListRelationFilter } from "../../document/base/DocumentListRelationFilter";
 import { StringFilter } from "../../util/StringFilter";
 import { UserWhereUniqueInput } from "../../user/base/UserWhereUniqueInput";
+import { SettingWhereUniqueInput } from "../../setting/base/SettingWhereUniqueInput";
 
 @InputType()
 class BusinessWhereInput {
@@ -32,17 +32,6 @@ class BusinessWhereInput {
     nullable: true,
   })
   accounts?: AccountListRelationFilter;
-
-  @ApiProperty({
-    required: false,
-    type: JsonFilter,
-  })
-  @Type(() => JsonFilter)
-  @IsOptional()
-  @Field(() => JsonFilter, {
-    nullable: true,
-  })
-  data?: JsonFilter;
 
   @ApiProperty({
     required: false,
@@ -78,6 +67,18 @@ class BusinessWhereInput {
     nullable: true,
   })
   owner?: UserWhereUniqueInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => SettingWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => SettingWhereUniqueInput)
+  @IsOptional()
+  @Field(() => SettingWhereUniqueInput, {
+    nullable: true,
+  })
+  settings?: SettingWhereUniqueInput;
 }
 
 export { BusinessWhereInput as BusinessWhereInput };

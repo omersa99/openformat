@@ -14,11 +14,9 @@ import { ApiProperty } from "@nestjs/swagger";
 import { AccountUpdateManyWithoutBusinessesInput } from "./AccountUpdateManyWithoutBusinessesInput";
 import { ValidateNested, IsOptional } from "class-validator";
 import { Type } from "class-transformer";
-import { IsJSONValue } from "@app/custom-validators";
-import { GraphQLJSON } from "graphql-type-json";
-import { InputJsonValue } from "../../types";
 import { DocumentUpdateManyWithoutBusinessesInput } from "./DocumentUpdateManyWithoutBusinessesInput";
 import { UserWhereUniqueInput } from "../../user/base/UserWhereUniqueInput";
+import { SettingWhereUniqueInput } from "../../setting/base/SettingWhereUniqueInput";
 
 @InputType()
 class BusinessUpdateInput {
@@ -33,16 +31,6 @@ class BusinessUpdateInput {
     nullable: true,
   })
   accounts?: AccountUpdateManyWithoutBusinessesInput;
-
-  @ApiProperty({
-    required: false,
-  })
-  @IsJSONValue()
-  @IsOptional()
-  @Field(() => GraphQLJSON, {
-    nullable: true,
-  })
-  data?: InputJsonValue;
 
   @ApiProperty({
     required: false,
@@ -67,6 +55,18 @@ class BusinessUpdateInput {
     nullable: true,
   })
   owner?: UserWhereUniqueInput | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => SettingWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => SettingWhereUniqueInput)
+  @IsOptional()
+  @Field(() => SettingWhereUniqueInput, {
+    nullable: true,
+  })
+  settings?: SettingWhereUniqueInput | null;
 }
 
 export { BusinessUpdateInput as BusinessUpdateInput };

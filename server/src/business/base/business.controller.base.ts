@@ -62,13 +62,24 @@ export class BusinessControllerBase {
               connect: data.owner,
             }
           : undefined,
+
+        settings: data.settings
+          ? {
+              connect: data.settings,
+            }
+          : undefined,
       },
       select: {
         createdAt: true,
-        data: true,
         id: true,
 
         owner: {
+          select: {
+            id: true,
+          },
+        },
+
+        settings: {
           select: {
             id: true,
           },
@@ -97,10 +108,15 @@ export class BusinessControllerBase {
       ...args,
       select: {
         createdAt: true,
-        data: true,
         id: true,
 
         owner: {
+          select: {
+            id: true,
+          },
+        },
+
+        settings: {
           select: {
             id: true,
           },
@@ -130,10 +146,15 @@ export class BusinessControllerBase {
       where: params,
       select: {
         createdAt: true,
-        data: true,
         id: true,
 
         owner: {
+          select: {
+            id: true,
+          },
+        },
+
+        settings: {
           select: {
             id: true,
           },
@@ -177,13 +198,24 @@ export class BusinessControllerBase {
                 connect: data.owner,
               }
             : undefined,
+
+          settings: data.settings
+            ? {
+                connect: data.settings,
+              }
+            : undefined,
         },
         select: {
           createdAt: true,
-          data: true,
           id: true,
 
           owner: {
+            select: {
+              id: true,
+            },
+          },
+
+          settings: {
             select: {
               id: true,
             },
@@ -221,10 +253,15 @@ export class BusinessControllerBase {
         where: params,
         select: {
           createdAt: true,
-          data: true,
           id: true,
 
           owner: {
+            select: {
+              id: true,
+            },
+          },
+
+          settings: {
             select: {
               id: true,
             },

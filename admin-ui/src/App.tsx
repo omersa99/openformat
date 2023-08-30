@@ -45,6 +45,10 @@ import { ReceiptDetailList } from "./receiptDetail/ReceiptDetailList";
 import { ReceiptDetailCreate } from "./receiptDetail/ReceiptDetailCreate";
 import { ReceiptDetailEdit } from "./receiptDetail/ReceiptDetailEdit";
 import { ReceiptDetailShow } from "./receiptDetail/ReceiptDetailShow";
+import { SettingList } from "./setting/SettingList";
+import { SettingCreate } from "./setting/SettingCreate";
+import { SettingEdit } from "./setting/SettingEdit";
+import { SettingShow } from "./setting/SettingShow";
 import { jwtAuthProvider } from "./auth-provider/ra-auth-jwt";
 
 const App = (): React.ReactElement => {
@@ -140,6 +144,13 @@ const App = (): React.ReactElement => {
           edit={ReceiptDetailEdit}
           create={ReceiptDetailCreate}
           show={ReceiptDetailShow}
+        />
+        <Resource
+          name="Setting"
+          list={SettingList}
+          edit={SettingEdit}
+          create={SettingCreate}
+          show={SettingShow}
         />
       </Admin>
     </div>
