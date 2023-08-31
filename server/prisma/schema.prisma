@@ -21,6 +21,7 @@ model User {
 
 model Business {
   accounts   Account[]
+  bn         Int        @unique
   createdAt  DateTime   @default(now())
   documents  Document[]
   id         String     @id @default(cuid())
@@ -124,6 +125,7 @@ model ClientsAndSupplier {
   createdAt          DateTime   @default(now())
   documents          Document[]
   id                 String     @id @default(cuid())
+  name               String?
   updatedAt          DateTime   @updatedAt
 }
 

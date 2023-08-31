@@ -164,7 +164,7 @@ describe("ReceiptDetail", () => {
   });
 
   test("POST /receiptDetails existing resource", async () => {
-    let agent = request(app.getHttpServer());
+    const agent = request(app.getHttpServer());
     await agent
       .post("/receiptDetails")
       .send(CREATE_INPUT)

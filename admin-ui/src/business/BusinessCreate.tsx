@@ -6,6 +6,7 @@ import {
   CreateProps,
   ReferenceArrayInput,
   SelectArrayInput,
+  NumberInput,
   ReferenceInput,
   SelectInput,
 } from "react-admin";
@@ -28,6 +29,7 @@ export const BusinessCreate = (props: CreateProps): React.ReactElement => {
         >
           <SelectArrayInput optionText={AccountTitle} />
         </ReferenceArrayInput>
+        <NumberInput step={1} label="BN" source="bn" />
         <ReferenceArrayInput
           source="documents"
           reference="Document"

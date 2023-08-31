@@ -118,6 +118,17 @@ class ClientsAndSupplierUpdateInput {
     nullable: true,
   })
   documents?: DocumentUpdateManyWithoutClientsAndSuppliersInput;
+
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  name?: string | null;
 }
 
 export { ClientsAndSupplierUpdateInput as ClientsAndSupplierUpdateInput };

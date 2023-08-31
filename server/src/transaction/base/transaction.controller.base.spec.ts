@@ -253,7 +253,7 @@ describe("Transaction", () => {
   });
 
   test("POST /transactions existing resource", async () => {
-    let agent = request(app.getHttpServer());
+    const agent = request(app.getHttpServer());
     await agent
       .post("/transactions")
       .send(CREATE_INPUT)

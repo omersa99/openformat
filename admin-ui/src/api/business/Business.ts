@@ -6,6 +6,7 @@ import { Setting } from "../setting/Setting";
 
 export type Business = {
   accounts?: Array<Account>;
+  bn: number;
   createdAt: Date;
   documents?: Array<Document>;
   id: string;

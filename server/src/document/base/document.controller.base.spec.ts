@@ -164,7 +164,7 @@ describe("Document", () => {
   });
 
   test("POST /documents existing resource", async () => {
-    let agent = request(app.getHttpServer());
+    const agent = request(app.getHttpServer());
     await agent
       .post("/documents")
       .send(CREATE_INPUT)
