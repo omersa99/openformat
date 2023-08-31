@@ -73,6 +73,7 @@ export class BusinessControllerBase {
           : undefined,
       },
       select: {
+        bn: true,
         createdAt: true,
         id: true,
 
@@ -110,6 +111,7 @@ export class BusinessControllerBase {
     return this.service.findMany({
       ...args,
       select: {
+        bn: true,
         createdAt: true,
         id: true,
 
@@ -148,6 +150,7 @@ export class BusinessControllerBase {
     const result = await this.service.findOne({
       where: params,
       select: {
+        bn: true,
         createdAt: true,
         id: true,
 
@@ -209,6 +212,7 @@ export class BusinessControllerBase {
             : undefined,
         },
         select: {
+          bn: true,
           createdAt: true,
           id: true,
 
@@ -255,6 +259,7 @@ export class BusinessControllerBase {
       return await this.service.delete({
         where: params,
         select: {
+          bn: true,
           createdAt: true,
           id: true,
 

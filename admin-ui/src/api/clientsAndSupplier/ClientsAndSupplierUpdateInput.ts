@@ -11,4 +11,5 @@ export type ClientsAndSupplierUpdateInput = {
   businessNumber?: string | null;
   countryCode?: string | null;
   documents?: DocumentUpdateManyWithoutClientsAndSuppliersInput;
+  name?: string | null;
 };

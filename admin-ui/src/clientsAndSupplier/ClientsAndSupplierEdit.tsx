@@ -38,6 +38,7 @@ export const ClientsAndSupplierEdit = (
         >
           <SelectArrayInput optionText={DocumentTitle} />
         </ReferenceArrayInput>
+        <TextInput label="name" source="name" />
       </SimpleForm>
     </Edit>
   );

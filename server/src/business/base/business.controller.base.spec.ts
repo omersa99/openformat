@@ -19,23 +19,27 @@ import { BusinessService } from "../business.service";
 const nonExistingId = "nonExistingId";
 const existingId = "existingId";
 const CREATE_INPUT = {
+  bn: 42,
   createdAt: new Date(),
   id: "exampleId",
   updatedAt: new Date(),
 };
 const CREATE_RESULT = {
+  bn: 42,
   createdAt: new Date(),
   id: "exampleId",
   updatedAt: new Date(),
 };
 const FIND_MANY_RESULT = [
   {
+    bn: 42,
     createdAt: new Date(),
     id: "exampleId",
     updatedAt: new Date(),
   },
 ];
 const FIND_ONE_RESULT = {
+  bn: 42,
   createdAt: new Date(),
   id: "exampleId",
   updatedAt: new Date(),
@@ -164,7 +168,7 @@ describe("Business", () => {
   });
 
   test("POST /businesses existing resource", async () => {
-    let agent = request(app.getHttpServer());
+    const agent = request(app.getHttpServer());
     await agent
       .post("/businesses")
       .send(CREATE_INPUT)

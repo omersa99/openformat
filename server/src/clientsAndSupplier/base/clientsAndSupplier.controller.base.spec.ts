@@ -28,6 +28,7 @@ const CREATE_INPUT = {
   countryCode: "exampleCountryCode",
   createdAt: new Date(),
   id: "exampleId",
+  name: "exampleName",
   updatedAt: new Date(),
 };
 const CREATE_RESULT = {
@@ -40,6 +41,7 @@ const CREATE_RESULT = {
   countryCode: "exampleCountryCode",
   createdAt: new Date(),
   id: "exampleId",
+  name: "exampleName",
   updatedAt: new Date(),
 };
 const FIND_MANY_RESULT = [
@@ -53,6 +55,7 @@ const FIND_MANY_RESULT = [
     countryCode: "exampleCountryCode",
     createdAt: new Date(),
     id: "exampleId",
+    name: "exampleName",
     updatedAt: new Date(),
   },
 ];
@@ -66,6 +69,7 @@ const FIND_ONE_RESULT = {
   countryCode: "exampleCountryCode",
   createdAt: new Date(),
   id: "exampleId",
+  name: "exampleName",
   updatedAt: new Date(),
 };
 
@@ -192,7 +196,7 @@ describe("ClientsAndSupplier", () => {
   });
 
   test("POST /clientsAndSuppliers existing resource", async () => {
-    let agent = request(app.getHttpServer());
+    const agent = request(app.getHttpServer());
     await agent
       .post("/clientsAndSuppliers")
       .send(CREATE_INPUT)

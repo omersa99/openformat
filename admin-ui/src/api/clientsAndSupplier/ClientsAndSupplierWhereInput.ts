@@ -14,4 +14,5 @@ export type ClientsAndSupplierWhereInput = {
   countryCode?: StringNullableFilter;
   documents?: DocumentListRelationFilter;
   id?: StringFilter;
+  name?: StringNullableFilter;
 };

@@ -6,6 +6,7 @@ import { SettingWhereUniqueInput } from "../setting/SettingWhereUniqueInput";
 
 export type BusinessUpdateInput = {
   accounts?: AccountUpdateManyWithoutBusinessesInput;
+  bn?: number;
   documents?: DocumentUpdateManyWithoutBusinessesInput;
   items?: ItemUpdateManyWithoutBusinessesInput;
   owner?: UserWhereUniqueInput | null;
