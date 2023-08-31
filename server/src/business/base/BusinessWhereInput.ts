@@ -14,6 +14,7 @@ import { ApiProperty } from "@nestjs/swagger";
 import { AccountListRelationFilter } from "../../account/base/AccountListRelationFilter";
 import { ValidateNested, IsOptional } from "class-validator";
 import { Type } from "class-transformer";
+import { IntFilter } from "../../util/IntFilter";
 import { DocumentListRelationFilter } from "../../document/base/DocumentListRelationFilter";
 import { StringFilter } from "../../util/StringFilter";
 import { ItemListRelationFilter } from "../../item/base/ItemListRelationFilter";
@@ -33,6 +34,17 @@ class BusinessWhereInput {
     nullable: true,
   })
   accounts?: AccountListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: IntFilter,
+  })
+  @Type(() => IntFilter)
+  @IsOptional()
+  @Field(() => IntFilter, {
+    nullable: true,
+  })
+  bn?: IntFilter;
 
   @ApiProperty({
     required: false,

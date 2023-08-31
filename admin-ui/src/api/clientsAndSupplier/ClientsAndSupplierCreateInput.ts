@@ -11,4 +11,5 @@ export type ClientsAndSupplierCreateInput = {
   businessNumber?: string | null;
   countryCode?: string | null;
   documents?: DocumentCreateNestedManyWithoutClientsAndSuppliersInput;
+  name?: string | null;
 };

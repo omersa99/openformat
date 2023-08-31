@@ -13,5 +13,6 @@ export type ClientsAndSupplier = {
   createdAt: Date;
   documents?: Array<Document>;
   id: string;
+  name: string | null;
   updatedAt: Date;
 };

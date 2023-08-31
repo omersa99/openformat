@@ -78,6 +78,7 @@ export class ClientsAndSupplierControllerBase {
         countryCode: true,
         createdAt: true,
         id: true,
+        name: true,
         updatedAt: true,
       },
     });
@@ -117,6 +118,7 @@ export class ClientsAndSupplierControllerBase {
         countryCode: true,
         createdAt: true,
         id: true,
+        name: true,
         updatedAt: true,
       },
     });
@@ -155,6 +157,7 @@ export class ClientsAndSupplierControllerBase {
         countryCode: true,
         createdAt: true,
         id: true,
+        name: true,
         updatedAt: true,
       },
     });
@@ -210,6 +213,7 @@ export class ClientsAndSupplierControllerBase {
           countryCode: true,
           createdAt: true,
           id: true,
+          name: true,
           updatedAt: true,
         },
       });
@@ -256,6 +260,7 @@ export class ClientsAndSupplierControllerBase {
           countryCode: true,
           createdAt: true,
           id: true,
+          name: true,
           updatedAt: true,
         },
       });

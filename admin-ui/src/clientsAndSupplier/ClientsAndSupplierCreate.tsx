@@ -38,6 +38,7 @@ export const ClientsAndSupplierCreate = (
         >
           <SelectArrayInput optionText={DocumentTitle} />
         </ReferenceArrayInput>
+        <TextInput label="name" source="name" />
       </SimpleForm>
     </Create>
   );

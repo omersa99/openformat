@@ -11,5 +11,6 @@ export type ClientsAndSupplierOrderByInput = {
   countryCode?: SortOrder;
   createdAt?: SortOrder;
   id?: SortOrder;
+  name?: SortOrder;
   updatedAt?: SortOrder;
 };
