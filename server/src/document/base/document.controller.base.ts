@@ -27,6 +27,9 @@ import { DocumentWhereUniqueInput } from "./DocumentWhereUniqueInput";
 import { DocumentFindManyArgs } from "./DocumentFindManyArgs";
 import { DocumentUpdateInput } from "./DocumentUpdateInput";
 import { Document } from "./Document";
+import { DocumentDetailFindManyArgs } from "../../documentDetail/base/DocumentDetailFindManyArgs";
+import { DocumentDetail } from "../../documentDetail/base/DocumentDetail";
+import { DocumentDetailWhereUniqueInput } from "../../documentDetail/base/DocumentDetailWhereUniqueInput";
 import { ReceiptDetailFindManyArgs } from "../../receiptDetail/base/ReceiptDetailFindManyArgs";
 import { ReceiptDetail } from "../../receiptDetail/base/ReceiptDetail";
 import { ReceiptDetailWhereUniqueInput } from "../../receiptDetail/base/ReceiptDetailWhereUniqueInput";
@@ -81,6 +84,7 @@ export class DocumentControllerBase {
 
         createdAt: true,
         documentType: true,
+        fds: true,
         id: true,
         linkedDocumentIDs: true,
         updatedAt: true,
@@ -119,6 +123,7 @@ export class DocumentControllerBase {
 
         createdAt: true,
         documentType: true,
+        fds: true,
         id: true,
         linkedDocumentIDs: true,
         updatedAt: true,
@@ -158,6 +163,7 @@ export class DocumentControllerBase {
 
         createdAt: true,
         documentType: true,
+        fds: true,
         id: true,
         linkedDocumentIDs: true,
         updatedAt: true,
@@ -220,6 +226,7 @@ export class DocumentControllerBase {
 
           createdAt: true,
           documentType: true,
+          fds: true,
           id: true,
           linkedDocumentIDs: true,
           updatedAt: true,
@@ -267,6 +274,7 @@ export class DocumentControllerBase {
 
           createdAt: true,
           documentType: true,
+          fds: true,
           id: true,
           linkedDocumentIDs: true,
           updatedAt: true,
@@ -280,6 +288,119 @@ export class DocumentControllerBase {
       }
       throw error;
     }
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @common.Get("/:id/documentDetails")
+  @ApiNestedQuery(DocumentDetailFindManyArgs)
+  @nestAccessControl.UseRoles({
+    resource: "DocumentDetail",
+    action: "read",
+    possession: "any",
+  })
+  async findManyDocumentDetails(
+    @common.Req() request: Request,
+    @common.Param() params: DocumentWhereUniqueInput
+  ): Promise<DocumentDetail[]> {
+    const query = plainToClass(DocumentDetailFindManyArgs, request.query);
+    const results = await this.service.findDocumentDetails(params.id, {
+      ...query,
+      select: {
+        createdAt: true,
+
+        document: {
+          select: {
+            id: true,
+          },
+        },
+
+        id: true,
+
+        item: {
+          select: {
+            id: true,
+          },
+        },
+
+        priceWithoutVat: true,
+        quantity: true,
+        transactionType: true,
+        updatedAt: true,
+        vatRate: true,
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @common.Post("/:id/documentDetails")
+  @nestAccessControl.UseRoles({
+    resource: "Document",
+    action: "update",
+    possession: "any",
+  })
+  async connectDocumentDetails(
+    @common.Param() params: DocumentWhereUniqueInput,
+    @common.Body() body: DocumentDetailWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      documentDetails: {
+        connect: body,
+      },
+    };
+    await this.service.update({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Patch("/:id/documentDetails")
+  @nestAccessControl.UseRoles({
+    resource: "Document",
+    action: "update",
+    possession: "any",
+  })
+  async updateDocumentDetails(
+    @common.Param() params: DocumentWhereUniqueInput,
+    @common.Body() body: DocumentDetailWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      documentDetails: {
+        set: body,
+      },
+    };
+    await this.service.update({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Delete("/:id/documentDetails")
+  @nestAccessControl.UseRoles({
+    resource: "Document",
+    action: "update",
+    possession: "any",
+  })
+  async disconnectDocumentDetails(
+    @common.Param() params: DocumentWhereUniqueInput,
+    @common.Body() body: DocumentDetailWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      documentDetails: {
+        disconnect: body,
+      },
+    };
+    await this.service.update({
+      where: params,
+      data,
+      select: { id: true },
+    });
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)

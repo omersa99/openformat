@@ -94,6 +94,17 @@ class ItemOrderByInput {
   @Field(() => SortOrder, {
     nullable: true,
   })
+  openingBalance?: SortOrder;
+
+  @ApiProperty({
+    required: false,
+    enum: ["asc", "desc"],
+  })
+  @IsOptional()
+  @IsEnum(SortOrder)
+  @Field(() => SortOrder, {
+    nullable: true,
+  })
   sortingCode?: SortOrder;
 
   @ApiProperty({

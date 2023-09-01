@@ -21,12 +21,14 @@ const existingId = "existingId";
 const CREATE_INPUT = {
   createdAt: new Date(),
   documentType: 42,
+  fds: "exampleFds",
   id: "exampleId",
   updatedAt: new Date(),
 };
 const CREATE_RESULT = {
   createdAt: new Date(),
   documentType: 42,
+  fds: "exampleFds",
   id: "exampleId",
   updatedAt: new Date(),
 };
@@ -34,6 +36,7 @@ const FIND_MANY_RESULT = [
   {
     createdAt: new Date(),
     documentType: 42,
+    fds: "exampleFds",
     id: "exampleId",
     updatedAt: new Date(),
   },
@@ -41,6 +44,7 @@ const FIND_MANY_RESULT = [
 const FIND_ONE_RESULT = {
   createdAt: new Date(),
   documentType: 42,
+  fds: "exampleFds",
   id: "exampleId",
   updatedAt: new Date(),
 };

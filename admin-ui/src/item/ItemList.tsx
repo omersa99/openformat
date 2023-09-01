@@ -32,6 +32,7 @@ export const ItemList = (props: ListProps): React.ReactElement => {
         <TextField label="ID" source="id" />
         <TextField label="Internal Item Code" source="internalItemCode" />
         <TextField label="Item Name" source="itemName" />
+        <TextField label="opening balance" source="openingBalance" />
         <TextField label="Sorting Code" source="sortingCode" />
         <TextField
           label="Sorting Code Description"

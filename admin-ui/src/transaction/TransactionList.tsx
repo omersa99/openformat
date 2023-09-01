@@ -46,20 +46,10 @@ export const TransactionList = (props: ListProps): React.ReactElement => {
           label="Line Number in Transaction"
           source="lineNumberInTransaction"
         />
-        <TextField label="Matching Field 1" source="matchingField_1" />
-        <TextField label="Matching Field 2" source="matchingField_2" />
         <TextField label="Modified Date" source="modifiedDate" />
         <TextField label="Portion" source="portion" />
         <TextField label="Reference" source="reference" />
         <TextField label="Reference 2" source="reference_2" />
-        <TextField
-          label="Reference Document Type"
-          source="referenceDocumentType"
-        />
-        <TextField
-          label="Reference Document Type 2"
-          source="referenceDocumentType_2"
-        />
         <TextField label="Transaction Number" source="transactionNumber" />
         <TextField label="Transaction Type" source="transactionType" />
         <DateField source="updatedAt" label="Updated At" />

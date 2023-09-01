@@ -7,6 +7,7 @@ export type ItemOrderByInput = {
   id?: SortOrder;
   internalItemCode?: SortOrder;
   itemName?: SortOrder;
+  openingBalance?: SortOrder;
   sortingCode?: SortOrder;
   sortingCodeDescription?: SortOrder;
   supplierManufacturerCodeInProcurement?: SortOrder;

@@ -110,6 +110,7 @@ export const BusinessShow = (props: ShowProps): React.ReactElement => {
             </ReferenceField>
             <DateField source="createdAt" label="Created At" />
             <TextField label="Document Type" source="documentType" />
+            <TextField label="fds" source="fds" />
             <TextField label="ID" source="id" />
             <TextField label="linked DocumentI ds" source="linkedDocumentIDs" />
             <DateField source="updatedAt" label="Updated At" />
@@ -129,6 +130,7 @@ export const BusinessShow = (props: ShowProps): React.ReactElement => {
             <TextField label="ID" source="id" />
             <TextField label="Internal Item Code" source="internalItemCode" />
             <TextField label="Item Name" source="itemName" />
+            <TextField label="opening balance" source="openingBalance" />
             <TextField label="Sorting Code" source="sortingCode" />
             <TextField
               label="Sorting Code Description"

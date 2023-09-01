@@ -15,7 +15,9 @@ import { BusinessWhereUniqueInput } from "../../business/base/BusinessWhereUniqu
 import { ValidateNested, IsOptional } from "class-validator";
 import { Type } from "class-transformer";
 import { ClientsAndSupplierWhereUniqueInput } from "../../clientsAndSupplier/base/ClientsAndSupplierWhereUniqueInput";
+import { DocumentDetailListRelationFilter } from "../../documentDetail/base/DocumentDetailListRelationFilter";
 import { IntNullableFilter } from "../../util/IntNullableFilter";
+import { StringNullableFilter } from "../../util/StringNullableFilter";
 import { StringFilter } from "../../util/StringFilter";
 import { JsonFilter } from "../../util/JsonFilter";
 import { ReceiptDetailListRelationFilter } from "../../receiptDetail/base/ReceiptDetailListRelationFilter";
@@ -48,6 +50,18 @@ class DocumentWhereInput {
 
   @ApiProperty({
     required: false,
+    type: () => DocumentDetailListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => DocumentDetailListRelationFilter)
+  @IsOptional()
+  @Field(() => DocumentDetailListRelationFilter, {
+    nullable: true,
+  })
+  documentDetails?: DocumentDetailListRelationFilter;
+
+  @ApiProperty({
+    required: false,
     type: IntNullableFilter,
   })
   @Type(() => IntNullableFilter)
@@ -56,6 +70,17 @@ class DocumentWhereInput {
     nullable: true,
   })
   documentType?: IntNullableFilter;
+
+  @ApiProperty({
+    required: false,
+    type: StringNullableFilter,
+  })
+  @Type(() => StringNullableFilter)
+  @IsOptional()
+  @Field(() => StringNullableFilter, {
+    nullable: true,
+  })
+  fds?: StringNullableFilter;
 
   @ApiProperty({
     required: false,

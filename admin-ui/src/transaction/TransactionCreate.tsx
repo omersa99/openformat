@@ -48,22 +48,10 @@ export const TransactionCreate = (props: CreateProps): React.ReactElement => {
           label="Line Number in Transaction"
           source="lineNumberInTransaction"
         />
-        <TextInput label="Matching Field 1" source="matchingField_1" />
-        <TextInput label="Matching Field 2" source="matchingField_2" />
         <DateTimeInput label="Modified Date" source="modifiedDate" />
         <NumberInput step={1} label="Portion" source="portion" />
         <TextInput label="Reference" source="reference" />
         <TextInput label="Reference 2" source="reference_2" />
-        <NumberInput
-          step={1}
-          label="Reference Document Type"
-          source="referenceDocumentType"
-        />
-        <NumberInput
-          step={1}
-          label="Reference Document Type 2"
-          source="referenceDocumentType_2"
-        />
         <NumberInput
           step={1}
           label="Transaction Number"

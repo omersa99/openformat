@@ -71,14 +71,10 @@ model Transaction {
   foreignCurrencyCode     String?
   id                      String    @id @default(cuid())
   lineNumberInTransaction Int?
-  matchingField_1         String?
-  matchingField_2         String?
   modifiedDate            DateTime?
   portion                 Int?
   reference               String?
   reference_2             String?
-  referenceDocumentType   Int?
-  referenceDocumentType_2 Int?
   transactionNumber       Int?
   transactionType         String?
   updatedAt               DateTime  @updatedAt
@@ -90,7 +86,9 @@ model Document {
   clientSupplier    ClientsAndSupplier? @relation(fields: [clientSupplierId], references: [id])
   clientSupplierId  String?
   createdAt         DateTime            @default(now())
+  documentDetails   DocumentDetail[]
   documentType      Int?
+  fds               String?
   id                String              @id @default(cuid())
   linkedDocumentIDs Json?
   receiptDetails    ReceiptDetail[]
@@ -106,6 +104,7 @@ model Item {
   id                                    String           @id @default(cuid())
   internalItemCode                      String?
   itemName                              String?
+  openingBalance                        Int?
   sortingCode                           String?
   sortingCodeDescription                String?
   supplierManufacturerCodeInProcurement String?
@@ -141,6 +140,8 @@ model ItemTransaction {
 
 model DocumentDetail {
   createdAt       DateTime                           @default(now())
+  document        Document?                          @relation(fields: [documentId], references: [id])
+  documentId      String?
   id              String                             @id @default(cuid())
   item            Item?                              @relation(fields: [itemId], references: [id])
   itemId          String?

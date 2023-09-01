@@ -438,6 +438,7 @@ export class BusinessControllerBase {
 
         createdAt: true,
         documentType: true,
+        fds: true,
         id: true,
         linkedDocumentIDs: true,
         updatedAt: true,
@@ -544,6 +545,7 @@ export class BusinessControllerBase {
         id: true,
         internalItemCode: true,
         itemName: true,
+        openingBalance: true,
         sortingCode: true,
         sortingCodeDescription: true,
         supplierManufacturerCodeInProcurement: true,

@@ -10,6 +10,7 @@ export type Item = {
   id: string;
   internalItemCode: string | null;
   itemName: string | null;
+  openingBalance: number | null;
   sortingCode: string | null;
   sortingCodeDescription: string | null;
   supplierManufacturerCodeInProcurement: string | null;

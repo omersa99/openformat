@@ -304,6 +304,7 @@ export class ClientsAndSupplierControllerBase {
 
         createdAt: true,
         documentType: true,
+        fds: true,
         id: true,
         linkedDocumentIDs: true,
         updatedAt: true,

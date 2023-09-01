@@ -37,6 +37,7 @@ export const DocumentList = (props: ListProps): React.ReactElement => {
         </ReferenceField>
         <DateField source="createdAt" label="Created At" />
         <TextField label="Document Type" source="documentType" />
+        <TextField label="fds" source="fds" />
         <TextField label="ID" source="id" />
         <TextField label="linked DocumentI ds" source="linkedDocumentIDs" />
         <DateField source="updatedAt" label="Updated At" />
