@@ -115,6 +115,7 @@ input AccountWhereUniqueInput {
 
 type Business {
   accounts(orderBy: [AccountOrderByInput!], skip: Float, take: Float, where: AccountWhereInput): [Account!]!
+  bn: Float!
   createdAt: DateTime!
   documents(orderBy: [DocumentOrderByInput!], skip: Float, take: Float, where: DocumentWhereInput): [Document!]!
   id: String!
@@ -126,6 +127,7 @@ type Business {
 
 input BusinessCreateInput {
   accounts: AccountCreateNestedManyWithoutBusinessesInput
+  bn: Float!
   documents: DocumentCreateNestedManyWithoutBusinessesInput
   items: ItemCreateNestedManyWithoutBusinessesInput
   owner: UserWhereUniqueInput
@@ -133,6 +135,7 @@ input BusinessCreateInput {
 }
 
 input BusinessOrderByInput {
+  bn: SortOrder
   createdAt: SortOrder
   id: SortOrder
   ownerId: SortOrder
@@ -142,6 +145,7 @@ input BusinessOrderByInput {
 
 input BusinessUpdateInput {
   accounts: AccountUpdateManyWithoutBusinessesInput
+  bn: Float
   documents: DocumentUpdateManyWithoutBusinessesInput
   items: ItemUpdateManyWithoutBusinessesInput
   owner: UserWhereUniqueInput
@@ -150,6 +154,7 @@ input BusinessUpdateInput {
 
 input BusinessWhereInput {
   accounts: AccountListRelationFilter
+  bn: IntFilter
   documents: DocumentListRelationFilter
   id: StringFilter
   items: ItemListRelationFilter
@@ -173,6 +178,7 @@ type ClientsAndSupplier {
   createdAt: DateTime!
   documents(orderBy: [DocumentOrderByInput!], skip: Float, take: Float, where: DocumentWhereInput): [Document!]!
   id: String!
+  name: String
   updatedAt: DateTime!
 }
 
@@ -186,6 +192,7 @@ input ClientsAndSupplierCreateInput {
   businessNumber: String
   countryCode: String
   documents: DocumentCreateNestedManyWithoutClientsAndSuppliersInput
+  name: String
 }
 
 input ClientsAndSupplierOrderByInput {
@@ -199,6 +206,7 @@ input ClientsAndSupplierOrderByInput {
   countryCode: SortOrder
   createdAt: SortOrder
   id: SortOrder
+  name: SortOrder
   updatedAt: SortOrder
 }
 
@@ -212,6 +220,7 @@ input ClientsAndSupplierUpdateInput {
   businessNumber: String
   countryCode: String
   documents: DocumentUpdateManyWithoutClientsAndSuppliersInput
+  name: String
 }
 
 input ClientsAndSupplierWhereInput {
@@ -225,6 +234,7 @@ input ClientsAndSupplierWhereInput {
   countryCode: StringNullableFilter
   documents: DocumentListRelationFilter
   id: StringFilter
+  name: StringNullableFilter
 }
 
 input ClientsAndSupplierWhereUniqueInput {
@@ -408,6 +418,17 @@ enum EnumDocumentDetailTransactionType {
   Sale
   Service
   ServiceAndSales
+}
+
+input IntFilter {
+  equals: Int
+  gt: Int
+  gte: Int
+  in: [Int!]
+  lt: Int
+  lte: Int
+  not: Int
+  notIn: [Int!]
 }
 
 input IntNullableFilter {

@@ -40,10 +40,7 @@ import { ItemWhereUniqueInput } from "../../item/base/ItemWhereUniqueInput";
 @swagger.ApiBearerAuth()
 @common.UseGuards(defaultAuthGuard.DefaultAuthGuard, nestAccessControl.ACGuard)
 export class BusinessControllerBase {
-  constructor(
-    protected readonly service: BusinessService,
-    protected readonly rolesBuilder: nestAccessControl.RolesBuilder
-  ) {}
+  constructor(protected readonly service: BusinessService, protected readonly rolesBuilder: nestAccessControl.RolesBuilder) {}
   @common.UseInterceptors(AclValidateRequestInterceptor)
   @common.Post()
   @swagger.ApiCreatedResponse({ type: Business })
@@ -144,9 +141,7 @@ export class BusinessControllerBase {
   @swagger.ApiForbiddenResponse({
     type: errors.ForbiddenException,
   })
-  async findOne(
-    @common.Param() params: BusinessWhereUniqueInput
-  ): Promise<Business | null> {
+  async findOne(@common.Param() params: BusinessWhereUniqueInput): Promise<Business | null> {
     const result = await this.service.findOne({
       where: params,
       select: {
@@ -170,9 +165,7 @@ export class BusinessControllerBase {
       },
     });
     if (result === null) {
-      throw new errors.NotFoundException(
-        `No resource was found for ${JSON.stringify(params)}`
-      );
+      throw new errors.NotFoundException(`No resource was found for ${JSON.stringify(params)}`);
     }
     return result;
   }
@@ -189,10 +182,7 @@ export class BusinessControllerBase {
   @swagger.ApiForbiddenResponse({
     type: errors.ForbiddenException,
   })
-  async update(
-    @common.Param() params: BusinessWhereUniqueInput,
-    @common.Body() data: BusinessUpdateInput
-  ): Promise<Business | null> {
+  async update(@common.Param() params: BusinessWhereUniqueInput, @common.Body() data: BusinessUpdateInput): Promise<Business | null> {
     try {
       return await this.service.update({
         where: params,
@@ -233,9 +223,7 @@ export class BusinessControllerBase {
       });
     } catch (error) {
       if (isRecordNotFoundError(error)) {
-        throw new errors.NotFoundException(
-          `No resource was found for ${JSON.stringify(params)}`
-        );
+        throw new errors.NotFoundException(`No resource was found for ${JSON.stringify(params)}`);
       }
       throw error;
     }
@@ -252,9 +240,7 @@ export class BusinessControllerBase {
   @swagger.ApiForbiddenResponse({
     type: errors.ForbiddenException,
   })
-  async delete(
-    @common.Param() params: BusinessWhereUniqueInput
-  ): Promise<Business | null> {
+  async delete(@common.Param() params: BusinessWhereUniqueInput): Promise<Business | null> {
     try {
       return await this.service.delete({
         where: params,
@@ -280,9 +266,7 @@ export class BusinessControllerBase {
       });
     } catch (error) {
       if (isRecordNotFoundError(error)) {
-        throw new errors.NotFoundException(
-          `No resource was found for ${JSON.stringify(params)}`
-        );
+        throw new errors.NotFoundException(`No resource was found for ${JSON.stringify(params)}`);
       }
       throw error;
     }
@@ -296,10 +280,7 @@ export class BusinessControllerBase {
     action: "read",
     possession: "any",
   })
-  async findManyAccounts(
-    @common.Req() request: Request,
-    @common.Param() params: BusinessWhereUniqueInput
-  ): Promise<Account[]> {
+  async findManyAccounts(@common.Req() request: Request, @common.Param() params: BusinessWhereUniqueInput): Promise<Account[]> {
     const query = plainToClass(AccountFindManyArgs, request.query);
     const results = await this.service.findAccounts(params.id, {
       ...query,
@@ -335,9 +316,7 @@ export class BusinessControllerBase {
       },
     });
     if (results === null) {
-      throw new errors.NotFoundException(
-        `No resource was found for ${JSON.stringify(params)}`
-      );
+      throw new errors.NotFoundException(`No resource was found for ${JSON.stringify(params)}`);
     }
     return results;
   }
@@ -348,10 +327,7 @@ export class BusinessControllerBase {
     action: "update",
     possession: "any",
   })
-  async connectAccounts(
-    @common.Param() params: BusinessWhereUniqueInput,
-    @common.Body() body: AccountWhereUniqueInput[]
-  ): Promise<void> {
+  async connectAccounts(@common.Param() params: BusinessWhereUniqueInput, @common.Body() body: AccountWhereUniqueInput[]): Promise<void> {
     const data = {
       accounts: {
         connect: body,
@@ -370,10 +346,7 @@ export class BusinessControllerBase {
     action: "update",
     possession: "any",
   })
-  async updateAccounts(
-    @common.Param() params: BusinessWhereUniqueInput,
-    @common.Body() body: AccountWhereUniqueInput[]
-  ): Promise<void> {
+  async updateAccounts(@common.Param() params: BusinessWhereUniqueInput, @common.Body() body: AccountWhereUniqueInput[]): Promise<void> {
     const data = {
       accounts: {
         set: body,
@@ -392,10 +365,7 @@ export class BusinessControllerBase {
     action: "update",
     possession: "any",
   })
-  async disconnectAccounts(
-    @common.Param() params: BusinessWhereUniqueInput,
-    @common.Body() body: AccountWhereUniqueInput[]
-  ): Promise<void> {
+  async disconnectAccounts(@common.Param() params: BusinessWhereUniqueInput, @common.Body() body: AccountWhereUniqueInput[]): Promise<void> {
     const data = {
       accounts: {
         disconnect: body,
@@ -416,10 +386,7 @@ export class BusinessControllerBase {
     action: "read",
     possession: "any",
   })
-  async findManyDocuments(
-    @common.Req() request: Request,
-    @common.Param() params: BusinessWhereUniqueInput
-  ): Promise<Document[]> {
+  async findManyDocuments(@common.Req() request: Request, @common.Param() params: BusinessWhereUniqueInput): Promise<Document[]> {
     const query = plainToClass(DocumentFindManyArgs, request.query);
     const results = await this.service.findDocuments(params.id, {
       ...query,
@@ -442,9 +409,7 @@ export class BusinessControllerBase {
       },
     });
     if (results === null) {
-      throw new errors.NotFoundException(
-        `No resource was found for ${JSON.stringify(params)}`
-      );
+      throw new errors.NotFoundException(`No resource was found for ${JSON.stringify(params)}`);
     }
     return results;
   }
@@ -455,10 +420,7 @@ export class BusinessControllerBase {
     action: "update",
     possession: "any",
   })
-  async connectDocuments(
-    @common.Param() params: BusinessWhereUniqueInput,
-    @common.Body() body: DocumentWhereUniqueInput[]
-  ): Promise<void> {
+  async connectDocuments(@common.Param() params: BusinessWhereUniqueInput, @common.Body() body: DocumentWhereUniqueInput[]): Promise<void> {
     const data = {
       documents: {
         connect: body,
@@ -477,10 +439,7 @@ export class BusinessControllerBase {
     action: "update",
     possession: "any",
   })
-  async updateDocuments(
-    @common.Param() params: BusinessWhereUniqueInput,
-    @common.Body() body: DocumentWhereUniqueInput[]
-  ): Promise<void> {
+  async updateDocuments(@common.Param() params: BusinessWhereUniqueInput, @common.Body() body: DocumentWhereUniqueInput[]): Promise<void> {
     const data = {
       documents: {
         set: body,
@@ -499,10 +458,7 @@ export class BusinessControllerBase {
     action: "update",
     possession: "any",
   })
-  async disconnectDocuments(
-    @common.Param() params: BusinessWhereUniqueInput,
-    @common.Body() body: DocumentWhereUniqueInput[]
-  ): Promise<void> {
+  async disconnectDocuments(@common.Param() params: BusinessWhereUniqueInput, @common.Body() body: DocumentWhereUniqueInput[]): Promise<void> {
     const data = {
       documents: {
         disconnect: body,
@@ -523,10 +479,7 @@ export class BusinessControllerBase {
     action: "read",
     possession: "any",
   })
-  async findManyItems(
-    @common.Req() request: Request,
-    @common.Param() params: BusinessWhereUniqueInput
-  ): Promise<Item[]> {
+  async findManyItems(@common.Req() request: Request, @common.Param() params: BusinessWhereUniqueInput): Promise<Item[]> {
     const query = plainToClass(ItemFindManyArgs, request.query);
     const results = await this.service.findItems(params.id, {
       ...query,
@@ -551,9 +504,7 @@ export class BusinessControllerBase {
       },
     });
     if (results === null) {
-      throw new errors.NotFoundException(
-        `No resource was found for ${JSON.stringify(params)}`
-      );
+      throw new errors.NotFoundException(`No resource was found for ${JSON.stringify(params)}`);
     }
     return results;
   }
@@ -564,10 +515,7 @@ export class BusinessControllerBase {
     action: "update",
     possession: "any",
   })
-  async connectItems(
-    @common.Param() params: BusinessWhereUniqueInput,
-    @common.Body() body: ItemWhereUniqueInput[]
-  ): Promise<void> {
+  async connectItems(@common.Param() params: BusinessWhereUniqueInput, @common.Body() body: ItemWhereUniqueInput[]): Promise<void> {
     const data = {
       items: {
         connect: body,
@@ -586,10 +534,7 @@ export class BusinessControllerBase {
     action: "update",
     possession: "any",
   })
-  async updateItems(
-    @common.Param() params: BusinessWhereUniqueInput,
-    @common.Body() body: ItemWhereUniqueInput[]
-  ): Promise<void> {
+  async updateItems(@common.Param() params: BusinessWhereUniqueInput, @common.Body() body: ItemWhereUniqueInput[]): Promise<void> {
     const data = {
       items: {
         set: body,
@@ -608,10 +553,7 @@ export class BusinessControllerBase {
     action: "update",
     possession: "any",
   })
-  async disconnectItems(
-    @common.Param() params: BusinessWhereUniqueInput,
-    @common.Body() body: ItemWhereUniqueInput[]
-  ): Promise<void> {
+  async disconnectItems(@common.Param() params: BusinessWhereUniqueInput, @common.Body() body: ItemWhereUniqueInput[]): Promise<void> {
     const data = {
       items: {
         disconnect: body,

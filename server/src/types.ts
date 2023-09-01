@@ -21,3 +21,11 @@ export type DocumentOption = {
 export interface TransactionOperation {
   actionOperation: string;
 }
+
+export interface FieldDefinition {
+  Field_Id: number;
+  Field_Name: string;
+  Translation: string;
+  Type: string;
+  Length: number;
+}
