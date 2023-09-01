@@ -287,13 +287,6 @@ export class ItemControllerBase {
       ...query,
       select: {
         createdAt: true,
-
-        document: {
-          select: {
-            id: true,
-          },
-        },
-
         id: true,
 
         item: {

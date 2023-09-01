@@ -404,7 +404,9 @@ export class BusinessControllerBase {
         },
 
         createdAt: true,
+        documentType: true,
         id: true,
+        linkedDocumentIDs: true,
         updatedAt: true,
       },
     });

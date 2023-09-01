@@ -12,10 +12,12 @@ https://docs.amplication.com/how-to/custom-code
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
 import { BusinessWhereUniqueInput } from "../../business/base/BusinessWhereUniqueInput";
-import { ValidateNested, IsOptional } from "class-validator";
+import { ValidateNested, IsOptional, IsInt } from "class-validator";
 import { Type } from "class-transformer";
 import { ClientsAndSupplierWhereUniqueInput } from "../../clientsAndSupplier/base/ClientsAndSupplierWhereUniqueInput";
-import { DocumentDetailCreateNestedManyWithoutDocumentsInput } from "./DocumentDetailCreateNestedManyWithoutDocumentsInput";
+import { IsJSONValue } from "@app/custom-validators";
+import { GraphQLJSON } from "graphql-type-json";
+import { InputJsonValue } from "../../types";
 import { ReceiptDetailCreateNestedManyWithoutDocumentsInput } from "./ReceiptDetailCreateNestedManyWithoutDocumentsInput";
 
 @InputType()
@@ -46,15 +48,24 @@ class DocumentCreateInput {
 
   @ApiProperty({
     required: false,
-    type: () => DocumentDetailCreateNestedManyWithoutDocumentsInput,
+    type: Number,
   })
-  @ValidateNested()
-  @Type(() => DocumentDetailCreateNestedManyWithoutDocumentsInput)
+  @IsInt()
   @IsOptional()
-  @Field(() => DocumentDetailCreateNestedManyWithoutDocumentsInput, {
+  @Field(() => Number, {
     nullable: true,
   })
-  documentDetails?: DocumentDetailCreateNestedManyWithoutDocumentsInput;
+  documentType?: number | null;
+
+  @ApiProperty({
+    required: false,
+  })
+  @IsJSONValue()
+  @IsOptional()
+  @Field(() => GraphQLJSON, {
+    nullable: true,
+  })
+  linkedDocumentIDs?: InputJsonValue;
 
   @ApiProperty({
     required: false,

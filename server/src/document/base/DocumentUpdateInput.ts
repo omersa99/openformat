@@ -12,10 +12,12 @@ https://docs.amplication.com/how-to/custom-code
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
 import { BusinessWhereUniqueInput } from "../../business/base/BusinessWhereUniqueInput";
-import { ValidateNested, IsOptional } from "class-validator";
+import { ValidateNested, IsOptional, IsInt } from "class-validator";
 import { Type } from "class-transformer";
 import { ClientsAndSupplierWhereUniqueInput } from "../../clientsAndSupplier/base/ClientsAndSupplierWhereUniqueInput";
-import { DocumentDetailUpdateManyWithoutDocumentsInput } from "./DocumentDetailUpdateManyWithoutDocumentsInput";
+import { IsJSONValue } from "@app/custom-validators";
+import { GraphQLJSON } from "graphql-type-json";
+import { InputJsonValue } from "../../types";
 import { ReceiptDetailUpdateManyWithoutDocumentsInput } from "./ReceiptDetailUpdateManyWithoutDocumentsInput";
 
 @InputType()
@@ -46,15 +48,24 @@ class DocumentUpdateInput {
 
   @ApiProperty({
     required: false,
-    type: () => DocumentDetailUpdateManyWithoutDocumentsInput,
+    type: Number,
   })
-  @ValidateNested()
-  @Type(() => DocumentDetailUpdateManyWithoutDocumentsInput)
+  @IsInt()
   @IsOptional()
-  @Field(() => DocumentDetailUpdateManyWithoutDocumentsInput, {
+  @Field(() => Number, {
     nullable: true,
   })
-  documentDetails?: DocumentDetailUpdateManyWithoutDocumentsInput;
+  documentType?: number | null;
+
+  @ApiProperty({
+    required: false,
+  })
+  @IsJSONValue()
+  @IsOptional()
+  @Field(() => GraphQLJSON, {
+    nullable: true,
+  })
+  linkedDocumentIDs?: InputJsonValue;
 
   @ApiProperty({
     required: false,
