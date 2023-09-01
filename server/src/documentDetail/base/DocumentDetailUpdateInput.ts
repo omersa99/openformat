@@ -11,13 +11,26 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { ItemWhereUniqueInput } from "../../item/base/ItemWhereUniqueInput";
+import { DocumentWhereUniqueInput } from "../../document/base/DocumentWhereUniqueInput";
 import { ValidateNested, IsOptional, IsInt, IsEnum } from "class-validator";
 import { Type } from "class-transformer";
+import { ItemWhereUniqueInput } from "../../item/base/ItemWhereUniqueInput";
 import { EnumDocumentDetailTransactionType } from "./EnumDocumentDetailTransactionType";
 
 @InputType()
 class DocumentDetailUpdateInput {
+  @ApiProperty({
+    required: false,
+    type: () => DocumentWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => DocumentWhereUniqueInput)
+  @IsOptional()
+  @Field(() => DocumentWhereUniqueInput, {
+    nullable: true,
+  })
+  document?: DocumentWhereUniqueInput | null;
+
   @ApiProperty({
     required: false,
     type: () => ItemWhereUniqueInput,

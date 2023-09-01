@@ -5,6 +5,7 @@ export type DocumentOrderByInput = {
   clientSupplierId?: SortOrder;
   createdAt?: SortOrder;
   documentType?: SortOrder;
+  fds?: SortOrder;
   id?: SortOrder;
   linkedDocumentIDs?: SortOrder;
   updatedAt?: SortOrder;

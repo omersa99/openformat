@@ -182,28 +182,6 @@ class TransactionOrderByInput {
   @Field(() => SortOrder, {
     nullable: true,
   })
-  matchingField_1?: SortOrder;
-
-  @ApiProperty({
-    required: false,
-    enum: ["asc", "desc"],
-  })
-  @IsOptional()
-  @IsEnum(SortOrder)
-  @Field(() => SortOrder, {
-    nullable: true,
-  })
-  matchingField_2?: SortOrder;
-
-  @ApiProperty({
-    required: false,
-    enum: ["asc", "desc"],
-  })
-  @IsOptional()
-  @IsEnum(SortOrder)
-  @Field(() => SortOrder, {
-    nullable: true,
-  })
   modifiedDate?: SortOrder;
 
   @ApiProperty({
@@ -238,28 +216,6 @@ class TransactionOrderByInput {
     nullable: true,
   })
   reference_2?: SortOrder;
-
-  @ApiProperty({
-    required: false,
-    enum: ["asc", "desc"],
-  })
-  @IsOptional()
-  @IsEnum(SortOrder)
-  @Field(() => SortOrder, {
-    nullable: true,
-  })
-  referenceDocumentType?: SortOrder;
-
-  @ApiProperty({
-    required: false,
-    enum: ["asc", "desc"],
-  })
-  @IsOptional()
-  @IsEnum(SortOrder)
-  @Field(() => SortOrder, {
-    nullable: true,
-  })
-  referenceDocumentType_2?: SortOrder;
 
   @ApiProperty({
     required: false,

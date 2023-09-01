@@ -1,7 +1,7 @@
 import { Document as TDocument } from "../api/document/Document";
 
-export const DOCUMENT_TITLE_FIELD = "id";
+export const DOCUMENT_TITLE_FIELD = "fds";
 
 export const DocumentTitle = (record: TDocument): string => {
-  return record.id || String(record.id);
+  return record.fds || String(record.id);
 };

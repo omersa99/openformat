@@ -23,6 +23,7 @@ const CREATE_INPUT = {
   id: "exampleId",
   internalItemCode: "exampleInternalItemCode",
   itemName: "exampleItemName",
+  openingBalance: 42,
   sortingCode: "exampleSortingCode",
   sortingCodeDescription: "exampleSortingCodeDescription",
   supplierManufacturerCodeInProcurement:
@@ -36,6 +37,7 @@ const CREATE_RESULT = {
   id: "exampleId",
   internalItemCode: "exampleInternalItemCode",
   itemName: "exampleItemName",
+  openingBalance: 42,
   sortingCode: "exampleSortingCode",
   sortingCodeDescription: "exampleSortingCodeDescription",
   supplierManufacturerCodeInProcurement:
@@ -50,6 +52,7 @@ const FIND_MANY_RESULT = [
     id: "exampleId",
     internalItemCode: "exampleInternalItemCode",
     itemName: "exampleItemName",
+    openingBalance: 42,
     sortingCode: "exampleSortingCode",
     sortingCodeDescription: "exampleSortingCodeDescription",
     supplierManufacturerCodeInProcurement:
@@ -64,6 +67,7 @@ const FIND_ONE_RESULT = {
   id: "exampleId",
   internalItemCode: "exampleInternalItemCode",
   itemName: "exampleItemName",
+  openingBalance: 42,
   sortingCode: "exampleSortingCode",
   sortingCodeDescription: "exampleSortingCodeDescription",
   supplierManufacturerCodeInProcurement:

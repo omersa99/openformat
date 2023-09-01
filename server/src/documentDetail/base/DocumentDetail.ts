@@ -13,13 +13,14 @@ import { ObjectType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
 import {
   IsDate,
-  IsString,
   ValidateNested,
   IsOptional,
+  IsString,
   IsInt,
   IsEnum,
 } from "class-validator";
 import { Type } from "class-transformer";
+import { Document } from "../../document/base/Document";
 import { Item } from "../../item/base/Item";
 import { EnumDocumentDetailTransactionType } from "./EnumDocumentDetailTransactionType";
 
@@ -32,6 +33,15 @@ class DocumentDetail {
   @Type(() => Date)
   @Field(() => Date)
   createdAt!: Date;
+
+  @ApiProperty({
+    required: false,
+    type: () => Document,
+  })
+  @ValidateNested()
+  @Type(() => Document)
+  @IsOptional()
+  document?: Document | null;
 
   @ApiProperty({
     required: true,

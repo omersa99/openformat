@@ -18,6 +18,7 @@ import { JsonFilter } from "../../util/JsonFilter";
 import { DocumentDetailListRelationFilter } from "../../documentDetail/base/DocumentDetailListRelationFilter";
 import { StringFilter } from "../../util/StringFilter";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
+import { IntNullableFilter } from "../../util/IntNullableFilter";
 
 @InputType()
 class ItemWhereInput {
@@ -88,6 +89,17 @@ class ItemWhereInput {
     nullable: true,
   })
   itemName?: StringNullableFilter;
+
+  @ApiProperty({
+    required: false,
+    type: IntNullableFilter,
+  })
+  @Type(() => IntNullableFilter)
+  @IsOptional()
+  @Field(() => IntNullableFilter, {
+    nullable: true,
+  })
+  openingBalance?: IntNullableFilter;
 
   @ApiProperty({
     required: false,

@@ -26,6 +26,7 @@ import { DocumentDetailCountArgs } from "./DocumentDetailCountArgs";
 import { DocumentDetailFindManyArgs } from "./DocumentDetailFindManyArgs";
 import { DocumentDetailFindUniqueArgs } from "./DocumentDetailFindUniqueArgs";
 import { DocumentDetail } from "./DocumentDetail";
+import { Document } from "../../document/base/Document";
 import { Item } from "../../item/base/Item";
 import { DocumentDetailService } from "../documentDetail.service";
 @common.UseGuards(GqlDefaultAuthGuard, gqlACGuard.GqlACGuard)
@@ -96,6 +97,12 @@ export class DocumentDetailResolverBase {
       data: {
         ...args.data,
 
+        document: args.data.document
+          ? {
+              connect: args.data.document,
+            }
+          : undefined,
+
         item: args.data.item
           ? {
               connect: args.data.item,
@@ -120,6 +127,12 @@ export class DocumentDetailResolverBase {
         ...args,
         data: {
           ...args.data,
+
+          document: args.data.document
+            ? {
+                connect: args.data.document,
+              }
+            : undefined,
 
           item: args.data.item
             ? {
@@ -157,6 +170,27 @@ export class DocumentDetailResolverBase {
       }
       throw error;
     }
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => Document, {
+    nullable: true,
+    name: "document",
+  })
+  @nestAccessControl.UseRoles({
+    resource: "Document",
+    action: "read",
+    possession: "any",
+  })
+  async resolveFieldDocument(
+    @graphql.Parent() parent: DocumentDetail
+  ): Promise<Document | null> {
+    const result = await this.service.getDocument(parent.id);
+
+    if (!result) {
+      return null;
+    }
+    return result;
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)

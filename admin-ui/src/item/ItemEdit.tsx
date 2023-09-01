@@ -9,6 +9,7 @@ import {
   ReferenceArrayInput,
   SelectArrayInput,
   TextInput,
+  NumberInput,
 } from "react-admin";
 
 import { BusinessTitle } from "../business/BusinessTitle";
@@ -36,6 +37,7 @@ export const ItemEdit = (props: EditProps): React.ReactElement => {
         </ReferenceArrayInput>
         <TextInput label="Internal Item Code" source="internalItemCode" />
         <TextInput label="Item Name" source="itemName" />
+        <NumberInput step={1} label="opening balance" source="openingBalance" />
         <TextInput label="Sorting Code" source="sortingCode" />
         <TextInput
           label="Sorting Code Description"

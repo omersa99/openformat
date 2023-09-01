@@ -4,10 +4,11 @@ import {
   Datagrid,
   ListProps,
   DateField,
-  TextField,
   ReferenceField,
+  TextField,
 } from "react-admin";
 import Pagination from "../Components/Pagination";
+import { DOCUMENT_TITLE_FIELD } from "../document/DocumentTitle";
 import { ITEM_TITLE_FIELD } from "../item/ItemTitle";
 
 export const DocumentDetailList = (props: ListProps): React.ReactElement => {
@@ -21,6 +22,13 @@ export const DocumentDetailList = (props: ListProps): React.ReactElement => {
     >
       <Datagrid rowClick="show">
         <DateField source="createdAt" label="Created At" />
+        <ReferenceField
+          label="document"
+          source="document.id"
+          reference="Document"
+        >
+          <TextField source={DOCUMENT_TITLE_FIELD} />
+        </ReferenceField>
         <TextField label="ID" source="id" />
         <ReferenceField label="item" source="item.id" reference="Item">
           <TextField source={ITEM_TITLE_FIELD} />

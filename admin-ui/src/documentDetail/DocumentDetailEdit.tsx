@@ -7,12 +7,20 @@ import {
   SelectInput,
   NumberInput,
 } from "react-admin";
+import { DocumentTitle } from "../document/DocumentTitle";
 import { ItemTitle } from "../item/ItemTitle";
 
 export const DocumentDetailEdit = (props: EditProps): React.ReactElement => {
   return (
     <Edit {...props}>
       <SimpleForm>
+        <ReferenceInput
+          source="document.id"
+          reference="Document"
+          label="document"
+        >
+          <SelectInput optionText={DocumentTitle} />
+        </ReferenceInput>
         <ReferenceInput source="item.id" reference="Item" label="item">
           <SelectInput optionText={ItemTitle} />
         </ReferenceInput>

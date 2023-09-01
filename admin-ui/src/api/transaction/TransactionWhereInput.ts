@@ -19,14 +19,10 @@ export type TransactionWhereInput = {
   foreignCurrencyCode?: StringNullableFilter;
   id?: StringFilter;
   lineNumberInTransaction?: IntNullableFilter;
-  matchingField_1?: StringNullableFilter;
-  matchingField_2?: StringNullableFilter;
   modifiedDate?: DateTimeNullableFilter;
   portion?: IntNullableFilter;
   reference?: StringNullableFilter;
   reference_2?: StringNullableFilter;
-  referenceDocumentType?: IntNullableFilter;
-  referenceDocumentType_2?: IntNullableFilter;
   transactionNumber?: IntNullableFilter;
   transactionType?: StringNullableFilter;
 };

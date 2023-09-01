@@ -21,6 +21,7 @@ import {
 } from "class-validator";
 import { Type } from "class-transformer";
 import { ClientsAndSupplier } from "../../clientsAndSupplier/base/ClientsAndSupplier";
+import { DocumentDetail } from "../../documentDetail/base/DocumentDetail";
 import { IsJSONValue } from "@app/custom-validators";
 import { GraphQLJSON } from "graphql-type-json";
 import { JsonValue } from "type-fest";
@@ -56,6 +57,15 @@ class Document {
 
   @ApiProperty({
     required: false,
+    type: () => [DocumentDetail],
+  })
+  @ValidateNested()
+  @Type(() => DocumentDetail)
+  @IsOptional()
+  documentDetails?: Array<DocumentDetail>;
+
+  @ApiProperty({
+    required: false,
     type: Number,
   })
   @IsInt()
@@ -64,6 +74,17 @@ class Document {
     nullable: true,
   })
   documentType!: number | null;
+
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  fds!: string | null;
 
   @ApiProperty({
     required: true,

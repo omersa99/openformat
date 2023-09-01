@@ -10,7 +10,7 @@ https://docs.amplication.com/how-to/custom-code
 ------------------------------------------------------------------------------
   */
 import { PrismaService } from "../../prisma/prisma.service";
-import { Prisma, DocumentDetail, Item } from "@prisma/client";
+import { Prisma, DocumentDetail, Document, Item } from "@prisma/client";
 
 export class DocumentDetailServiceBase {
   constructor(protected readonly prisma: PrismaService) {}
@@ -45,6 +45,14 @@ export class DocumentDetailServiceBase {
     args: Prisma.SelectSubset<T, Prisma.DocumentDetailDeleteArgs>
   ): Promise<DocumentDetail> {
     return this.prisma.documentDetail.delete(args);
+  }
+
+  async getDocument(parentId: string): Promise<Document | null> {
+    return this.prisma.documentDetail
+      .findUnique({
+        where: { id: parentId },
+      })
+      .document();
   }
 
   async getItem(parentId: string): Promise<Item | null> {

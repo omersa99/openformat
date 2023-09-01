@@ -72,6 +72,7 @@ export class ItemControllerBase {
         id: true,
         internalItemCode: true,
         itemName: true,
+        openingBalance: true,
         sortingCode: true,
         sortingCodeDescription: true,
         supplierManufacturerCodeInProcurement: true,
@@ -110,6 +111,7 @@ export class ItemControllerBase {
         id: true,
         internalItemCode: true,
         itemName: true,
+        openingBalance: true,
         sortingCode: true,
         sortingCodeDescription: true,
         supplierManufacturerCodeInProcurement: true,
@@ -149,6 +151,7 @@ export class ItemControllerBase {
         id: true,
         internalItemCode: true,
         itemName: true,
+        openingBalance: true,
         sortingCode: true,
         sortingCodeDescription: true,
         supplierManufacturerCodeInProcurement: true,
@@ -205,6 +208,7 @@ export class ItemControllerBase {
           id: true,
           internalItemCode: true,
           itemName: true,
+          openingBalance: true,
           sortingCode: true,
           sortingCodeDescription: true,
           supplierManufacturerCodeInProcurement: true,
@@ -252,6 +256,7 @@ export class ItemControllerBase {
           id: true,
           internalItemCode: true,
           itemName: true,
+          openingBalance: true,
           sortingCode: true,
           sortingCodeDescription: true,
           supplierManufacturerCodeInProcurement: true,
@@ -287,6 +292,13 @@ export class ItemControllerBase {
       ...query,
       select: {
         createdAt: true,
+
+        document: {
+          select: {
+            id: true,
+          },
+        },
+
         id: true,
 
         item: {

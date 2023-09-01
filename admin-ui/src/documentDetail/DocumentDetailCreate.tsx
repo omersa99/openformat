@@ -7,6 +7,7 @@ import {
   SelectInput,
   NumberInput,
 } from "react-admin";
+import { DocumentTitle } from "../document/DocumentTitle";
 import { ItemTitle } from "../item/ItemTitle";
 
 export const DocumentDetailCreate = (
@@ -15,6 +16,13 @@ export const DocumentDetailCreate = (
   return (
     <Create {...props}>
       <SimpleForm>
+        <ReferenceInput
+          source="document.id"
+          reference="Document"
+          label="document"
+        >
+          <SelectInput optionText={DocumentTitle} />
+        </ReferenceInput>
         <ReferenceInput source="item.id" reference="Item" label="item">
           <SelectInput optionText={ItemTitle} />
         </ReferenceInput>

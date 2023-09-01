@@ -11,6 +11,7 @@ import {
   Datagrid,
 } from "react-admin";
 
+import { DOCUMENT_TITLE_FIELD } from "../document/DocumentTitle";
 import { ITEM_TITLE_FIELD } from "./ItemTitle";
 import { BUSINESS_TITLE_FIELD } from "../business/BusinessTitle";
 
@@ -30,6 +31,7 @@ export const ItemShow = (props: ShowProps): React.ReactElement => {
         <TextField label="ID" source="id" />
         <TextField label="Internal Item Code" source="internalItemCode" />
         <TextField label="Item Name" source="itemName" />
+        <TextField label="opening balance" source="openingBalance" />
         <TextField label="Sorting Code" source="sortingCode" />
         <TextField
           label="Sorting Code Description"
@@ -52,6 +54,13 @@ export const ItemShow = (props: ShowProps): React.ReactElement => {
         >
           <Datagrid rowClick="show">
             <DateField source="createdAt" label="Created At" />
+            <ReferenceField
+              label="document"
+              source="document.id"
+              reference="Document"
+            >
+              <TextField source={DOCUMENT_TITLE_FIELD} />
+            </ReferenceField>
             <TextField label="ID" source="id" />
             <ReferenceField label="item" source="item.id" reference="Item">
               <TextField source={ITEM_TITLE_FIELD} />

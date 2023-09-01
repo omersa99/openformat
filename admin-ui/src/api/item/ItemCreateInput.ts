@@ -8,6 +8,7 @@ export type ItemCreateInput = {
   documentDetails?: DocumentDetailCreateNestedManyWithoutItemsInput;
   internalItemCode?: string | null;
   itemName?: string | null;
+  openingBalance?: number | null;
   sortingCode?: string | null;
   sortingCodeDescription?: string | null;
   supplierManufacturerCodeInProcurement?: string | null;
