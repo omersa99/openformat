@@ -1,9 +1,7 @@
-import { Document } from "../document/Document";
 import { Item } from "../item/Item";
 
 export type DocumentDetail = {
   createdAt: Date;
-  document?: Document | null;
   id: string;
   item?: Item | null;
   priceWithoutVat: number | null;

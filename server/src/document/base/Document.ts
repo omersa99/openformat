@@ -12,10 +12,18 @@ https://docs.amplication.com/how-to/custom-code
 import { ObjectType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
 import { Business } from "../../business/base/Business";
-import { ValidateNested, IsOptional, IsDate, IsString } from "class-validator";
+import {
+  ValidateNested,
+  IsOptional,
+  IsDate,
+  IsInt,
+  IsString,
+} from "class-validator";
 import { Type } from "class-transformer";
 import { ClientsAndSupplier } from "../../clientsAndSupplier/base/ClientsAndSupplier";
-import { DocumentDetail } from "../../documentDetail/base/DocumentDetail";
+import { IsJSONValue } from "@app/custom-validators";
+import { GraphQLJSON } from "graphql-type-json";
+import { JsonValue } from "type-fest";
 import { ReceiptDetail } from "../../receiptDetail/base/ReceiptDetail";
 
 @ObjectType()
@@ -48,12 +56,14 @@ class Document {
 
   @ApiProperty({
     required: false,
-    type: () => [DocumentDetail],
+    type: Number,
   })
-  @ValidateNested()
-  @Type(() => DocumentDetail)
+  @IsInt()
   @IsOptional()
-  documentDetails?: Array<DocumentDetail>;
+  @Field(() => Number, {
+    nullable: true,
+  })
+  documentType!: number | null;
 
   @ApiProperty({
     required: true,
@@ -62,6 +72,16 @@ class Document {
   @IsString()
   @Field(() => String)
   id!: string;
+
+  @ApiProperty({
+    required: false,
+  })
+  @IsJSONValue()
+  @IsOptional()
+  @Field(() => GraphQLJSON, {
+    nullable: true,
+  })
+  linkedDocumentIDs!: JsonValue;
 
   @ApiProperty({
     required: false,

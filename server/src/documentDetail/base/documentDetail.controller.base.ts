@@ -53,12 +53,6 @@ export class DocumentDetailControllerBase {
       data: {
         ...data,
 
-        document: data.document
-          ? {
-              connect: data.document,
-            }
-          : undefined,
-
         item: data.item
           ? {
               connect: data.item,
@@ -67,13 +61,6 @@ export class DocumentDetailControllerBase {
       },
       select: {
         createdAt: true,
-
-        document: {
-          select: {
-            id: true,
-          },
-        },
-
         id: true,
 
         item: {
@@ -109,13 +96,6 @@ export class DocumentDetailControllerBase {
       ...args,
       select: {
         createdAt: true,
-
-        document: {
-          select: {
-            id: true,
-          },
-        },
-
         id: true,
 
         item: {
@@ -152,13 +132,6 @@ export class DocumentDetailControllerBase {
       where: params,
       select: {
         createdAt: true,
-
-        document: {
-          select: {
-            id: true,
-          },
-        },
-
         id: true,
 
         item: {
@@ -204,12 +177,6 @@ export class DocumentDetailControllerBase {
         data: {
           ...data,
 
-          document: data.document
-            ? {
-                connect: data.document,
-              }
-            : undefined,
-
           item: data.item
             ? {
                 connect: data.item,
@@ -218,13 +185,6 @@ export class DocumentDetailControllerBase {
         },
         select: {
           createdAt: true,
-
-          document: {
-            select: {
-              id: true,
-            },
-          },
-
           id: true,
 
           item: {
@@ -269,13 +229,6 @@ export class DocumentDetailControllerBase {
         where: params,
         select: {
           createdAt: true,
-
-          document: {
-            select: {
-              id: true,
-            },
-          },
-
           id: true,
 
           item: {
