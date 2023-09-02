@@ -267,7 +267,10 @@ type Document {
   clientSupplier: ClientsAndSupplier
   createdAt: DateTime!
   documentDetails(orderBy: [DocumentDetailOrderByInput!], skip: Float, take: Float, where: DocumentDetailWhereInput): [DocumentDetail!]!
+  documentType: Float
+  fds: String
   id: String!
+  linkedDocumentIDs: JSON
   receiptDetails(orderBy: [ReceiptDetailOrderByInput!], skip: Float, take: Float, where: ReceiptDetailWhereInput): [ReceiptDetail!]!
   updatedAt: DateTime!
 }
@@ -276,6 +279,9 @@ input DocumentCreateInput {
   business: BusinessWhereUniqueInput
   clientSupplier: ClientsAndSupplierWhereUniqueInput
   documentDetails: DocumentDetailCreateNestedManyWithoutDocumentsInput
+  documentType: Float
+  fds: String
+  linkedDocumentIDs: JSON
   receiptDetails: ReceiptDetailCreateNestedManyWithoutDocumentsInput
 }
 
@@ -379,7 +385,10 @@ input DocumentOrderByInput {
   businessId: SortOrder
   clientSupplierId: SortOrder
   createdAt: SortOrder
+  documentType: SortOrder
+  fds: SortOrder
   id: SortOrder
+  linkedDocumentIDs: SortOrder
   updatedAt: SortOrder
 }
 
@@ -387,6 +396,9 @@ input DocumentUpdateInput {
   business: BusinessWhereUniqueInput
   clientSupplier: ClientsAndSupplierWhereUniqueInput
   documentDetails: DocumentDetailUpdateManyWithoutDocumentsInput
+  documentType: Float
+  fds: String
+  linkedDocumentIDs: JSON
   receiptDetails: ReceiptDetailUpdateManyWithoutDocumentsInput
 }
 
@@ -406,7 +418,10 @@ input DocumentWhereInput {
   business: BusinessWhereUniqueInput
   clientSupplier: ClientsAndSupplierWhereUniqueInput
   documentDetails: DocumentDetailListRelationFilter
+  documentType: IntNullableFilter
+  fds: StringNullableFilter
   id: StringFilter
+  linkedDocumentIDs: JsonFilter
   receiptDetails: ReceiptDetailListRelationFilter
 }
 
@@ -450,6 +465,7 @@ type Item {
   id: String!
   internalItemCode: String
   itemName: String
+  openingBalance: Float
   sortingCode: String
   sortingCodeDescription: String
   supplierManufacturerCodeInProcurement: String
@@ -464,6 +480,7 @@ input ItemCreateInput {
   documentDetails: DocumentDetailCreateNestedManyWithoutItemsInput
   internalItemCode: String
   itemName: String
+  openingBalance: Float
   sortingCode: String
   sortingCodeDescription: String
   supplierManufacturerCodeInProcurement: String
@@ -488,6 +505,7 @@ input ItemOrderByInput {
   id: SortOrder
   internalItemCode: SortOrder
   itemName: SortOrder
+  openingBalance: SortOrder
   sortingCode: SortOrder
   sortingCodeDescription: SortOrder
   supplierManufacturerCodeInProcurement: SortOrder
@@ -543,6 +561,7 @@ input ItemUpdateInput {
   documentDetails: DocumentDetailUpdateManyWithoutItemsInput
   internalItemCode: String
   itemName: String
+  openingBalance: Float
   sortingCode: String
   sortingCodeDescription: String
   supplierManufacturerCodeInProcurement: String
@@ -563,6 +582,7 @@ input ItemWhereInput {
   id: StringFilter
   internalItemCode: StringNullableFilter
   itemName: StringNullableFilter
+  openingBalance: IntNullableFilter
   sortingCode: StringNullableFilter
   sortingCodeDescription: StringNullableFilter
   supplierManufacturerCodeInProcurement: StringNullableFilter
@@ -811,13 +831,9 @@ type Transaction {
   foreignCurrencyCode: String
   id: String!
   lineNumberInTransaction: Float
-  matchingField_1: String
-  matchingField_2: String
   modifiedDate: DateTime
   portion: Float
   reference: String
-  referenceDocumentType: Float
-  referenceDocumentType_2: Float
   reference_2: String
   transactionNumber: Float
   transactionType: String
@@ -837,13 +853,9 @@ input TransactionCreateInput {
   foreignCurrencyAmount: Float
   foreignCurrencyCode: String
   lineNumberInTransaction: Float
-  matchingField_1: String
-  matchingField_2: String
   modifiedDate: DateTime
   portion: Float
   reference: String
-  referenceDocumentType: Float
-  referenceDocumentType_2: Float
   reference_2: String
   transactionNumber: Float
   transactionType: String
@@ -874,13 +886,9 @@ input TransactionOrderByInput {
   foreignCurrencyCode: SortOrder
   id: SortOrder
   lineNumberInTransaction: SortOrder
-  matchingField_1: SortOrder
-  matchingField_2: SortOrder
   modifiedDate: SortOrder
   portion: SortOrder
   reference: SortOrder
-  referenceDocumentType: SortOrder
-  referenceDocumentType_2: SortOrder
   reference_2: SortOrder
   transactionNumber: SortOrder
   transactionType: SortOrder
@@ -900,13 +908,9 @@ input TransactionUpdateInput {
   foreignCurrencyAmount: Float
   foreignCurrencyCode: String
   lineNumberInTransaction: Float
-  matchingField_1: String
-  matchingField_2: String
   modifiedDate: DateTime
   portion: Float
   reference: String
-  referenceDocumentType: Float
-  referenceDocumentType_2: Float
   reference_2: String
   transactionNumber: Float
   transactionType: String
@@ -932,13 +936,9 @@ input TransactionWhereInput {
   foreignCurrencyCode: StringNullableFilter
   id: StringFilter
   lineNumberInTransaction: IntNullableFilter
-  matchingField_1: StringNullableFilter
-  matchingField_2: StringNullableFilter
   modifiedDate: DateTimeNullableFilter
   portion: IntNullableFilter
   reference: StringNullableFilter
-  referenceDocumentType: IntNullableFilter
-  referenceDocumentType_2: IntNullableFilter
   reference_2: StringNullableFilter
   transactionNumber: IntNullableFilter
   transactionType: StringNullableFilter

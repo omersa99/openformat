@@ -16,11 +16,10 @@ export class AccountController extends AccountControllerBase {
     super(service, rolesBuilder);
   }
 
-  @common.Post("line")
+  @swagger.ApiBody({ type: String }) // Specify the type of the request body
+  @common.Post("code2account")
   line2account(@common.Body() data: { line: string }) {
     const { line } = data;
     return this.service.Line2Account(line); // Note the change here
-
-    // return "123";
   }
 }
