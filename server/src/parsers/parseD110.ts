@@ -1,4 +1,3 @@
-import { EnumDocumentDetailTransactionType } from "@prisma/client";
 import { D110Fields } from "./D110";
 
 export function parseD110(line: String) {
@@ -26,14 +25,12 @@ export function parseD110(line: String) {
   return parsedData;
 }
 
-export function mapToDocumentModel(parsedData: { [x: string]: any }) {
+export function mapToDocumentDetailModel(parsedData: { [x: string]: any }) {
   return {
     // businessId: String(parsedData["Authorized Business Number"]),
     priceWithoutVat: Number(parsedData["Unit Price without VAT"]),
-    transactionType: String(parsedData["Transaction Type"]) as EnumDocumentDetailTransactionType,
-    documentProductionDate: Number(parsedData["Document Production Date"]),
-    documentDate: Number(parsedData["Document Date"]),
-    canceledDocument: parsedData["Canceled Document"] || false,
+    transactionType: String(parsedData["Transaction Type"]),
+    vatRate: Number(parsedData["VAT Rate per Line"]),
     // ... (other fields mapping)
   };
 }

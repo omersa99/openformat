@@ -311,7 +311,7 @@ type DocumentDetail {
   item: Item
   priceWithoutVat: Float
   quantity: Float
-  transactionType: EnumDocumentDetailTransactionType
+  transactionType: String
   updatedAt: DateTime!
   vatRate: Float
 }
@@ -321,7 +321,7 @@ input DocumentDetailCreateInput {
   item: ItemWhereUniqueInput
   priceWithoutVat: Float
   quantity: Float
-  transactionType: EnumDocumentDetailTransactionType
+  transactionType: String
   vatRate: Float
 }
 
@@ -356,7 +356,7 @@ input DocumentDetailUpdateInput {
   item: ItemWhereUniqueInput
   priceWithoutVat: Float
   quantity: Float
-  transactionType: EnumDocumentDetailTransactionType
+  transactionType: String
   vatRate: Float
 }
 
@@ -378,7 +378,7 @@ input DocumentDetailWhereInput {
   item: ItemWhereUniqueInput
   priceWithoutVat: IntNullableFilter
   quantity: IntNullableFilter
-  transactionType: EnumDocumentDetailTransactionType
+  transactionType: StringNullableFilter
   vatRate: IntNullableFilter
 }
 
@@ -447,12 +447,6 @@ input DocumentWhereInput {
 
 input DocumentWhereUniqueInput {
   id: String!
-}
-
-enum EnumDocumentDetailTransactionType {
-  Sale
-  Service
-  ServiceAndSales
 }
 
 input IntFilter {
