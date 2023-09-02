@@ -1,4 +1,5 @@
 import * as React from "react";
+
 import {
   Edit,
   SimpleForm,
@@ -6,7 +7,9 @@ import {
   ReferenceInput,
   SelectInput,
   NumberInput,
+  TextInput,
 } from "react-admin";
+
 import { DocumentTitle } from "../document/DocumentTitle";
 import { ItemTitle } from "../item/ItemTitle";
 
@@ -30,18 +33,7 @@ export const DocumentDetailEdit = (props: EditProps): React.ReactElement => {
           source="priceWithoutVat"
         />
         <NumberInput step={1} label="quantity" source="quantity" />
-        <SelectInput
-          source="transactionType"
-          label="Transaction Type"
-          choices={[
-            { label: "service", value: "Service" },
-            { label: "sale", value: "Sale" },
-            { label: "Service and sales", value: "ServiceAndSales" },
-          ]}
-          optionText="label"
-          allowEmpty
-          optionValue="value"
-        />
+        <TextInput label="Transaction Type" source="transactionType" />
         <NumberInput step={1} label="VAT Rate" source="vatRate" />
       </SimpleForm>
     </Edit>

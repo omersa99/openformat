@@ -12,10 +12,9 @@ https://docs.amplication.com/how-to/custom-code
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
 import { DocumentWhereUniqueInput } from "../../document/base/DocumentWhereUniqueInput";
-import { ValidateNested, IsOptional, IsInt, IsEnum } from "class-validator";
+import { ValidateNested, IsOptional, IsInt, IsString } from "class-validator";
 import { Type } from "class-transformer";
 import { ItemWhereUniqueInput } from "../../item/base/ItemWhereUniqueInput";
-import { EnumDocumentDetailTransactionType } from "./EnumDocumentDetailTransactionType";
 
 @InputType()
 class DocumentDetailUpdateInput {
@@ -67,14 +66,14 @@ class DocumentDetailUpdateInput {
 
   @ApiProperty({
     required: false,
-    enum: EnumDocumentDetailTransactionType,
+    type: String,
   })
-  @IsEnum(EnumDocumentDetailTransactionType)
+  @IsString()
   @IsOptional()
-  @Field(() => EnumDocumentDetailTransactionType, {
+  @Field(() => String, {
     nullable: true,
   })
-  transactionType?: "Service" | "Sale" | "ServiceAndSales" | null;
+  transactionType?: string | null;
 
   @ApiProperty({
     required: false,

@@ -8,7 +8,7 @@ export type DocumentDetail = {
   item?: Item | null;
   priceWithoutVat: number | null;
   quantity: number | null;
-  transactionType?: "Service" | "Sale" | "ServiceAndSales" | null;
+  transactionType: string | null;
   updatedAt: Date;
   vatRate: number | null;
 };

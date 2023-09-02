@@ -17,12 +17,10 @@ import {
   IsOptional,
   IsString,
   IsInt,
-  IsEnum,
 } from "class-validator";
 import { Type } from "class-transformer";
 import { Document } from "../../document/base/Document";
 import { Item } from "../../item/base/Item";
-import { EnumDocumentDetailTransactionType } from "./EnumDocumentDetailTransactionType";
 
 @ObjectType()
 class DocumentDetail {
@@ -84,14 +82,14 @@ class DocumentDetail {
 
   @ApiProperty({
     required: false,
-    enum: EnumDocumentDetailTransactionType,
+    type: String,
   })
-  @IsEnum(EnumDocumentDetailTransactionType)
+  @IsString()
   @IsOptional()
-  @Field(() => EnumDocumentDetailTransactionType, {
+  @Field(() => String, {
     nullable: true,
   })
-  transactionType?: "Service" | "Sale" | "ServiceAndSales" | null;
+  transactionType!: string | null;
 
   @ApiProperty({
     required: true,

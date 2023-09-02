@@ -2,6 +2,7 @@ import { DocumentWhereUniqueInput } from "../document/DocumentWhereUniqueInput";
 import { StringFilter } from "../../util/StringFilter";
 import { ItemWhereUniqueInput } from "../item/ItemWhereUniqueInput";
 import { IntNullableFilter } from "../../util/IntNullableFilter";
+import { StringNullableFilter } from "../../util/StringNullableFilter";
 
 export type DocumentDetailWhereInput = {
   document?: DocumentWhereUniqueInput;
@@ -9,6 +10,6 @@ export type DocumentDetailWhereInput = {
   item?: ItemWhereUniqueInput;
   priceWithoutVat?: IntNullableFilter;
   quantity?: IntNullableFilter;
-  transactionType?: "Service" | "Sale" | "ServiceAndSales";
+  transactionType?: StringNullableFilter;
   vatRate?: IntNullableFilter;
 };
