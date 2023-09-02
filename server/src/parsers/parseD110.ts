@@ -1,9 +1,10 @@
-import { C100Fields } from "./C100";
+import { EnumDocumentDetailTransactionType } from "@prisma/client";
+import { D110Fields } from "./D110";
 
-export function parseC100(line: String) {
+export function parseD110(line: String) {
   let currentIndex = 0;
   const parsedData: { [key: string]: any } = {};
-  for (const field of C100Fields) {
+  for (const field of D110Fields) {
     const { Length, Translation } = field;
     const value = line.substr(currentIndex, Length).trim();
 
@@ -28,8 +29,8 @@ export function parseC100(line: String) {
 export function mapToDocumentModel(parsedData: { [x: string]: any }) {
   return {
     // businessId: String(parsedData["Authorized Business Number"]),
-    documentType: Number(parsedData["Document Type"]),
-    documentNumber: String(parsedData["Document Number"]),
+    priceWithoutVat: Number(parsedData["Unit Price without VAT"]),
+    transactionType: String(parsedData["Transaction Type"]) as EnumDocumentDetailTransactionType,
     documentProductionDate: Number(parsedData["Document Production Date"]),
     documentDate: Number(parsedData["Document Date"]),
     canceledDocument: parsedData["Canceled Document"] || false,

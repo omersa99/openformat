@@ -113,6 +113,11 @@ input AccountWhereUniqueInput {
   id: String!
 }
 
+input BooleanNullableFilter {
+  equals: Boolean
+  not: Boolean
+}
+
 type Business {
   accounts(orderBy: [AccountOrderByInput!], skip: Float, take: Float, where: AccountWhereInput): [Account!]!
   bn: Float!
@@ -264,24 +269,30 @@ input DateTimeNullableFilter {
 
 type Document {
   business: Business
+  canceledDocument: Boolean
   clientSupplier: ClientsAndSupplier
   createdAt: DateTime!
+  documentDate: Float
   documentDetails(orderBy: [DocumentDetailOrderByInput!], skip: Float, take: Float, where: DocumentDetailWhereInput): [DocumentDetail!]!
+  documentNumber: String
+  documentProductionDate: Float
   documentType: Float
-  fds: String
   id: String!
-  linkedDocumentIDs: JSON
+  linkedDocumentIds: String
   receiptDetails(orderBy: [ReceiptDetailOrderByInput!], skip: Float, take: Float, where: ReceiptDetailWhereInput): [ReceiptDetail!]!
   updatedAt: DateTime!
 }
 
 input DocumentCreateInput {
   business: BusinessWhereUniqueInput
+  canceledDocument: Boolean
   clientSupplier: ClientsAndSupplierWhereUniqueInput
+  documentDate: Float
   documentDetails: DocumentDetailCreateNestedManyWithoutDocumentsInput
+  documentNumber: String
+  documentProductionDate: Float
   documentType: Float
-  fds: String
-  linkedDocumentIDs: JSON
+  linkedDocumentIds: String
   receiptDetails: ReceiptDetailCreateNestedManyWithoutDocumentsInput
 }
 
@@ -383,22 +394,28 @@ input DocumentListRelationFilter {
 
 input DocumentOrderByInput {
   businessId: SortOrder
+  canceledDocument: SortOrder
   clientSupplierId: SortOrder
   createdAt: SortOrder
+  documentDate: SortOrder
+  documentNumber: SortOrder
+  documentProductionDate: SortOrder
   documentType: SortOrder
-  fds: SortOrder
   id: SortOrder
-  linkedDocumentIDs: SortOrder
+  linkedDocumentIds: SortOrder
   updatedAt: SortOrder
 }
 
 input DocumentUpdateInput {
   business: BusinessWhereUniqueInput
+  canceledDocument: Boolean
   clientSupplier: ClientsAndSupplierWhereUniqueInput
+  documentDate: Float
   documentDetails: DocumentDetailUpdateManyWithoutDocumentsInput
+  documentNumber: String
+  documentProductionDate: Float
   documentType: Float
-  fds: String
-  linkedDocumentIDs: JSON
+  linkedDocumentIds: String
   receiptDetails: ReceiptDetailUpdateManyWithoutDocumentsInput
 }
 
@@ -416,12 +433,15 @@ input DocumentUpdateManyWithoutClientsAndSuppliersInput {
 
 input DocumentWhereInput {
   business: BusinessWhereUniqueInput
+  canceledDocument: BooleanNullableFilter
   clientSupplier: ClientsAndSupplierWhereUniqueInput
+  documentDate: IntNullableFilter
   documentDetails: DocumentDetailListRelationFilter
+  documentNumber: StringNullableFilter
+  documentProductionDate: IntNullableFilter
   documentType: IntNullableFilter
-  fds: StringNullableFilter
   id: StringFilter
-  linkedDocumentIDs: JsonFilter
+  linkedDocumentIds: StringNullableFilter
   receiptDetails: ReceiptDetailListRelationFilter
 }
 

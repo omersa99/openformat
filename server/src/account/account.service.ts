@@ -29,21 +29,29 @@ export class AccountService extends AccountServiceBase {
       // Create or find the ClientsAndSupplier record based on the business number
       let clientsAndSuppliersRecord;
       const businessNumber = parsedData["Supplier/Customer Business Number"];
-
-      const existingClientsAndSuppliersRecord = await this.prisma.clientsAndSupplier.findFirst({
-        where: {
-          businessNumber: businessNumber.toString(), // assuming businessNumber is an integer
-        },
-      });
-
-      if (existingClientsAndSuppliersRecord) {
-        clientsAndSuppliersRecord = existingClientsAndSuppliersRecord;
-      } else {
-        clientsAndSuppliersRecord = await this.prisma.clientsAndSupplier.create({
-          data: {
-            businessNumber: businessNumber.toString(),
+      // return businessNumber;
+      if (businessNumber) {
+        const existingClientsAndSuppliersRecord = await this.prisma.clientsAndSupplier.findFirst({
+          where: {
+            businessNumber: businessNumber.toString(), // assuming businessNumber is an integer
           },
         });
+
+        if (existingClientsAndSuppliersRecord) {
+          clientsAndSuppliersRecord = existingClientsAndSuppliersRecord;
+        } else {
+          clientsAndSuppliersRecord = await this.prisma.clientsAndSupplier.create({
+            data: {
+              businessNumber: businessNumber.toString(),
+              addressStreet: parsedData["Customer/Supplier Address - Street"],
+              addressHouseNumber: parsedData["Customer/Supplier Address - House Number"],
+              addressCity: parsedData["Customer/Supplier Address - City"],
+              addressPostalCode: parsedData["Customer/Supplier Address - Postal Code"],
+              addressCountry: parsedData["Customer/Supplier Address - Country"],
+              name: parsedData["Customer/Supplier Name"],
+            },
+          });
+        }
       }
 
       // Create or find the Business record based on the authorized business number
@@ -59,20 +67,40 @@ export class AccountService extends AccountServiceBase {
         businessRecord = await this.prisma.business.create({
           data: { bn: authorizedBusinessNumber },
         });
+        console.log("Business Record not found");
       }
 
       // Create the Account record and associate it with the ClientsAndSupplier and Business records
+
+      // const createdAccount = await this.prisma.account.create({
+      //   data: {
+      //     ...accountData,
+      //     clientsAndSuppliers: {
+      //       connect: {
+      //         id: clientsAndSuppliersRecord.id,
+      //       },
+      //     },
+      //     business: {
+      //       connect: {
+      //         id: businessRecord?.id,
+      //       },
+      //     },
+      //   },
+      // });
+
       const createdAccount = await this.prisma.account.create({
         data: {
           ...accountData,
-          clientsAndSuppliers: {
-            connect: {
-              id: clientsAndSuppliersRecord.id,
-            },
-          },
+          clientsAndSuppliers: clientsAndSuppliersRecord?.id
+            ? {
+                connect: {
+                  id: clientsAndSuppliersRecord.id,
+                },
+              }
+            : {},
           business: {
             connect: {
-              id: businessRecord.id,
+              id: businessRecord?.id,
             },
           },
         },

@@ -14,10 +14,15 @@ export class DocumentService extends DocumentServiceBase {
       const parsedData = parseC100(line);
       const documentData = mapToDocumentModel(parsedData);
 
+      const authorizedBusinessNumber = parsedData["Authorized Business Number"];
+      const existingBusinessRecord = await this.prisma.business.findFirst({
+        where: { bn: authorizedBusinessNumber },
+      });
+
       // Check if a Document with the specified document number already exists
       const existingDocument = await this.prisma.document.findFirst({
         where: {
-          documentNumber: documentData.documentNumber,
+          AND: [{ documentNumber: documentData.documentNumber }, { businessId: existingBusinessRecord?.id }],
         },
       });
 
@@ -36,14 +41,51 @@ export class DocumentService extends DocumentServiceBase {
         },
       });
 
+      // if (existingClientSupplierRecord) {
+      //   clientSupplierRecord = existingClientSupplierRecord;
+      // } else {
+      //   clientSupplierRecord = await this.prisma.clientsAndSupplier.create({
+      //     data: {
+      //       businessNumber: businessNumber.toString(),
+      //       addressStreet: parsedData["Customer/Supplier Address - Street"],
+      //       addressHouseNumber: parsedData["Customer/Supplier Address - House Number"],
+      //       addressCity: parsedData["Customer/Supplier Address - City"],
+      //       addressPostalCode: parsedData["Customer/Supplier Address - Postal Code"],
+      //       addressCountry: parsedData["Customer/Supplier Address - Country"],
+      //       name: parsedData["Customer/Supplier Name"],
+      //     },
+      //   });
+      //   console.log("Client created:", clientSupplierRecord);
+      // }
       if (existingClientSupplierRecord) {
-        clientSupplierRecord = existingClientSupplierRecord;
+        // Update existing record
+        clientSupplierRecord = await this.prisma.clientsAndSupplier.update({
+          where: {
+            id: existingClientSupplierRecord.id,
+          },
+          data: {
+            addressStreet: parsedData["Customer/Supplier Address - Street"],
+            addressHouseNumber: parsedData["Customer/Supplier Address - House Number"],
+            addressCity: parsedData["Customer/Supplier Address - City"],
+            addressPostalCode: parsedData["Customer/Supplier Address - Postal Code"],
+            addressCountry: parsedData["Customer/Supplier Address - Country"],
+            name: parsedData["Customer/Supplier Name"],
+          },
+        });
       } else {
+        // Create new record
         clientSupplierRecord = await this.prisma.clientsAndSupplier.create({
           data: {
             businessNumber: businessNumber.toString(),
+            addressStreet: parsedData["Customer/Supplier Address - Street"],
+            addressHouseNumber: parsedData["Customer/Supplier Address - House Number"],
+            addressCity: parsedData["Customer/Supplier Address - City"],
+            addressPostalCode: parsedData["Customer/Supplier Address - Postal Code"],
+            addressCountry: parsedData["Customer/Supplier Address - Country"],
+            name: parsedData["Customer/Supplier Name"],
           },
         });
+        console.log("Client created:", clientSupplierRecord);
       }
 
       // Create the Document record and associate it with the ClientsAndSupplier record
@@ -53,6 +95,11 @@ export class DocumentService extends DocumentServiceBase {
           clientSupplier: {
             connect: {
               id: clientSupplierRecord.id,
+            },
+          },
+          business: {
+            connect: {
+              id: existingBusinessRecord?.id,
             },
           },
         },
