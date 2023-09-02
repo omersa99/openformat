@@ -76,6 +76,8 @@ export class DocumentControllerBase {
           },
         },
 
+        canceledDocument: true,
+
         clientSupplier: {
           select: {
             id: true,
@@ -83,10 +85,12 @@ export class DocumentControllerBase {
         },
 
         createdAt: true,
+        documentDate: true,
+        documentNumber: true,
+        documentProductionDate: true,
         documentType: true,
-        fds: true,
         id: true,
-        linkedDocumentIDs: true,
+        linkedDocumentIds: true,
         updatedAt: true,
       },
     });
@@ -115,6 +119,8 @@ export class DocumentControllerBase {
           },
         },
 
+        canceledDocument: true,
+
         clientSupplier: {
           select: {
             id: true,
@@ -122,10 +128,12 @@ export class DocumentControllerBase {
         },
 
         createdAt: true,
+        documentDate: true,
+        documentNumber: true,
+        documentProductionDate: true,
         documentType: true,
-        fds: true,
         id: true,
-        linkedDocumentIDs: true,
+        linkedDocumentIds: true,
         updatedAt: true,
       },
     });
@@ -155,6 +163,8 @@ export class DocumentControllerBase {
           },
         },
 
+        canceledDocument: true,
+
         clientSupplier: {
           select: {
             id: true,
@@ -162,10 +172,12 @@ export class DocumentControllerBase {
         },
 
         createdAt: true,
+        documentDate: true,
+        documentNumber: true,
+        documentProductionDate: true,
         documentType: true,
-        fds: true,
         id: true,
-        linkedDocumentIDs: true,
+        linkedDocumentIds: true,
         updatedAt: true,
       },
     });
@@ -218,6 +230,8 @@ export class DocumentControllerBase {
             },
           },
 
+          canceledDocument: true,
+
           clientSupplier: {
             select: {
               id: true,
@@ -225,10 +239,12 @@ export class DocumentControllerBase {
           },
 
           createdAt: true,
+          documentDate: true,
+          documentNumber: true,
+          documentProductionDate: true,
           documentType: true,
-          fds: true,
           id: true,
-          linkedDocumentIDs: true,
+          linkedDocumentIds: true,
           updatedAt: true,
         },
       });
@@ -266,6 +282,8 @@ export class DocumentControllerBase {
             },
           },
 
+          canceledDocument: true,
+
           clientSupplier: {
             select: {
               id: true,
@@ -273,10 +291,12 @@ export class DocumentControllerBase {
           },
 
           createdAt: true,
+          documentDate: true,
+          documentNumber: true,
+          documentProductionDate: true,
           documentType: true,
-          fds: true,
           id: true,
-          linkedDocumentIDs: true,
+          linkedDocumentIds: true,
           updatedAt: true,
         },
       });

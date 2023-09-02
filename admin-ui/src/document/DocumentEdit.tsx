@@ -6,9 +6,10 @@ import {
   EditProps,
   ReferenceInput,
   SelectInput,
+  BooleanInput,
+  NumberInput,
   ReferenceArrayInput,
   SelectArrayInput,
-  NumberInput,
   TextInput,
 } from "react-admin";
 
@@ -28,6 +29,7 @@ export const DocumentEdit = (props: EditProps): React.ReactElement => {
         >
           <SelectInput optionText={BusinessTitle} />
         </ReferenceInput>
+        <BooleanInput label="Canceled Document" source="canceledDocument" />
         <ReferenceInput
           source="clientSupplier.id"
           reference="ClientsAndSupplier"
@@ -35,6 +37,7 @@ export const DocumentEdit = (props: EditProps): React.ReactElement => {
         >
           <SelectInput optionText={ClientsAndSupplierTitle} />
         </ReferenceInput>
+        <NumberInput step={1} label="Document Date" source="documentDate" />
         <ReferenceArrayInput
           source="documentDetails"
           reference="DocumentDetail"
@@ -43,9 +46,14 @@ export const DocumentEdit = (props: EditProps): React.ReactElement => {
         >
           <SelectArrayInput optionText={DocumentDetailTitle} />
         </ReferenceArrayInput>
+        <TextInput label="Document Number" source="documentNumber" />
+        <NumberInput
+          step={1}
+          label="Document Production Date"
+          source="documentProductionDate"
+        />
         <NumberInput step={1} label="Document Type" source="documentType" />
-        <TextInput label="fds" source="fds" />
-        <div />
+        <TextInput label="linked Document Ids" source="linkedDocumentIds" />
         <ReferenceArrayInput
           source="receiptDetails"
           reference="ReceiptDetail"

@@ -19,33 +19,49 @@ import { DocumentService } from "../document.service";
 const nonExistingId = "nonExistingId";
 const existingId = "existingId";
 const CREATE_INPUT = {
+  canceledDocument: "true",
   createdAt: new Date(),
+  documentDate: 42,
+  documentNumber: "exampleDocumentNumber",
+  documentProductionDate: 42,
   documentType: 42,
-  fds: "exampleFds",
   id: "exampleId",
+  linkedDocumentIds: "exampleLinkedDocumentIds",
   updatedAt: new Date(),
 };
 const CREATE_RESULT = {
+  canceledDocument: "true",
   createdAt: new Date(),
+  documentDate: 42,
+  documentNumber: "exampleDocumentNumber",
+  documentProductionDate: 42,
   documentType: 42,
-  fds: "exampleFds",
   id: "exampleId",
+  linkedDocumentIds: "exampleLinkedDocumentIds",
   updatedAt: new Date(),
 };
 const FIND_MANY_RESULT = [
   {
+    canceledDocument: "true",
     createdAt: new Date(),
+    documentDate: 42,
+    documentNumber: "exampleDocumentNumber",
+    documentProductionDate: 42,
     documentType: 42,
-    fds: "exampleFds",
     id: "exampleId",
+    linkedDocumentIds: "exampleLinkedDocumentIds",
     updatedAt: new Date(),
   },
 ];
 const FIND_ONE_RESULT = {
+  canceledDocument: "true",
   createdAt: new Date(),
+  documentDate: 42,
+  documentNumber: "exampleDocumentNumber",
+  documentProductionDate: 42,
   documentType: 42,
-  fds: "exampleFds",
   id: "exampleId",
+  linkedDocumentIds: "exampleLinkedDocumentIds",
   updatedAt: new Date(),
 };
 

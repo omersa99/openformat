@@ -12,13 +12,16 @@ https://docs.amplication.com/how-to/custom-code
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
 import { BusinessWhereUniqueInput } from "../../business/base/BusinessWhereUniqueInput";
-import { ValidateNested, IsOptional, IsInt, IsString } from "class-validator";
+import {
+  ValidateNested,
+  IsOptional,
+  IsBoolean,
+  IsInt,
+  IsString,
+} from "class-validator";
 import { Type } from "class-transformer";
 import { ClientsAndSupplierWhereUniqueInput } from "../../clientsAndSupplier/base/ClientsAndSupplierWhereUniqueInput";
 import { DocumentDetailCreateNestedManyWithoutDocumentsInput } from "./DocumentDetailCreateNestedManyWithoutDocumentsInput";
-import { IsJSONValue } from "@app/custom-validators";
-import { GraphQLJSON } from "graphql-type-json";
-import { InputJsonValue } from "../../types";
 import { ReceiptDetailCreateNestedManyWithoutDocumentsInput } from "./ReceiptDetailCreateNestedManyWithoutDocumentsInput";
 
 @InputType()
@@ -37,6 +40,17 @@ class DocumentCreateInput {
 
   @ApiProperty({
     required: false,
+    type: Boolean,
+  })
+  @IsBoolean()
+  @IsOptional()
+  @Field(() => Boolean, {
+    nullable: true,
+  })
+  canceledDocument?: boolean | null;
+
+  @ApiProperty({
+    required: false,
     type: () => ClientsAndSupplierWhereUniqueInput,
   })
   @ValidateNested()
@@ -49,6 +63,17 @@ class DocumentCreateInput {
 
   @ApiProperty({
     required: false,
+    type: Number,
+  })
+  @IsInt()
+  @IsOptional()
+  @Field(() => Number, {
+    nullable: true,
+  })
+  documentDate?: number | null;
+
+  @ApiProperty({
+    required: false,
     type: () => DocumentDetailCreateNestedManyWithoutDocumentsInput,
   })
   @ValidateNested()
@@ -58,6 +83,28 @@ class DocumentCreateInput {
     nullable: true,
   })
   documentDetails?: DocumentDetailCreateNestedManyWithoutDocumentsInput;
+
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  documentNumber?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: Number,
+  })
+  @IsInt()
+  @IsOptional()
+  @Field(() => Number, {
+    nullable: true,
+  })
+  documentProductionDate?: number | null;
 
   @ApiProperty({
     required: false,
@@ -79,17 +126,7 @@ class DocumentCreateInput {
   @Field(() => String, {
     nullable: true,
   })
-  fds?: string | null;
-
-  @ApiProperty({
-    required: false,
-  })
-  @IsJSONValue()
-  @IsOptional()
-  @Field(() => GraphQLJSON, {
-    nullable: true,
-  })
-  linkedDocumentIDs?: InputJsonValue;
+  linkedDocumentIds?: string | null;
 
   @ApiProperty({
     required: false,

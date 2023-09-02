@@ -1,18 +1,20 @@
 import { Business } from "../business/Business";
 import { ClientsAndSupplier } from "../clientsAndSupplier/ClientsAndSupplier";
 import { DocumentDetail } from "../documentDetail/DocumentDetail";
-import { JsonValue } from "type-fest";
 import { ReceiptDetail } from "../receiptDetail/ReceiptDetail";
 
 export type Document = {
   business?: Business | null;
+  canceledDocument: boolean | null;
   clientSupplier?: ClientsAndSupplier | null;
   createdAt: Date;
+  documentDate: number | null;
   documentDetails?: Array<DocumentDetail>;
+  documentNumber: string | null;
+  documentProductionDate: number | null;
   documentType: number | null;
-  fds: string | null;
   id: string;
-  linkedDocumentIDs: JsonValue;
+  linkedDocumentIds: string | null;
   receiptDetails?: Array<ReceiptDetail>;
   updatedAt: Date;
 };

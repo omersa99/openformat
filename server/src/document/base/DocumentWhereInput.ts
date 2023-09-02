@@ -14,12 +14,12 @@ import { ApiProperty } from "@nestjs/swagger";
 import { BusinessWhereUniqueInput } from "../../business/base/BusinessWhereUniqueInput";
 import { ValidateNested, IsOptional } from "class-validator";
 import { Type } from "class-transformer";
+import { BooleanNullableFilter } from "../../util/BooleanNullableFilter";
 import { ClientsAndSupplierWhereUniqueInput } from "../../clientsAndSupplier/base/ClientsAndSupplierWhereUniqueInput";
-import { DocumentDetailListRelationFilter } from "../../documentDetail/base/DocumentDetailListRelationFilter";
 import { IntNullableFilter } from "../../util/IntNullableFilter";
+import { DocumentDetailListRelationFilter } from "../../documentDetail/base/DocumentDetailListRelationFilter";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
 import { StringFilter } from "../../util/StringFilter";
-import { JsonFilter } from "../../util/JsonFilter";
 import { ReceiptDetailListRelationFilter } from "../../receiptDetail/base/ReceiptDetailListRelationFilter";
 
 @InputType()
@@ -38,6 +38,17 @@ class DocumentWhereInput {
 
   @ApiProperty({
     required: false,
+    type: BooleanNullableFilter,
+  })
+  @Type(() => BooleanNullableFilter)
+  @IsOptional()
+  @Field(() => BooleanNullableFilter, {
+    nullable: true,
+  })
+  canceledDocument?: BooleanNullableFilter;
+
+  @ApiProperty({
+    required: false,
     type: () => ClientsAndSupplierWhereUniqueInput,
   })
   @ValidateNested()
@@ -47,6 +58,17 @@ class DocumentWhereInput {
     nullable: true,
   })
   clientSupplier?: ClientsAndSupplierWhereUniqueInput;
+
+  @ApiProperty({
+    required: false,
+    type: IntNullableFilter,
+  })
+  @Type(() => IntNullableFilter)
+  @IsOptional()
+  @Field(() => IntNullableFilter, {
+    nullable: true,
+  })
+  documentDate?: IntNullableFilter;
 
   @ApiProperty({
     required: false,
@@ -62,6 +84,28 @@ class DocumentWhereInput {
 
   @ApiProperty({
     required: false,
+    type: StringNullableFilter,
+  })
+  @Type(() => StringNullableFilter)
+  @IsOptional()
+  @Field(() => StringNullableFilter, {
+    nullable: true,
+  })
+  documentNumber?: StringNullableFilter;
+
+  @ApiProperty({
+    required: false,
+    type: IntNullableFilter,
+  })
+  @Type(() => IntNullableFilter)
+  @IsOptional()
+  @Field(() => IntNullableFilter, {
+    nullable: true,
+  })
+  documentProductionDate?: IntNullableFilter;
+
+  @ApiProperty({
+    required: false,
     type: IntNullableFilter,
   })
   @Type(() => IntNullableFilter)
@@ -70,17 +114,6 @@ class DocumentWhereInput {
     nullable: true,
   })
   documentType?: IntNullableFilter;
-
-  @ApiProperty({
-    required: false,
-    type: StringNullableFilter,
-  })
-  @Type(() => StringNullableFilter)
-  @IsOptional()
-  @Field(() => StringNullableFilter, {
-    nullable: true,
-  })
-  fds?: StringNullableFilter;
 
   @ApiProperty({
     required: false,
@@ -95,14 +128,14 @@ class DocumentWhereInput {
 
   @ApiProperty({
     required: false,
-    type: JsonFilter,
+    type: StringNullableFilter,
   })
-  @Type(() => JsonFilter)
+  @Type(() => StringNullableFilter)
   @IsOptional()
-  @Field(() => JsonFilter, {
+  @Field(() => StringNullableFilter, {
     nullable: true,
   })
-  linkedDocumentIDs?: JsonFilter;
+  linkedDocumentIds?: StringNullableFilter;
 
   @ApiProperty({
     required: false,
