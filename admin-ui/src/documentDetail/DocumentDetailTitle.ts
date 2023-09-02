@@ -1,7 +1,7 @@
 import { DocumentDetail as TDocumentDetail } from "../api/documentDetail/DocumentDetail";
 
-export const DOCUMENTDETAIL_TITLE_FIELD = "id";
+export const DOCUMENTDETAIL_TITLE_FIELD = "transactionType";
 
 export const DocumentDetailTitle = (record: TDocumentDetail): string => {
-  return record.id || String(record.id);
+  return record.transactionType || String(record.id);
 };

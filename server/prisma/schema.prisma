@@ -142,16 +142,16 @@ model ItemTransaction {
 }
 
 model DocumentDetail {
-  createdAt       DateTime                           @default(now())
-  document        Document?                          @relation(fields: [documentId], references: [id])
+  createdAt       DateTime  @default(now())
+  document        Document? @relation(fields: [documentId], references: [id])
   documentId      String?
-  id              String                             @id @default(cuid())
-  item            Item?                              @relation(fields: [itemId], references: [id])
+  id              String    @id @default(cuid())
+  item            Item?     @relation(fields: [itemId], references: [id])
   itemId          String?
   priceWithoutVat Int?
   quantity        Int?
-  transactionType EnumDocumentDetailTransactionType?
-  updatedAt       DateTime                           @updatedAt
+  transactionType String?
+  updatedAt       DateTime  @updatedAt
   vatRate         Int?
 }
 
@@ -170,10 +170,4 @@ model Setting {
   createdAt          DateTime  @default(now())
   id                 String    @id @default(cuid())
   updatedAt          DateTime  @updatedAt
-}
-
-enum EnumDocumentDetailTransactionType {
-  Service
-  Sale
-  ServiceAndSales
 }

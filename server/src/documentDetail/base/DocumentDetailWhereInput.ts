@@ -12,12 +12,12 @@ https://docs.amplication.com/how-to/custom-code
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
 import { DocumentWhereUniqueInput } from "../../document/base/DocumentWhereUniqueInput";
-import { ValidateNested, IsOptional, IsEnum } from "class-validator";
+import { ValidateNested, IsOptional } from "class-validator";
 import { Type } from "class-transformer";
 import { StringFilter } from "../../util/StringFilter";
 import { ItemWhereUniqueInput } from "../../item/base/ItemWhereUniqueInput";
 import { IntNullableFilter } from "../../util/IntNullableFilter";
-import { EnumDocumentDetailTransactionType } from "./EnumDocumentDetailTransactionType";
+import { StringNullableFilter } from "../../util/StringNullableFilter";
 
 @InputType()
 class DocumentDetailWhereInput {
@@ -80,14 +80,14 @@ class DocumentDetailWhereInput {
 
   @ApiProperty({
     required: false,
-    enum: EnumDocumentDetailTransactionType,
+    type: StringNullableFilter,
   })
-  @IsEnum(EnumDocumentDetailTransactionType)
+  @Type(() => StringNullableFilter)
   @IsOptional()
-  @Field(() => EnumDocumentDetailTransactionType, {
+  @Field(() => StringNullableFilter, {
     nullable: true,
   })
-  transactionType?: "Service" | "Sale" | "ServiceAndSales";
+  transactionType?: StringNullableFilter;
 
   @ApiProperty({
     required: false,

@@ -23,6 +23,7 @@ const CREATE_INPUT = {
   id: "exampleId",
   priceWithoutVat: 42,
   quantity: 42,
+  transactionType: "exampleTransactionType",
   updatedAt: new Date(),
   vatRate: 42,
 };
@@ -31,6 +32,7 @@ const CREATE_RESULT = {
   id: "exampleId",
   priceWithoutVat: 42,
   quantity: 42,
+  transactionType: "exampleTransactionType",
   updatedAt: new Date(),
   vatRate: 42,
 };
@@ -40,6 +42,7 @@ const FIND_MANY_RESULT = [
     id: "exampleId",
     priceWithoutVat: 42,
     quantity: 42,
+    transactionType: "exampleTransactionType",
     updatedAt: new Date(),
     vatRate: 42,
   },
@@ -49,6 +52,7 @@ const FIND_ONE_RESULT = {
   id: "exampleId",
   priceWithoutVat: 42,
   quantity: 42,
+  transactionType: "exampleTransactionType",
   updatedAt: new Date(),
   vatRate: 42,
 };

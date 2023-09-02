@@ -6,6 +6,6 @@ export type DocumentDetailCreateInput = {
   item?: ItemWhereUniqueInput | null;
   priceWithoutVat?: number | null;
   quantity?: number | null;
-  transactionType?: "Service" | "Sale" | "ServiceAndSales" | null;
+  transactionType?: string | null;
   vatRate?: number | null;
 };
