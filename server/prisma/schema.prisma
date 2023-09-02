@@ -81,18 +81,21 @@ model Transaction {
 }
 
 model Document {
-  business          Business?           @relation(fields: [businessId], references: [id])
-  businessId        String?
-  clientSupplier    ClientsAndSupplier? @relation(fields: [clientSupplierId], references: [id])
-  clientSupplierId  String?
-  createdAt         DateTime            @default(now())
-  documentDetails   DocumentDetail[]
-  documentType      Int?
-  fds               String?
-  id                String              @id @default(cuid())
-  linkedDocumentIDs Json?
-  receiptDetails    ReceiptDetail[]
-  updatedAt         DateTime            @updatedAt
+  business               Business?           @relation(fields: [businessId], references: [id])
+  businessId             String?
+  canceledDocument       Boolean?
+  clientSupplier         ClientsAndSupplier? @relation(fields: [clientSupplierId], references: [id])
+  clientSupplierId       String?
+  createdAt              DateTime            @default(now())
+  documentDate           Int?
+  documentDetails        DocumentDetail[]
+  documentNumber         String?
+  documentProductionDate Int?
+  documentType           Int?
+  id                     String              @id @default(cuid())
+  linkedDocumentIds      String?
+  receiptDetails         ReceiptDetail[]
+  updatedAt              DateTime            @updatedAt
 }
 
 model Item {

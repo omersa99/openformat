@@ -1,15 +1,17 @@
 import { BusinessWhereUniqueInput } from "../business/BusinessWhereUniqueInput";
 import { ClientsAndSupplierWhereUniqueInput } from "../clientsAndSupplier/ClientsAndSupplierWhereUniqueInput";
 import { DocumentDetailUpdateManyWithoutDocumentsInput } from "./DocumentDetailUpdateManyWithoutDocumentsInput";
-import { InputJsonValue } from "../../types";
 import { ReceiptDetailUpdateManyWithoutDocumentsInput } from "./ReceiptDetailUpdateManyWithoutDocumentsInput";
 
 export type DocumentUpdateInput = {
   business?: BusinessWhereUniqueInput | null;
+  canceledDocument?: boolean | null;
   clientSupplier?: ClientsAndSupplierWhereUniqueInput | null;
+  documentDate?: number | null;
   documentDetails?: DocumentDetailUpdateManyWithoutDocumentsInput;
+  documentNumber?: string | null;
+  documentProductionDate?: number | null;
   documentType?: number | null;
-  fds?: string | null;
-  linkedDocumentIDs?: InputJsonValue;
+  linkedDocumentIds?: string | null;
   receiptDetails?: ReceiptDetailUpdateManyWithoutDocumentsInput;
 };

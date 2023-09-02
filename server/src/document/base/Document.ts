@@ -15,6 +15,7 @@ import { Business } from "../../business/base/Business";
 import {
   ValidateNested,
   IsOptional,
+  IsBoolean,
   IsDate,
   IsInt,
   IsString,
@@ -22,9 +23,6 @@ import {
 import { Type } from "class-transformer";
 import { ClientsAndSupplier } from "../../clientsAndSupplier/base/ClientsAndSupplier";
 import { DocumentDetail } from "../../documentDetail/base/DocumentDetail";
-import { IsJSONValue } from "@app/custom-validators";
-import { GraphQLJSON } from "graphql-type-json";
-import { JsonValue } from "type-fest";
 import { ReceiptDetail } from "../../receiptDetail/base/ReceiptDetail";
 
 @ObjectType()
@@ -37,6 +35,17 @@ class Document {
   @Type(() => Business)
   @IsOptional()
   business?: Business | null;
+
+  @ApiProperty({
+    required: false,
+    type: Boolean,
+  })
+  @IsBoolean()
+  @IsOptional()
+  @Field(() => Boolean, {
+    nullable: true,
+  })
+  canceledDocument!: boolean | null;
 
   @ApiProperty({
     required: false,
@@ -57,12 +66,45 @@ class Document {
 
   @ApiProperty({
     required: false,
+    type: Number,
+  })
+  @IsInt()
+  @IsOptional()
+  @Field(() => Number, {
+    nullable: true,
+  })
+  documentDate!: number | null;
+
+  @ApiProperty({
+    required: false,
     type: () => [DocumentDetail],
   })
   @ValidateNested()
   @Type(() => DocumentDetail)
   @IsOptional()
   documentDetails?: Array<DocumentDetail>;
+
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  documentNumber!: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: Number,
+  })
+  @IsInt()
+  @IsOptional()
+  @Field(() => Number, {
+    nullable: true,
+  })
+  documentProductionDate!: number | null;
 
   @ApiProperty({
     required: false,
@@ -76,17 +118,6 @@ class Document {
   documentType!: number | null;
 
   @ApiProperty({
-    required: false,
-    type: String,
-  })
-  @IsString()
-  @IsOptional()
-  @Field(() => String, {
-    nullable: true,
-  })
-  fds!: string | null;
-
-  @ApiProperty({
     required: true,
     type: String,
   })
@@ -96,13 +127,14 @@ class Document {
 
   @ApiProperty({
     required: false,
+    type: String,
   })
-  @IsJSONValue()
+  @IsString()
   @IsOptional()
-  @Field(() => GraphQLJSON, {
+  @Field(() => String, {
     nullable: true,
   })
-  linkedDocumentIDs!: JsonValue;
+  linkedDocumentIds!: string | null;
 
   @ApiProperty({
     required: false,

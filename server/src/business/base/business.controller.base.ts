@@ -397,6 +397,8 @@ export class BusinessControllerBase {
           },
         },
 
+        canceledDocument: true,
+
         clientSupplier: {
           select: {
             id: true,
@@ -404,10 +406,12 @@ export class BusinessControllerBase {
         },
 
         createdAt: true,
+        documentDate: true,
+        documentNumber: true,
+        documentProductionDate: true,
         documentType: true,
-        fds: true,
         id: true,
-        linkedDocumentIDs: true,
+        linkedDocumentIds: true,
         updatedAt: true,
       },
     });

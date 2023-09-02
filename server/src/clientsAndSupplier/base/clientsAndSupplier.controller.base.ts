@@ -296,6 +296,8 @@ export class ClientsAndSupplierControllerBase {
           },
         },
 
+        canceledDocument: true,
+
         clientSupplier: {
           select: {
             id: true,
@@ -303,10 +305,12 @@ export class ClientsAndSupplierControllerBase {
         },
 
         createdAt: true,
+        documentDate: true,
+        documentNumber: true,
+        documentProductionDate: true,
         documentType: true,
-        fds: true,
         id: true,
-        linkedDocumentIDs: true,
+        linkedDocumentIds: true,
         updatedAt: true,
       },
     });
