@@ -19,6 +19,6 @@ export class DocumentController extends DocumentControllerBase {
   @common.Post("code2Idocument")
   line2account(@common.Body() data: { line: string }) {
     const { line } = data;
-    return this.service.Line2Item(line); // Note the change here
+    return this.service.Line2Document(line); // Note the change here
   }
 }
