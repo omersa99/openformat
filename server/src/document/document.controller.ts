@@ -14,4 +14,11 @@ export class DocumentController extends DocumentControllerBase {
   ) {
     super(service, rolesBuilder);
   }
+
+  @swagger.ApiBody({ type: String })
+  @common.Post("code2Idocument")
+  line2account(@common.Body() data: { line: string }) {
+    const { line } = data;
+    return this.service.Line2Item(line); // Note the change here
+  }
 }
