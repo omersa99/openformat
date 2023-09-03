@@ -1,4 +1,5 @@
 import { AccountWhereUniqueInput } from "../account/AccountWhereUniqueInput";
+import { BusinessWhereUniqueInput } from "../business/BusinessWhereUniqueInput";
 import { DocumentCreateNestedManyWithoutClientsAndSuppliersInput } from "./DocumentCreateNestedManyWithoutClientsAndSuppliersInput";
 
 export type ClientsAndSupplierCreateInput = {
@@ -8,6 +9,7 @@ export type ClientsAndSupplierCreateInput = {
   addressHouseNumber?: string | null;
   addressPostalCode?: string | null;
   addressStreet?: string | null;
+  business?: BusinessWhereUniqueInput | null;
   businessNumber?: string | null;
   countryCode?: string | null;
   documents?: DocumentCreateNestedManyWithoutClientsAndSuppliersInput;

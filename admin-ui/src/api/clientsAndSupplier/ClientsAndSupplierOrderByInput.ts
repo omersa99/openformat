@@ -7,6 +7,7 @@ export type ClientsAndSupplierOrderByInput = {
   addressHouseNumber?: SortOrder;
   addressPostalCode?: SortOrder;
   addressStreet?: SortOrder;
+  businessId?: SortOrder;
   businessNumber?: SortOrder;
   countryCode?: SortOrder;
   createdAt?: SortOrder;

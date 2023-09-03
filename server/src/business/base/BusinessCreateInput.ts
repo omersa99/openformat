@@ -14,6 +14,7 @@ import { ApiProperty } from "@nestjs/swagger";
 import { AccountCreateNestedManyWithoutBusinessesInput } from "./AccountCreateNestedManyWithoutBusinessesInput";
 import { ValidateNested, IsOptional, IsInt } from "class-validator";
 import { Type } from "class-transformer";
+import { ClientsAndSupplierCreateNestedManyWithoutBusinessesInput } from "./ClientsAndSupplierCreateNestedManyWithoutBusinessesInput";
 import { DocumentCreateNestedManyWithoutBusinessesInput } from "./DocumentCreateNestedManyWithoutBusinessesInput";
 import { ItemCreateNestedManyWithoutBusinessesInput } from "./ItemCreateNestedManyWithoutBusinessesInput";
 import { UserWhereUniqueInput } from "../../user/base/UserWhereUniqueInput";
@@ -40,6 +41,18 @@ class BusinessCreateInput {
   @IsInt()
   @Field(() => Number)
   bn!: number;
+
+  @ApiProperty({
+    required: false,
+    type: () => ClientsAndSupplierCreateNestedManyWithoutBusinessesInput,
+  })
+  @ValidateNested()
+  @Type(() => ClientsAndSupplierCreateNestedManyWithoutBusinessesInput)
+  @IsOptional()
+  @Field(() => ClientsAndSupplierCreateNestedManyWithoutBusinessesInput, {
+    nullable: true,
+  })
+  clientsAndSuppliers?: ClientsAndSupplierCreateNestedManyWithoutBusinessesInput;
 
   @ApiProperty({
     required: false,

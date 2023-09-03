@@ -15,6 +15,7 @@ import { AccountWhereUniqueInput } from "../../account/base/AccountWhereUniqueIn
 import { ValidateNested, IsOptional } from "class-validator";
 import { Type } from "class-transformer";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
+import { BusinessWhereUniqueInput } from "../../business/base/BusinessWhereUniqueInput";
 import { DocumentListRelationFilter } from "../../document/base/DocumentListRelationFilter";
 import { StringFilter } from "../../util/StringFilter";
 
@@ -86,6 +87,18 @@ class ClientsAndSupplierWhereInput {
     nullable: true,
   })
   addressStreet?: StringNullableFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => BusinessWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => BusinessWhereUniqueInput)
+  @IsOptional()
+  @Field(() => BusinessWhereUniqueInput, {
+    nullable: true,
+  })
+  business?: BusinessWhereUniqueInput;
 
   @ApiProperty({
     required: false,

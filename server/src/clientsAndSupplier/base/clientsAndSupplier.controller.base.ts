@@ -61,6 +61,12 @@ export class ClientsAndSupplierControllerBase {
               connect: data.account,
             }
           : undefined,
+
+        business: data.business
+          ? {
+              connect: data.business,
+            }
+          : undefined,
       },
       select: {
         account: {
@@ -74,6 +80,13 @@ export class ClientsAndSupplierControllerBase {
         addressHouseNumber: true,
         addressPostalCode: true,
         addressStreet: true,
+
+        business: {
+          select: {
+            id: true,
+          },
+        },
+
         businessNumber: true,
         countryCode: true,
         createdAt: true,
@@ -114,6 +127,13 @@ export class ClientsAndSupplierControllerBase {
         addressHouseNumber: true,
         addressPostalCode: true,
         addressStreet: true,
+
+        business: {
+          select: {
+            id: true,
+          },
+        },
+
         businessNumber: true,
         countryCode: true,
         createdAt: true,
@@ -153,6 +173,13 @@ export class ClientsAndSupplierControllerBase {
         addressHouseNumber: true,
         addressPostalCode: true,
         addressStreet: true,
+
+        business: {
+          select: {
+            id: true,
+          },
+        },
+
         businessNumber: true,
         countryCode: true,
         createdAt: true,
@@ -196,6 +223,12 @@ export class ClientsAndSupplierControllerBase {
                 connect: data.account,
               }
             : undefined,
+
+          business: data.business
+            ? {
+                connect: data.business,
+              }
+            : undefined,
         },
         select: {
           account: {
@@ -209,6 +242,13 @@ export class ClientsAndSupplierControllerBase {
           addressHouseNumber: true,
           addressPostalCode: true,
           addressStreet: true,
+
+          business: {
+            select: {
+              id: true,
+            },
+          },
+
           businessNumber: true,
           countryCode: true,
           createdAt: true,
@@ -256,6 +296,13 @@ export class ClientsAndSupplierControllerBase {
           addressHouseNumber: true,
           addressPostalCode: true,
           addressStreet: true,
+
+          business: {
+            select: {
+              id: true,
+            },
+          },
+
           businessNumber: true,
           countryCode: true,
           createdAt: true,
