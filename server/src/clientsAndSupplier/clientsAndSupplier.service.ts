@@ -14,8 +14,19 @@ export class ClientsAndSupplierService extends ClientsAndSupplierServiceBase {
 
     await this.prisma.account.create({
       data: {
-        clientsAndSuppliersId: clientsAndSupplierObj.id,
-        accountName: clientsAndSupplierObj.id,
+        clientsAndSuppliers: {
+          connect: {
+            id: clientsAndSupplierObj.id,
+          },
+        },
+        // business:{
+        //   connect:{
+        //     id:
+        //   }
+        // }
+        accountName: clientsAndSupplierObj.name,
+        examinedBalanceCodeDescription: "לקוחות",
+        examinedBalanceCode: "100",
       },
     });
 

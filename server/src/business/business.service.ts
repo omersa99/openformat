@@ -2,6 +2,7 @@ import { Injectable } from "@nestjs/common";
 import { PrismaService } from "../prisma/prisma.service";
 import { BusinessServiceBase } from "./base/business.service.base";
 import { Prisma, Business } from "@prisma/client";
+import { defaultAccountsData } from "src/account/defaultAccounts";
 
 @Injectable()
 export class BusinessService extends BusinessServiceBase {
@@ -20,6 +21,19 @@ export class BusinessService extends BusinessServiceBase {
       },
     });
 
+    await this.createDefaultAccounts(newBusiness.id);
+
     return newBusiness;
+  }
+
+  async createDefaultAccounts(businessId: string) {
+    const defaultAccounts = defaultAccountsData.map((account) => ({
+      ...account,
+      businessId,
+    }));
+
+    await this.prisma.account.createMany({
+      data: defaultAccounts,
+    });
   }
 }
