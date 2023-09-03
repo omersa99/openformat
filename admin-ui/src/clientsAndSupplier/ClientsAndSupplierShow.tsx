@@ -30,6 +30,13 @@ export const ClientsAndSupplierShow = (
         <TextField label="Address House Number" source="addressHouseNumber" />
         <TextField label=" Address - Postal Code" source="addressPostalCode" />
         <TextField label="Address Street" source="addressStreet" />
+        <ReferenceField
+          label="business"
+          source="business.id"
+          reference="Business"
+        >
+          <TextField source={BUSINESS_TITLE_FIELD} />
+        </ReferenceField>
         <TextField label="Business Number" source="businessNumber" />
         <TextField label="Country Code" source="countryCode" />
         <DateField source="createdAt" label="Created At" />

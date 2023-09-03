@@ -9,6 +9,7 @@ import {
 } from "react-admin";
 import Pagination from "../Components/Pagination";
 import { ACCOUNT_TITLE_FIELD } from "../account/AccountTitle";
+import { BUSINESS_TITLE_FIELD } from "../business/BusinessTitle";
 
 export const ClientsAndSupplierList = (
   props: ListProps
@@ -30,6 +31,13 @@ export const ClientsAndSupplierList = (
         <TextField label="Address House Number" source="addressHouseNumber" />
         <TextField label=" Address - Postal Code" source="addressPostalCode" />
         <TextField label="Address Street" source="addressStreet" />
+        <ReferenceField
+          label="business"
+          source="business.id"
+          reference="Business"
+        >
+          <TextField source={BUSINESS_TITLE_FIELD} />
+        </ReferenceField>
         <TextField label="Business Number" source="businessNumber" />
         <TextField label="Country Code" source="countryCode" />
         <DateField source="createdAt" label="Created At" />

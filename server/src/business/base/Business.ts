@@ -20,6 +20,7 @@ import {
   IsString,
 } from "class-validator";
 import { Type } from "class-transformer";
+import { ClientsAndSupplier } from "../../clientsAndSupplier/base/ClientsAndSupplier";
 import { Document } from "../../document/base/Document";
 import { Item } from "../../item/base/Item";
 import { User } from "../../user/base/User";
@@ -43,6 +44,15 @@ class Business {
   @IsInt()
   @Field(() => Number)
   bn!: number;
+
+  @ApiProperty({
+    required: false,
+    type: () => [ClientsAndSupplier],
+  })
+  @ValidateNested()
+  @Type(() => ClientsAndSupplier)
+  @IsOptional()
+  clientsAndSuppliers?: Array<ClientsAndSupplier>;
 
   @ApiProperty({
     required: true,

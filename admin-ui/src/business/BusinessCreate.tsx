@@ -12,6 +12,7 @@ import {
 } from "react-admin";
 
 import { AccountTitle } from "../account/AccountTitle";
+import { ClientsAndSupplierTitle } from "../clientsAndSupplier/ClientsAndSupplierTitle";
 import { DocumentTitle } from "../document/DocumentTitle";
 import { ItemTitle } from "../item/ItemTitle";
 import { UserTitle } from "../user/UserTitle";
@@ -30,6 +31,14 @@ export const BusinessCreate = (props: CreateProps): React.ReactElement => {
           <SelectArrayInput optionText={AccountTitle} />
         </ReferenceArrayInput>
         <NumberInput step={1} label="BN" source="bn" />
+        <ReferenceArrayInput
+          source="clientsAndSuppliers"
+          reference="ClientsAndSupplier"
+          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
+          format={(value: any) => value && value.map((v: any) => v.id)}
+        >
+          <SelectArrayInput optionText={ClientsAndSupplierTitle} />
+        </ReferenceArrayInput>
         <ReferenceArrayInput
           source="documents"
           reference="Document"

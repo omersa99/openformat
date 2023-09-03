@@ -10,10 +10,12 @@ https://docs.amplication.com/how-to/custom-code
 ------------------------------------------------------------------------------
   */
 import { PrismaService } from "../../prisma/prisma.service";
+
 import {
   Prisma,
   Business,
   Account,
+  ClientsAndSupplier,
   Document,
   Item,
   User,
@@ -64,6 +66,17 @@ export class BusinessServiceBase {
         where: { id: parentId },
       })
       .accounts(args);
+  }
+
+  async findClientsAndSuppliers(
+    parentId: string,
+    args: Prisma.ClientsAndSupplierFindManyArgs
+  ): Promise<ClientsAndSupplier[]> {
+    return this.prisma.business
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .clientsAndSuppliers(args);
   }
 
   async findDocuments(

@@ -14,6 +14,7 @@ import { ApiProperty } from "@nestjs/swagger";
 import { Account } from "../../account/base/Account";
 import { ValidateNested, IsOptional, IsString, IsDate } from "class-validator";
 import { Type } from "class-transformer";
+import { Business } from "../../business/base/Business";
 import { Document } from "../../document/base/Document";
 
 @ObjectType()
@@ -81,6 +82,15 @@ class ClientsAndSupplier {
     nullable: true,
   })
   addressStreet!: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => Business,
+  })
+  @ValidateNested()
+  @Type(() => Business)
+  @IsOptional()
+  business?: Business | null;
 
   @ApiProperty({
     required: false,

@@ -15,6 +15,7 @@ import { AccountListRelationFilter } from "../../account/base/AccountListRelatio
 import { ValidateNested, IsOptional } from "class-validator";
 import { Type } from "class-transformer";
 import { IntFilter } from "../../util/IntFilter";
+import { ClientsAndSupplierListRelationFilter } from "../../clientsAndSupplier/base/ClientsAndSupplierListRelationFilter";
 import { DocumentListRelationFilter } from "../../document/base/DocumentListRelationFilter";
 import { StringFilter } from "../../util/StringFilter";
 import { ItemListRelationFilter } from "../../item/base/ItemListRelationFilter";
@@ -45,6 +46,18 @@ class BusinessWhereInput {
     nullable: true,
   })
   bn?: IntFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => ClientsAndSupplierListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => ClientsAndSupplierListRelationFilter)
+  @IsOptional()
+  @Field(() => ClientsAndSupplierListRelationFilter, {
+    nullable: true,
+  })
+  clientsAndSuppliers?: ClientsAndSupplierListRelationFilter;
 
   @ApiProperty({
     required: false,

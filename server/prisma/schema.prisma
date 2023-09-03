@@ -20,17 +20,18 @@ model User {
 }
 
 model Business {
-  accounts   Account[]
-  bn         Int        @unique
-  createdAt  DateTime   @default(now())
-  documents  Document[]
-  id         String     @id @default(cuid())
-  items      Item[]
-  owner      User?      @relation(fields: [ownerId], references: [id])
-  ownerId    String?    @unique
-  settings   Setting?   @relation(fields: [settingsId], references: [id])
-  settingsId String?    @unique
-  updatedAt  DateTime   @updatedAt
+  accounts            Account[]
+  bn                  Int                  @unique
+  clientsAndSuppliers ClientsAndSupplier[]
+  createdAt           DateTime             @default(now())
+  documents           Document[]
+  id                  String               @id @default(cuid())
+  items               Item[]
+  owner               User?                @relation(fields: [ownerId], references: [id])
+  ownerId             String?              @unique
+  settings            Setting?             @relation(fields: [settingsId], references: [id])
+  settingsId          String?              @unique
+  updatedAt           DateTime             @updatedAt
 }
 
 model Account {
@@ -123,6 +124,8 @@ model ClientsAndSupplier {
   addressHouseNumber String?
   addressPostalCode  String?
   addressStreet      String?
+  business           Business?  @relation(fields: [businessId], references: [id])
+  businessId         String?
   businessNumber     String?
   countryCode        String?
   createdAt          DateTime   @default(now())

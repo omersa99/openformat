@@ -30,6 +30,9 @@ import { Business } from "./Business";
 import { AccountFindManyArgs } from "../../account/base/AccountFindManyArgs";
 import { Account } from "../../account/base/Account";
 import { AccountWhereUniqueInput } from "../../account/base/AccountWhereUniqueInput";
+import { ClientsAndSupplierFindManyArgs } from "../../clientsAndSupplier/base/ClientsAndSupplierFindManyArgs";
+import { ClientsAndSupplier } from "../../clientsAndSupplier/base/ClientsAndSupplier";
+import { ClientsAndSupplierWhereUniqueInput } from "../../clientsAndSupplier/base/ClientsAndSupplierWhereUniqueInput";
 import { DocumentFindManyArgs } from "../../document/base/DocumentFindManyArgs";
 import { Document } from "../../document/base/Document";
 import { DocumentWhereUniqueInput } from "../../document/base/DocumentWhereUniqueInput";
@@ -368,6 +371,122 @@ export class BusinessControllerBase {
   async disconnectAccounts(@common.Param() params: BusinessWhereUniqueInput, @common.Body() body: AccountWhereUniqueInput[]): Promise<void> {
     const data = {
       accounts: {
+        disconnect: body,
+      },
+    };
+    await this.service.update({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @common.Get("/:id/clientsAndSuppliers")
+  @ApiNestedQuery(ClientsAndSupplierFindManyArgs)
+  @nestAccessControl.UseRoles({
+    resource: "ClientsAndSupplier",
+    action: "read",
+    possession: "any",
+  })
+  async findManyClientsAndSuppliers(
+    @common.Req() request: Request,
+    @common.Param() params: BusinessWhereUniqueInput
+  ): Promise<ClientsAndSupplier[]> {
+    const query = plainToClass(ClientsAndSupplierFindManyArgs, request.query);
+    const results = await this.service.findClientsAndSuppliers(params.id, {
+      ...query,
+      select: {
+        account: {
+          select: {
+            id: true,
+          },
+        },
+
+        addressCity: true,
+        addressCountry: true,
+        addressHouseNumber: true,
+        addressPostalCode: true,
+        addressStreet: true,
+
+        business: {
+          select: {
+            id: true,
+          },
+        },
+
+        businessNumber: true,
+        countryCode: true,
+        createdAt: true,
+        id: true,
+        name: true,
+        updatedAt: true,
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @common.Post("/:id/clientsAndSuppliers")
+  @nestAccessControl.UseRoles({
+    resource: "Business",
+    action: "update",
+    possession: "any",
+  })
+  async connectClientsAndSuppliers(
+    @common.Param() params: BusinessWhereUniqueInput,
+    @common.Body() body: ClientsAndSupplierWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      clientsAndSuppliers: {
+        connect: body,
+      },
+    };
+    await this.service.update({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Patch("/:id/clientsAndSuppliers")
+  @nestAccessControl.UseRoles({
+    resource: "Business",
+    action: "update",
+    possession: "any",
+  })
+  async updateClientsAndSuppliers(
+    @common.Param() params: BusinessWhereUniqueInput,
+    @common.Body() body: ClientsAndSupplierWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      clientsAndSuppliers: {
+        set: body,
+      },
+    };
+    await this.service.update({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Delete("/:id/clientsAndSuppliers")
+  @nestAccessControl.UseRoles({
+    resource: "Business",
+    action: "update",
+    possession: "any",
+  })
+  async disconnectClientsAndSuppliers(
+    @common.Param() params: BusinessWhereUniqueInput,
+    @common.Body() body: ClientsAndSupplierWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      clientsAndSuppliers: {
         disconnect: body,
       },
     };

@@ -14,6 +14,7 @@ import { ApiProperty } from "@nestjs/swagger";
 import { AccountUpdateManyWithoutBusinessesInput } from "./AccountUpdateManyWithoutBusinessesInput";
 import { ValidateNested, IsOptional, IsInt } from "class-validator";
 import { Type } from "class-transformer";
+import { ClientsAndSupplierUpdateManyWithoutBusinessesInput } from "./ClientsAndSupplierUpdateManyWithoutBusinessesInput";
 import { DocumentUpdateManyWithoutBusinessesInput } from "./DocumentUpdateManyWithoutBusinessesInput";
 import { ItemUpdateManyWithoutBusinessesInput } from "./ItemUpdateManyWithoutBusinessesInput";
 import { UserWhereUniqueInput } from "../../user/base/UserWhereUniqueInput";
@@ -43,6 +44,18 @@ class BusinessUpdateInput {
     nullable: true,
   })
   bn?: number;
+
+  @ApiProperty({
+    required: false,
+    type: () => ClientsAndSupplierUpdateManyWithoutBusinessesInput,
+  })
+  @ValidateNested()
+  @Type(() => ClientsAndSupplierUpdateManyWithoutBusinessesInput)
+  @IsOptional()
+  @Field(() => ClientsAndSupplierUpdateManyWithoutBusinessesInput, {
+    nullable: true,
+  })
+  clientsAndSuppliers?: ClientsAndSupplierUpdateManyWithoutBusinessesInput;
 
   @ApiProperty({
     required: false,

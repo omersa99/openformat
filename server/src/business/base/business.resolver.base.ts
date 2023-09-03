@@ -28,6 +28,8 @@ import { BusinessFindUniqueArgs } from "./BusinessFindUniqueArgs";
 import { Business } from "./Business";
 import { AccountFindManyArgs } from "../../account/base/AccountFindManyArgs";
 import { Account } from "../../account/base/Account";
+import { ClientsAndSupplierFindManyArgs } from "../../clientsAndSupplier/base/ClientsAndSupplierFindManyArgs";
+import { ClientsAndSupplier } from "../../clientsAndSupplier/base/ClientsAndSupplier";
 import { DocumentFindManyArgs } from "../../document/base/DocumentFindManyArgs";
 import { Document } from "../../document/base/Document";
 import { ItemFindManyArgs } from "../../item/base/ItemFindManyArgs";
@@ -190,6 +192,28 @@ export class BusinessResolverBase {
     @graphql.Args() args: AccountFindManyArgs
   ): Promise<Account[]> {
     const results = await this.service.findAccounts(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [ClientsAndSupplier], {
+    name: "clientsAndSuppliers",
+  })
+  @nestAccessControl.UseRoles({
+    resource: "ClientsAndSupplier",
+    action: "read",
+    possession: "any",
+  })
+  async resolveFieldClientsAndSuppliers(
+    @graphql.Parent() parent: Business,
+    @graphql.Args() args: ClientsAndSupplierFindManyArgs
+  ): Promise<ClientsAndSupplier[]> {
+    const results = await this.service.findClientsAndSuppliers(parent.id, args);
 
     if (!results) {
       return [];

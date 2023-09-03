@@ -12,6 +12,7 @@ import {
 } from "react-admin";
 
 import { AccountTitle } from "../account/AccountTitle";
+import { BusinessTitle } from "../business/BusinessTitle";
 import { DocumentTitle } from "../document/DocumentTitle";
 
 export const ClientsAndSupplierEdit = (
@@ -28,6 +29,13 @@ export const ClientsAndSupplierEdit = (
         <TextInput label="Address House Number" source="addressHouseNumber" />
         <TextInput label=" Address - Postal Code" source="addressPostalCode" />
         <TextInput label="Address Street" source="addressStreet" />
+        <ReferenceInput
+          source="business.id"
+          reference="Business"
+          label="business"
+        >
+          <SelectInput optionText={BusinessTitle} />
+        </ReferenceInput>
         <TextInput label="Business Number" source="businessNumber" />
         <TextInput label="Country Code" source="countryCode" />
         <ReferenceArrayInput
