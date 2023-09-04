@@ -1,6 +1,7 @@
 import { Document, DocumentDetail } from "@prisma/client";
 import { PrismaService } from "src/prisma/prisma.service";
 import { TransactionCreateInput } from "../base/TransactionCreateInput";
+import { calculateTransactionDetails } from "../transactionHandler";
 
 export async function handleType300(document: Document, prisma: PrismaService, documentDetail: DocumentDetail) {
   let customerAccount;
@@ -22,9 +23,11 @@ export async function handleType300(document: Document, prisma: PrismaService, d
     console.log("Error finding customer account:", err);
     return;
   }
-  let quantity = documentDetail.quantity || 0;
-  let pricePerUnit = documentDetail.priceWithoutVat || 0;
-  let amount = quantity * pricePerUnit;
+  // let quantity = documentDetail.quantity || 0;
+  // let pricePerUnit = documentDetail.priceWithoutVat || 0;
+  // let amount = quantity * pricePerUnit;
+  const { quantity, pricePerUnit, amount, VatRate } = calculateTransactionDetails(documentDetail);
+
   await prisma.transaction.create({
     data: {
       actionIndicator: 1,

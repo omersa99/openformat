@@ -2,6 +2,7 @@ import { Injectable } from "@nestjs/common";
 import { PrismaService } from "../prisma/prisma.service";
 import { AccountServiceBase } from "./base/account.service.base";
 import { mapToAccountModel, parseB110 } from "src/parsers/parseB110";
+import { Prisma, Account } from "@prisma/client";
 
 @Injectable()
 export class AccountService extends AccountServiceBase {

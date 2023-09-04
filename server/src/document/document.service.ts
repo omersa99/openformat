@@ -4,6 +4,7 @@ import { DocumentServiceBase } from "./base/document.service.base";
 import { mapToDocumentModel, parseC100 } from "src/parsers/parseC100";
 import { Prisma, Document } from "@prisma/client";
 import { getNextDocumentNumber } from "./documentNumGenerate";
+import { TransactionService } from "src/transaction/transaction.service";
 
 @Injectable()
 export class DocumentService extends DocumentServiceBase {
@@ -11,7 +12,17 @@ export class DocumentService extends DocumentServiceBase {
     super(prisma);
   }
   async create<T extends Prisma.DocumentCreateArgs>(args: Prisma.SelectSubset<T, Prisma.DocumentCreateArgs>): Promise<Document> {
-    const documentNumber = await getNextDocumentNumber(this.prisma, args.data.businessId || "12", args.data.documentType);
+    let businessId = args.data.business?.connect?.id || "0";
+
+    let docType = args.data.documentType || 200;
+
+    const newDocumentNumber = await getNextDocumentNumber(this.prisma, businessId, docType);
+    const modifiedData: Prisma.DocumentCreateInput = {
+      ...args.data,
+      documentNumber: newDocumentNumber,
+    };
+    const newDocument = await super.create({ ...args, data: modifiedData });
+    return newDocument;
   }
 
   async Line2Document(line: string) {

@@ -4,7 +4,7 @@ type AccountingSettings = {
   [key: number]: number; // Use a numeric index signature
 };
 
-export async function getNextDocumentNumber(prisma: PrismaService, businessId: string, documentType: number): Promise<number | null> {
+export async function getNextDocumentNumber(prisma: PrismaService, businessId: string | undefined, documentType: number): Promise<number | null> {
   const businessSetting = await prisma.setting.findFirst({
     where: { business: { id: businessId } },
   });

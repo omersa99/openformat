@@ -312,7 +312,7 @@ type Document {
   documentDetails(orderBy: [DocumentDetailOrderByInput!], skip: Float, take: Float, where: DocumentDetailWhereInput): [DocumentDetail!]!
   documentNumber: Float
   documentProductionDate: Float
-  documentType: Float
+  documentType: Float!
   id: String!
   linkedDocumentIds: String
   receiptDetails(orderBy: [ReceiptDetailOrderByInput!], skip: Float, take: Float, where: ReceiptDetailWhereInput): [ReceiptDetail!]!
@@ -320,14 +320,14 @@ type Document {
 }
 
 input DocumentCreateInput {
-  business: BusinessWhereUniqueInput
+  business: BusinessWhereUniqueInput!
   canceledDocument: Boolean
   clientSupplier: ClientsAndSupplierWhereUniqueInput
   documentDate: Float
   documentDetails: DocumentDetailCreateNestedManyWithoutDocumentsInput
   documentNumber: Float
   documentProductionDate: Float
-  documentType: Float
+  documentType: Float!
   linkedDocumentIds: String
   receiptDetails: ReceiptDetailCreateNestedManyWithoutDocumentsInput
 }
@@ -415,7 +415,7 @@ input DocumentDetailWhereInput {
   document: DocumentWhereUniqueInput
   id: StringFilter
   item: ItemWhereUniqueInput
-  priceWithoutVat: IntNullableFilter
+  priceWithoutVat: DecimalNullableFilter
   quantity: IntNullableFilter
   transactionType: StringNullableFilter
   transactions: TransactionListRelationFilter
@@ -479,7 +479,7 @@ input DocumentWhereInput {
   documentDetails: DocumentDetailListRelationFilter
   documentNumber: IntNullableFilter
   documentProductionDate: IntNullableFilter
-  documentType: IntNullableFilter
+  documentType: IntFilter
   id: StringFilter
   linkedDocumentIds: StringNullableFilter
   receiptDetails: ReceiptDetailListRelationFilter

@@ -69,8 +69,8 @@ export async function handleTransactionBasedOnDocumentType(document: Document, p
 }
 
 export function calculateTransactionDetails(documentDetail: DocumentDetail) {
-  const quantity = documentDetail.quantity || 0;
-  const pricePerUnit = documentDetail.priceWithoutVat || 0;
+  const quantity: number = documentDetail.quantity || 0;
+  const pricePerUnit: number = Number(documentDetail.priceWithoutVat) || 0; // Note the change here
   const amount = quantity * pricePerUnit;
   const VatRate = documentDetail.vatRate || 0;
 
