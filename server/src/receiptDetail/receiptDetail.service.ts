@@ -17,7 +17,11 @@ export class ReceiptDetailService extends ReceiptDetailServiceBase {
         where: { id: args.data.documentId },
       });
 
-      await handleReceiptTransaction(relatedDocument, this.prisma, documentReceiptDetail);
+      if (relatedDocument) {
+        await handleReceiptTransaction(relatedDocument, this.prisma, documentReceiptDetail);
+      } else {
+        console.error("There is no related Document");
+      }
     } catch (error) {
       console.error("there is no related Document", error);
     }
