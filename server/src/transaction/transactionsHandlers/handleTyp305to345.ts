@@ -37,6 +37,11 @@ export async function handleTyp305to345(document: Document, prisma: PrismaServic
           id: customerAccount.id,
         },
       },
+      documentDetail: {
+        connect: {
+          id: documentDetail.id,
+        },
+      },
     },
   });
 
@@ -52,6 +57,11 @@ export async function handleTyp305to345(document: Document, prisma: PrismaServic
           id: payableAccount?.id,
         },
       },
+      documentDetail: {
+        connect: {
+          id: documentDetail.id,
+        },
+      },
     },
   });
 
@@ -62,6 +72,11 @@ export async function handleTyp305to345(document: Document, prisma: PrismaServic
       accountInTransaction: {
         connect: {
           id: taxAccount?.id,
+        },
+      },
+      documentDetail: {
+        connect: {
+          id: documentDetail.id,
         },
       },
     },

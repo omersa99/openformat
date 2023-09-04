@@ -34,6 +34,11 @@ export async function handleType300(document: Document, prisma: PrismaService, d
           id: customerAccount.id,
         },
       },
+      documentDetail: {
+        connect: {
+          id: documentDetail.id,
+        },
+      },
     },
   });
   const payableAccount = await prisma.account.findFirst({ where: { accountKey: "50001" } });
@@ -44,6 +49,11 @@ export async function handleType300(document: Document, prisma: PrismaService, d
       accountInTransaction: {
         connect: {
           id: payableAccount?.id,
+        },
+      },
+      documentDetail: {
+        connect: {
+          id: documentDetail.id,
         },
       },
     },

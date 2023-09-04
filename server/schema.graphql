@@ -292,6 +292,17 @@ input DateTimeNullableFilter {
   notIn: [DateTime!]
 }
 
+input DecimalNullableFilter {
+  equals: Float
+  gt: Float
+  gte: Float
+  in: [Float!]
+  lt: Float
+  lte: Float
+  not: Float
+  notIn: [Float!]
+}
+
 type Document {
   business: Business
   canceledDocument: Boolean
@@ -299,7 +310,7 @@ type Document {
   createdAt: DateTime!
   documentDate: Float
   documentDetails(orderBy: [DocumentDetailOrderByInput!], skip: Float, take: Float, where: DocumentDetailWhereInput): [DocumentDetail!]!
-  documentNumber: String
+  documentNumber: Float
   documentProductionDate: Float
   documentType: Float
   id: String!
@@ -314,7 +325,7 @@ input DocumentCreateInput {
   clientSupplier: ClientsAndSupplierWhereUniqueInput
   documentDate: Float
   documentDetails: DocumentDetailCreateNestedManyWithoutDocumentsInput
-  documentNumber: String
+  documentNumber: Float
   documentProductionDate: Float
   documentType: Float
   linkedDocumentIds: String
@@ -337,6 +348,7 @@ type DocumentDetail {
   priceWithoutVat: Float
   quantity: Float
   transactionType: String
+  transactions(orderBy: [TransactionOrderByInput!], skip: Float, take: Float, where: TransactionWhereInput): [Transaction!]!
   updatedAt: DateTime!
   vatRate: Float
 }
@@ -347,6 +359,7 @@ input DocumentDetailCreateInput {
   priceWithoutVat: Float
   quantity: Float
   transactionType: String
+  transactions: TransactionCreateNestedManyWithoutDocumentDetailsInput
   vatRate: Float
 }
 
@@ -382,6 +395,7 @@ input DocumentDetailUpdateInput {
   priceWithoutVat: Float
   quantity: Float
   transactionType: String
+  transactions: TransactionUpdateManyWithoutDocumentDetailsInput
   vatRate: Float
 }
 
@@ -404,6 +418,7 @@ input DocumentDetailWhereInput {
   priceWithoutVat: IntNullableFilter
   quantity: IntNullableFilter
   transactionType: StringNullableFilter
+  transactions: TransactionListRelationFilter
   vatRate: IntNullableFilter
 }
 
@@ -437,7 +452,7 @@ input DocumentUpdateInput {
   clientSupplier: ClientsAndSupplierWhereUniqueInput
   documentDate: Float
   documentDetails: DocumentDetailUpdateManyWithoutDocumentsInput
-  documentNumber: String
+  documentNumber: Float
   documentProductionDate: Float
   documentType: Float
   linkedDocumentIds: String
@@ -462,7 +477,7 @@ input DocumentWhereInput {
   clientSupplier: ClientsAndSupplierWhereUniqueInput
   documentDate: IntNullableFilter
   documentDetails: DocumentDetailListRelationFilter
-  documentNumber: StringNullableFilter
+  documentNumber: IntNullableFilter
   documentProductionDate: IntNullableFilter
   documentType: IntNullableFilter
   id: StringFilter
@@ -736,11 +751,21 @@ type ReceiptDetail {
   createdAt: DateTime!
   document: Document
   id: String!
+  paymentCheckClearanceDate: DateTime
+  paymentData: JSON
+  paymentType: Float
+  total: Float
+  transactions(orderBy: [TransactionOrderByInput!], skip: Float, take: Float, where: TransactionWhereInput): [Transaction!]!
   updatedAt: DateTime!
 }
 
 input ReceiptDetailCreateInput {
   document: DocumentWhereUniqueInput
+  paymentCheckClearanceDate: DateTime
+  paymentData: JSON
+  paymentType: Float
+  total: Float
+  transactions: TransactionCreateNestedManyWithoutReceiptDetailsInput
 }
 
 input ReceiptDetailCreateNestedManyWithoutDocumentsInput {
@@ -757,11 +782,20 @@ input ReceiptDetailOrderByInput {
   createdAt: SortOrder
   documentId: SortOrder
   id: SortOrder
+  paymentCheckClearanceDate: SortOrder
+  paymentData: SortOrder
+  paymentType: SortOrder
+  total: SortOrder
   updatedAt: SortOrder
 }
 
 input ReceiptDetailUpdateInput {
   document: DocumentWhereUniqueInput
+  paymentCheckClearanceDate: DateTime
+  paymentData: JSON
+  paymentType: Float
+  total: Float
+  transactions: TransactionUpdateManyWithoutReceiptDetailsInput
 }
 
 input ReceiptDetailUpdateManyWithoutDocumentsInput {
@@ -773,6 +807,11 @@ input ReceiptDetailUpdateManyWithoutDocumentsInput {
 input ReceiptDetailWhereInput {
   document: DocumentWhereUniqueInput
   id: StringFilter
+  paymentCheckClearanceDate: DateTimeNullableFilter
+  paymentData: JsonFilter
+  paymentType: IntNullableFilter
+  total: DecimalNullableFilter
+  transactions: TransactionListRelationFilter
 }
 
 input ReceiptDetailWhereUniqueInput {
@@ -865,6 +904,7 @@ type Transaction {
   data: JSON
   date: DateTime
   details: String
+  documentDetail: DocumentDetail
   entryDate: DateTime
   foreignCurrencyAmount: Float
   foreignCurrencyCode: String
@@ -872,6 +912,7 @@ type Transaction {
   lineNumberInTransaction: Float
   modifiedDate: DateTime
   portion: Float
+  receiptDetail: ReceiptDetail
   reference: String
   reference_2: String
   transactionNumber: Float
@@ -888,12 +929,14 @@ input TransactionCreateInput {
   data: JSON
   date: DateTime
   details: String
+  documentDetail: DocumentDetailWhereUniqueInput
   entryDate: DateTime
   foreignCurrencyAmount: Float
   foreignCurrencyCode: String
   lineNumberInTransaction: Float
   modifiedDate: DateTime
   portion: Float
+  receiptDetail: ReceiptDetailWhereUniqueInput
   reference: String
   reference_2: String
   transactionNumber: Float
@@ -901,6 +944,14 @@ input TransactionCreateInput {
 }
 
 input TransactionCreateNestedManyWithoutAccountsInput {
+  connect: [TransactionWhereUniqueInput!]
+}
+
+input TransactionCreateNestedManyWithoutDocumentDetailsInput {
+  connect: [TransactionWhereUniqueInput!]
+}
+
+input TransactionCreateNestedManyWithoutReceiptDetailsInput {
   connect: [TransactionWhereUniqueInput!]
 }
 
@@ -920,6 +971,7 @@ input TransactionOrderByInput {
   data: SortOrder
   date: SortOrder
   details: SortOrder
+  documentDetailId: SortOrder
   entryDate: SortOrder
   foreignCurrencyAmount: SortOrder
   foreignCurrencyCode: SortOrder
@@ -927,6 +979,7 @@ input TransactionOrderByInput {
   lineNumberInTransaction: SortOrder
   modifiedDate: SortOrder
   portion: SortOrder
+  receiptDetailId: SortOrder
   reference: SortOrder
   reference_2: SortOrder
   transactionNumber: SortOrder
@@ -943,12 +996,14 @@ input TransactionUpdateInput {
   data: JSON
   date: DateTime
   details: String
+  documentDetail: DocumentDetailWhereUniqueInput
   entryDate: DateTime
   foreignCurrencyAmount: Float
   foreignCurrencyCode: String
   lineNumberInTransaction: Float
   modifiedDate: DateTime
   portion: Float
+  receiptDetail: ReceiptDetailWhereUniqueInput
   reference: String
   reference_2: String
   transactionNumber: Float
@@ -956,6 +1011,18 @@ input TransactionUpdateInput {
 }
 
 input TransactionUpdateManyWithoutAccountsInput {
+  connect: [TransactionWhereUniqueInput!]
+  disconnect: [TransactionWhereUniqueInput!]
+  set: [TransactionWhereUniqueInput!]
+}
+
+input TransactionUpdateManyWithoutDocumentDetailsInput {
+  connect: [TransactionWhereUniqueInput!]
+  disconnect: [TransactionWhereUniqueInput!]
+  set: [TransactionWhereUniqueInput!]
+}
+
+input TransactionUpdateManyWithoutReceiptDetailsInput {
   connect: [TransactionWhereUniqueInput!]
   disconnect: [TransactionWhereUniqueInput!]
   set: [TransactionWhereUniqueInput!]
@@ -970,6 +1037,7 @@ input TransactionWhereInput {
   data: JsonFilter
   date: DateTimeNullableFilter
   details: StringNullableFilter
+  documentDetail: DocumentDetailWhereUniqueInput
   entryDate: DateTimeNullableFilter
   foreignCurrencyAmount: IntNullableFilter
   foreignCurrencyCode: StringNullableFilter
@@ -977,6 +1045,7 @@ input TransactionWhereInput {
   lineNumberInTransaction: IntNullableFilter
   modifiedDate: DateTimeNullableFilter
   portion: IntNullableFilter
+  receiptDetail: ReceiptDetailWhereUniqueInput
   reference: StringNullableFilter
   reference_2: StringNullableFilter
   transactionNumber: IntNullableFilter

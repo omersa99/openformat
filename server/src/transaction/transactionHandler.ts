@@ -4,7 +4,7 @@ import { handleType300 } from "./transactionsHandlers/handleType300";
 import { handleTyp305to345 } from "./transactionsHandlers/handleTyp305to345";
 
 export async function handleTransactionBasedOnDocumentType(document: Document, prisma: PrismaService, documentDetail: DocumentDetail) {
-  let customerAccount;
+  // let customerAccount;
 
   //   try {
   //     const customer = await prisma.clientsAndSupplier.findUnique({
@@ -31,6 +31,7 @@ export async function handleTransactionBasedOnDocumentType(document: Document, p
       case 305 || 310 || 320 || 330 || 340 || 345:
         handleTyp305to345(document, prisma, documentDetail);
         break;
+
         //   let quantity = documentDetail.quantity || 0;
         //   let pricePerUnit = documentDetail.priceWithoutVat || 0;
         //   let amount = quantity * pricePerUnit;
