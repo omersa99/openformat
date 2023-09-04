@@ -38,7 +38,7 @@ class ReceiptDetailUpdateInput {
   @Field(() => DocumentWhereUniqueInput, {
     nullable: true,
   })
-  document?: DocumentWhereUniqueInput | null;
+  document?: DocumentWhereUniqueInput;
 
   @ApiProperty({
     required: false,

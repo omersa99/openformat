@@ -14,8 +14,8 @@ import { ApiProperty } from "@nestjs/swagger";
 import { DocumentWhereUniqueInput } from "../../document/base/DocumentWhereUniqueInput";
 import {
   ValidateNested,
-  IsOptional,
   IsDate,
+  IsOptional,
   IsInt,
   IsNumber,
 } from "class-validator";
@@ -29,16 +29,13 @@ import { TransactionCreateNestedManyWithoutReceiptDetailsInput } from "./Transac
 @InputType()
 class ReceiptDetailCreateInput {
   @ApiProperty({
-    required: false,
+    required: true,
     type: () => DocumentWhereUniqueInput,
   })
   @ValidateNested()
   @Type(() => DocumentWhereUniqueInput)
-  @IsOptional()
-  @Field(() => DocumentWhereUniqueInput, {
-    nullable: true,
-  })
-  document?: DocumentWhereUniqueInput | null;
+  @Field(() => DocumentWhereUniqueInput)
+  document!: DocumentWhereUniqueInput;
 
   @ApiProperty({
     required: false,

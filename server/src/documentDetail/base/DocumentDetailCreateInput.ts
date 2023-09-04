@@ -20,16 +20,13 @@ import { TransactionCreateNestedManyWithoutDocumentDetailsInput } from "./Transa
 @InputType()
 class DocumentDetailCreateInput {
   @ApiProperty({
-    required: false,
+    required: true,
     type: () => DocumentWhereUniqueInput,
   })
   @ValidateNested()
   @Type(() => DocumentWhereUniqueInput)
-  @IsOptional()
-  @Field(() => DocumentWhereUniqueInput, {
-    nullable: true,
-  })
-  document?: DocumentWhereUniqueInput | null;
+  @Field(() => DocumentWhereUniqueInput)
+  document!: DocumentWhereUniqueInput;
 
   @ApiProperty({
     required: false,

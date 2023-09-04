@@ -3,7 +3,7 @@ import { ItemWhereUniqueInput } from "../item/ItemWhereUniqueInput";
 import { TransactionCreateNestedManyWithoutDocumentDetailsInput } from "./TransactionCreateNestedManyWithoutDocumentDetailsInput";
 
 export type DocumentDetailCreateInput = {
-  document?: DocumentWhereUniqueInput | null;
+  document: DocumentWhereUniqueInput;
   item?: ItemWhereUniqueInput | null;
   priceWithoutVat?: number | null;
   quantity?: number | null;
