@@ -27,6 +27,8 @@ import { TransactionFindManyArgs } from "./TransactionFindManyArgs";
 import { TransactionFindUniqueArgs } from "./TransactionFindUniqueArgs";
 import { Transaction } from "./Transaction";
 import { Account } from "../../account/base/Account";
+import { DocumentDetail } from "../../documentDetail/base/DocumentDetail";
+import { ReceiptDetail } from "../../receiptDetail/base/ReceiptDetail";
 import { TransactionService } from "../transaction.service";
 @common.UseGuards(GqlDefaultAuthGuard, gqlACGuard.GqlACGuard)
 @graphql.Resolver(() => Transaction)
@@ -101,6 +103,18 @@ export class TransactionResolverBase {
               connect: args.data.accountInTransaction,
             }
           : undefined,
+
+        documentDetail: args.data.documentDetail
+          ? {
+              connect: args.data.documentDetail,
+            }
+          : undefined,
+
+        receiptDetail: args.data.receiptDetail
+          ? {
+              connect: args.data.receiptDetail,
+            }
+          : undefined,
       },
     });
   }
@@ -124,6 +138,18 @@ export class TransactionResolverBase {
           accountInTransaction: args.data.accountInTransaction
             ? {
                 connect: args.data.accountInTransaction,
+              }
+            : undefined,
+
+          documentDetail: args.data.documentDetail
+            ? {
+                connect: args.data.documentDetail,
+              }
+            : undefined,
+
+          receiptDetail: args.data.receiptDetail
+            ? {
+                connect: args.data.receiptDetail,
               }
             : undefined,
         },
@@ -173,6 +199,48 @@ export class TransactionResolverBase {
     @graphql.Parent() parent: Transaction
   ): Promise<Account | null> {
     const result = await this.service.getAccountInTransaction(parent.id);
+
+    if (!result) {
+      return null;
+    }
+    return result;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => DocumentDetail, {
+    nullable: true,
+    name: "documentDetail",
+  })
+  @nestAccessControl.UseRoles({
+    resource: "DocumentDetail",
+    action: "read",
+    possession: "any",
+  })
+  async resolveFieldDocumentDetail(
+    @graphql.Parent() parent: Transaction
+  ): Promise<DocumentDetail | null> {
+    const result = await this.service.getDocumentDetail(parent.id);
+
+    if (!result) {
+      return null;
+    }
+    return result;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => ReceiptDetail, {
+    nullable: true,
+    name: "receiptDetail",
+  })
+  @nestAccessControl.UseRoles({
+    resource: "ReceiptDetail",
+    action: "read",
+    possession: "any",
+  })
+  async resolveFieldReceiptDetail(
+    @graphql.Parent() parent: Transaction
+  ): Promise<ReceiptDetail | null> {
+    const result = await this.service.getReceiptDetail(parent.id);
 
     if (!result) {
       return null;

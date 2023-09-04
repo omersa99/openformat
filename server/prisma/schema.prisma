@@ -57,28 +57,32 @@ model Account {
 }
 
 model Transaction {
-  accountInTransaction    Account?  @relation(fields: [accountInTransactionId], references: [id])
+  accountInTransaction    Account?        @relation(fields: [accountInTransactionId], references: [id])
   accountInTransactionId  String?
   actionAmount            Int?
   actionIndicator         Int?
   actionOperation         String?
   counterAccount          String?
-  createdAt               DateTime  @default(now())
+  createdAt               DateTime        @default(now())
   data                    Json?
   date                    DateTime?
   details                 String?
+  documentDetail          DocumentDetail? @relation(fields: [documentDetailId], references: [id])
+  documentDetailId        String?
   entryDate               DateTime?
   foreignCurrencyAmount   Int?
   foreignCurrencyCode     String?
-  id                      String    @id @default(cuid())
+  id                      String          @id @default(cuid())
   lineNumberInTransaction Int?
   modifiedDate            DateTime?
   portion                 Int?
+  receiptDetail           ReceiptDetail?  @relation(fields: [receiptDetailId], references: [id])
+  receiptDetailId         String?
   reference               String?
   reference_2             String?
   transactionNumber       Int?
   transactionType         String?
-  updatedAt               DateTime  @updatedAt
+  updatedAt               DateTime        @updatedAt
 }
 
 model Document {
@@ -90,7 +94,7 @@ model Document {
   createdAt              DateTime            @default(now())
   documentDate           Int?
   documentDetails        DocumentDetail[]
-  documentNumber         String?
+  documentNumber         Int?
   documentProductionDate Int?
   documentType           Int?
   id                     String              @id @default(cuid())
@@ -145,25 +149,31 @@ model ItemTransaction {
 }
 
 model DocumentDetail {
-  createdAt       DateTime  @default(now())
-  document        Document? @relation(fields: [documentId], references: [id])
+  createdAt       DateTime      @default(now())
+  document        Document?     @relation(fields: [documentId], references: [id])
   documentId      String?
-  id              String    @id @default(cuid())
-  item            Item?     @relation(fields: [itemId], references: [id])
+  id              String        @id @default(cuid())
+  item            Item?         @relation(fields: [itemId], references: [id])
   itemId          String?
   priceWithoutVat Int?
   quantity        Int?
+  transactions    Transaction[]
   transactionType String?
-  updatedAt       DateTime  @updatedAt
+  updatedAt       DateTime      @updatedAt
   vatRate         Int?
 }
 
 model ReceiptDetail {
-  createdAt  DateTime  @default(now())
-  document   Document? @relation(fields: [documentId], references: [id])
-  documentId String?
-  id         String    @id @default(cuid())
-  updatedAt  DateTime  @updatedAt
+  createdAt                 DateTime      @default(now())
+  document                  Document?     @relation(fields: [documentId], references: [id])
+  documentId                String?
+  id                        String        @id @default(cuid())
+  paymentCheckClearanceDate DateTime?
+  paymentData               Json?
+  paymentType               Int?
+  total                     Decimal?
+  transactions              Transaction[]
+  updatedAt                 DateTime      @updatedAt
 }
 
 model Setting {

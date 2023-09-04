@@ -18,7 +18,9 @@ import { IntNullableFilter } from "../../util/IntNullableFilter";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
 import { JsonFilter } from "../../util/JsonFilter";
 import { DateTimeNullableFilter } from "../../util/DateTimeNullableFilter";
+import { DocumentDetailWhereUniqueInput } from "../../documentDetail/base/DocumentDetailWhereUniqueInput";
 import { StringFilter } from "../../util/StringFilter";
+import { ReceiptDetailWhereUniqueInput } from "../../receiptDetail/base/ReceiptDetailWhereUniqueInput";
 
 @InputType()
 class TransactionWhereInput {
@@ -113,6 +115,18 @@ class TransactionWhereInput {
 
   @ApiProperty({
     required: false,
+    type: () => DocumentDetailWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => DocumentDetailWhereUniqueInput)
+  @IsOptional()
+  @Field(() => DocumentDetailWhereUniqueInput, {
+    nullable: true,
+  })
+  documentDetail?: DocumentDetailWhereUniqueInput;
+
+  @ApiProperty({
+    required: false,
     type: DateTimeNullableFilter,
   })
   @Type(() => DateTimeNullableFilter)
@@ -187,6 +201,18 @@ class TransactionWhereInput {
     nullable: true,
   })
   portion?: IntNullableFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => ReceiptDetailWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => ReceiptDetailWhereUniqueInput)
+  @IsOptional()
+  @Field(() => ReceiptDetailWhereUniqueInput, {
+    nullable: true,
+  })
+  receiptDetail?: ReceiptDetailWhereUniqueInput;
 
   @ApiProperty({
     required: false,

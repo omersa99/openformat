@@ -9,7 +9,7 @@ export type DocumentUpdateInput = {
   clientSupplier?: ClientsAndSupplierWhereUniqueInput | null;
   documentDate?: number | null;
   documentDetails?: DocumentDetailUpdateManyWithoutDocumentsInput;
-  documentNumber?: string | null;
+  documentNumber?: number | null;
   documentProductionDate?: number | null;
   documentType?: number | null;
   linkedDocumentIds?: string | null;

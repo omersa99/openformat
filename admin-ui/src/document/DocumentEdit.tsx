@@ -46,7 +46,7 @@ export const DocumentEdit = (props: EditProps): React.ReactElement => {
         >
           <SelectArrayInput optionText={DocumentDetailTitle} />
         </ReferenceArrayInput>
-        <TextInput label="Document Number" source="documentNumber" />
+        <NumberInput step={1} label="Document Number" source="documentNumber" />
         <NumberInput
           step={1}
           label="Document Production Date"

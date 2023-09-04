@@ -367,6 +367,13 @@ export class AccountControllerBase {
         data: true,
         date: true,
         details: true,
+
+        documentDetail: {
+          select: {
+            id: true,
+          },
+        },
+
         entryDate: true,
         foreignCurrencyAmount: true,
         foreignCurrencyCode: true,
@@ -374,6 +381,13 @@ export class AccountControllerBase {
         lineNumberInTransaction: true,
         modifiedDate: true,
         portion: true,
+
+        receiptDetail: {
+          select: {
+            id: true,
+          },
+        },
+
         reference: true,
         reference_2: true,
         transactionNumber: true,

@@ -21,6 +21,7 @@ import {
 import { Type } from "class-transformer";
 import { Document } from "../../document/base/Document";
 import { Item } from "../../item/base/Item";
+import { Transaction } from "../../transaction/base/Transaction";
 
 @ObjectType()
 class DocumentDetail {
@@ -79,6 +80,15 @@ class DocumentDetail {
     nullable: true,
   })
   quantity!: number | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => [Transaction],
+  })
+  @ValidateNested()
+  @Type(() => Transaction)
+  @IsOptional()
+  transactions?: Array<Transaction>;
 
   @ApiProperty({
     required: false,

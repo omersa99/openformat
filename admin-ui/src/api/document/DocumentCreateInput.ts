@@ -9,7 +9,7 @@ export type DocumentCreateInput = {
   clientSupplier?: ClientsAndSupplierWhereUniqueInput | null;
   documentDate?: number | null;
   documentDetails?: DocumentDetailCreateNestedManyWithoutDocumentsInput;
-  documentNumber?: string | null;
+  documentNumber?: number | null;
   documentProductionDate?: number | null;
   documentType?: number | null;
   linkedDocumentIds?: string | null;

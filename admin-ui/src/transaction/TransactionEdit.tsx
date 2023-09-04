@@ -13,6 +13,8 @@ import {
 } from "react-admin";
 
 import { AccountTitle } from "../account/AccountTitle";
+import { DocumentDetailTitle } from "../documentDetail/DocumentDetailTitle";
+import { ReceiptDetailTitle } from "../receiptDetail/ReceiptDetailTitle";
 
 export const TransactionEdit = (props: EditProps): React.ReactElement => {
   return (
@@ -36,6 +38,13 @@ export const TransactionEdit = (props: EditProps): React.ReactElement => {
         <div />
         <DateInput label="Date" source="date" />
         <TextInput label="Details" source="details" />
+        <ReferenceInput
+          source="documentDetail.id"
+          reference="DocumentDetail"
+          label="document details"
+        >
+          <SelectInput optionText={DocumentDetailTitle} />
+        </ReferenceInput>
         <DateInput label="Entry Date" source="entryDate" />
         <NumberInput
           step={1}
@@ -50,6 +59,13 @@ export const TransactionEdit = (props: EditProps): React.ReactElement => {
         />
         <DateTimeInput label="Modified Date" source="modifiedDate" />
         <NumberInput step={1} label="Portion" source="portion" />
+        <ReferenceInput
+          source="receiptDetail.id"
+          reference="ReceiptDetail"
+          label="receipt details"
+        >
+          <SelectInput optionText={ReceiptDetailTitle} />
+        </ReferenceInput>
         <TextInput label="Reference" source="reference" />
         <TextInput label="Reference 2" source="reference_2" />
         <NumberInput

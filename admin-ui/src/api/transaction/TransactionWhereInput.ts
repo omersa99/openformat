@@ -3,7 +3,9 @@ import { IntNullableFilter } from "../../util/IntNullableFilter";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
 import { JsonFilter } from "../../util/JsonFilter";
 import { DateTimeNullableFilter } from "../../util/DateTimeNullableFilter";
+import { DocumentDetailWhereUniqueInput } from "../documentDetail/DocumentDetailWhereUniqueInput";
 import { StringFilter } from "../../util/StringFilter";
+import { ReceiptDetailWhereUniqueInput } from "../receiptDetail/ReceiptDetailWhereUniqueInput";
 
 export type TransactionWhereInput = {
   accountInTransaction?: AccountWhereUniqueInput;
@@ -14,6 +16,7 @@ export type TransactionWhereInput = {
   data?: JsonFilter;
   date?: DateTimeNullableFilter;
   details?: StringNullableFilter;
+  documentDetail?: DocumentDetailWhereUniqueInput;
   entryDate?: DateTimeNullableFilter;
   foreignCurrencyAmount?: IntNullableFilter;
   foreignCurrencyCode?: StringNullableFilter;
@@ -21,6 +24,7 @@ export type TransactionWhereInput = {
   lineNumberInTransaction?: IntNullableFilter;
   modifiedDate?: DateTimeNullableFilter;
   portion?: IntNullableFilter;
+  receiptDetail?: ReceiptDetailWhereUniqueInput;
   reference?: StringNullableFilter;
   reference_2?: StringNullableFilter;
   transactionNumber?: IntNullableFilter;

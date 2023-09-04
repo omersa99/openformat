@@ -15,6 +15,7 @@ import { DocumentWhereUniqueInput } from "../../document/base/DocumentWhereUniqu
 import { ValidateNested, IsOptional, IsInt, IsString } from "class-validator";
 import { Type } from "class-transformer";
 import { ItemWhereUniqueInput } from "../../item/base/ItemWhereUniqueInput";
+import { TransactionCreateNestedManyWithoutDocumentDetailsInput } from "./TransactionCreateNestedManyWithoutDocumentDetailsInput";
 
 @InputType()
 class DocumentDetailCreateInput {
@@ -63,6 +64,18 @@ class DocumentDetailCreateInput {
     nullable: true,
   })
   quantity?: number | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => TransactionCreateNestedManyWithoutDocumentDetailsInput,
+  })
+  @ValidateNested()
+  @Type(() => TransactionCreateNestedManyWithoutDocumentDetailsInput)
+  @IsOptional()
+  @Field(() => TransactionCreateNestedManyWithoutDocumentDetailsInput, {
+    nullable: true,
+  })
+  transactions?: TransactionCreateNestedManyWithoutDocumentDetailsInput;
 
   @ApiProperty({
     required: false,

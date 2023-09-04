@@ -127,6 +127,17 @@ class TransactionOrderByInput {
   @Field(() => SortOrder, {
     nullable: true,
   })
+  documentDetailId?: SortOrder;
+
+  @ApiProperty({
+    required: false,
+    enum: ["asc", "desc"],
+  })
+  @IsOptional()
+  @IsEnum(SortOrder)
+  @Field(() => SortOrder, {
+    nullable: true,
+  })
   entryDate?: SortOrder;
 
   @ApiProperty({
@@ -194,6 +205,17 @@ class TransactionOrderByInput {
     nullable: true,
   })
   portion?: SortOrder;
+
+  @ApiProperty({
+    required: false,
+    enum: ["asc", "desc"],
+  })
+  @IsOptional()
+  @IsEnum(SortOrder)
+  @Field(() => SortOrder, {
+    nullable: true,
+  })
+  receiptDetailId?: SortOrder;
 
   @ApiProperty({
     required: false,

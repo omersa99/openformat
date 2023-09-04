@@ -23,6 +23,8 @@ import { Type } from "class-transformer";
 import { IsJSONValue } from "@app/custom-validators";
 import { GraphQLJSON } from "graphql-type-json";
 import { JsonValue } from "type-fest";
+import { DocumentDetail } from "../../documentDetail/base/DocumentDetail";
+import { ReceiptDetail } from "../../receiptDetail/base/ReceiptDetail";
 
 @ObjectType()
 class Transaction {
@@ -121,6 +123,15 @@ class Transaction {
 
   @ApiProperty({
     required: false,
+    type: () => DocumentDetail,
+  })
+  @ValidateNested()
+  @Type(() => DocumentDetail)
+  @IsOptional()
+  documentDetail?: DocumentDetail | null;
+
+  @ApiProperty({
+    required: false,
   })
   @IsDate()
   @Type(() => Date)
@@ -192,6 +203,15 @@ class Transaction {
     nullable: true,
   })
   portion!: number | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => ReceiptDetail,
+  })
+  @ValidateNested()
+  @Type(() => ReceiptDetail)
+  @IsOptional()
+  receiptDetail?: ReceiptDetail | null;
 
   @ApiProperty({
     required: false,

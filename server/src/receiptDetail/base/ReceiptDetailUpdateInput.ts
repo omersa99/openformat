@@ -9,11 +9,22 @@ https://docs.amplication.com/how-to/custom-code
 
 ------------------------------------------------------------------------------
   */
-import { InputType, Field } from "@nestjs/graphql";
+import { InputType, Field, Float } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
 import { DocumentWhereUniqueInput } from "../../document/base/DocumentWhereUniqueInput";
-import { ValidateNested, IsOptional } from "class-validator";
+import {
+  ValidateNested,
+  IsOptional,
+  IsDate,
+  IsInt,
+  IsNumber,
+} from "class-validator";
 import { Type } from "class-transformer";
+import { IsJSONValue } from "@app/custom-validators";
+import { GraphQLJSON } from "graphql-type-json";
+import { InputJsonValue } from "../../types";
+import { Decimal } from "decimal.js";
+import { TransactionUpdateManyWithoutReceiptDetailsInput } from "./TransactionUpdateManyWithoutReceiptDetailsInput";
 
 @InputType()
 class ReceiptDetailUpdateInput {
@@ -28,6 +39,61 @@ class ReceiptDetailUpdateInput {
     nullable: true,
   })
   document?: DocumentWhereUniqueInput | null;
+
+  @ApiProperty({
+    required: false,
+  })
+  @IsDate()
+  @Type(() => Date)
+  @IsOptional()
+  @Field(() => Date, {
+    nullable: true,
+  })
+  paymentCheckClearanceDate?: Date | null;
+
+  @ApiProperty({
+    required: false,
+  })
+  @IsJSONValue()
+  @IsOptional()
+  @Field(() => GraphQLJSON, {
+    nullable: true,
+  })
+  paymentData?: InputJsonValue;
+
+  @ApiProperty({
+    required: false,
+    type: Number,
+  })
+  @IsInt()
+  @IsOptional()
+  @Field(() => Number, {
+    nullable: true,
+  })
+  paymentType?: number | null;
+
+  @ApiProperty({
+    required: false,
+    type: Number,
+  })
+  @IsNumber()
+  @IsOptional()
+  @Field(() => Float, {
+    nullable: true,
+  })
+  total?: Decimal | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => TransactionUpdateManyWithoutReceiptDetailsInput,
+  })
+  @ValidateNested()
+  @Type(() => TransactionUpdateManyWithoutReceiptDetailsInput)
+  @IsOptional()
+  @Field(() => TransactionUpdateManyWithoutReceiptDetailsInput, {
+    nullable: true,
+  })
+  transactions?: TransactionUpdateManyWithoutReceiptDetailsInput;
 }
 
 export { ReceiptDetailUpdateInput as ReceiptDetailUpdateInput };
