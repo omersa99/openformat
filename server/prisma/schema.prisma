@@ -20,7 +20,7 @@ model User {
 }
 
 model Business {
-  accounts            Account[]
+  accounts            Account[] 
   bn                  Int                  @unique
   clientsAndSuppliers ClientsAndSupplier[]
   createdAt           DateTime             @default(now())
@@ -40,10 +40,10 @@ model Account {
   accountBalanceInForeignCurrency Int?
   accountKey                      String?
   accountName                     String?
-  business                        Business?           @relation(fields: [businessId], references: [id])
+  business                        Business?           @relation(fields: [businessId], references: [id], onDelete: Cascade) 
   businessId                      String?
   centerAccount                   String?
-  clientsAndSuppliers             ClientsAndSupplier? @relation(fields: [clientsAndSuppliersId], references: [id])
+  clientsAndSuppliers             ClientsAndSupplier? @relation(fields: [clientsAndSuppliersId], references: [id],onDelete: Cascade)
   clientsAndSuppliersId           String?             @unique
   createdAt                       DateTime            @default(now())
   currencyCodeForForeignCurrency  String?
@@ -57,7 +57,7 @@ model Account {
 }
 
 model Transaction {
-  accountInTransaction    Account?        @relation(fields: [accountInTransactionId], references: [id])
+  accountInTransaction    Account?        @relation(fields: [accountInTransactionId], references: [id],onDelete: Cascade)
   accountInTransactionId  String?
   actionAmount            Decimal?
   actionIndicator         Int?
@@ -67,7 +67,7 @@ model Transaction {
   data                    Json?
   date                    DateTime?
   details                 String?
-  documentDetail          DocumentDetail? @relation(fields: [documentDetailId], references: [id])
+  documentDetail          DocumentDetail? @relation(fields: [documentDetailId], references: [id],onDelete: Cascade)
   documentDetailId        String?
   entryDate               DateTime?
   foreignCurrencyAmount   Int?
@@ -76,7 +76,7 @@ model Transaction {
   lineNumberInTransaction Int?
   modifiedDate            DateTime?
   portion                 Int?
-  receiptDetail           ReceiptDetail?  @relation(fields: [receiptDetailId], references: [id])
+  receiptDetail           ReceiptDetail?  @relation(fields: [receiptDetailId], references: [id],onDelete: Cascade)
   receiptDetailId         String?
   reference               String?
   reference_2             String?
@@ -86,10 +86,10 @@ model Transaction {
 }
 
 model Document {
-  business          Business            @relation(fields: [businessId], references: [id])
+  business               Business?           @relation(fields: [businessId], references: [id],onDelete: Cascade)
   businessId        String
   canceledDocument  Boolean?
-  clientSupplier    ClientsAndSupplier? @relation(fields: [clientSupplierId], references: [id])
+  clientSupplier         ClientsAndSupplier? @relation(fields: [clientSupplierId], references: [id],onDelete: Cascade)
   clientSupplierId  String?
   createdAt         DateTime            @default(now())
   deductionAmount   Decimal?
@@ -152,7 +152,7 @@ model ItemTransaction {
 model DocumentDetail {
   createdAt       DateTime      @default(now())
   discountAmount  Decimal?
-  document        Document      @relation(fields: [documentId], references: [id])
+  document        Document      @relation(fields: [documentId], references: [id],onDelete: Cascade)
   documentId      String
   id              String        @id @default(cuid())
   item            Item?         @relation(fields: [itemId], references: [id])
@@ -167,7 +167,7 @@ model DocumentDetail {
 
 model ReceiptDetail {
   createdAt                 DateTime      @default(now())
-  document                  Document      @relation(fields: [documentId], references: [id])
+  document                  Document      @relation(fields: [documentId], references: [id],onDelete: Cascade)
   documentId                String
   id                        String        @id @default(cuid())
   paymentCheckClearanceDate DateTime?
