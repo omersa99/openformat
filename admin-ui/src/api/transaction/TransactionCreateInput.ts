@@ -1,11 +1,12 @@
 import { AccountWhereUniqueInput } from "../account/AccountWhereUniqueInput";
+import { Decimal } from "decimal.js";
 import { InputJsonValue } from "../../types";
 import { DocumentDetailWhereUniqueInput } from "../documentDetail/DocumentDetailWhereUniqueInput";
 import { ReceiptDetailWhereUniqueInput } from "../receiptDetail/ReceiptDetailWhereUniqueInput";
 
 export type TransactionCreateInput = {
   accountInTransaction?: AccountWhereUniqueInput | null;
-  actionAmount?: number | null;
+  actionAmount?: Decimal | null;
   actionIndicator?: number | null;
   actionOperation?: string | null;
   counterAccount?: string | null;

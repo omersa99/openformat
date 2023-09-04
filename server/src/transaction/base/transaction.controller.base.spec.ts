@@ -19,7 +19,7 @@ import { TransactionService } from "../transaction.service";
 const nonExistingId = "nonExistingId";
 const existingId = "existingId";
 const CREATE_INPUT = {
-  actionAmount: 42,
+  actionAmount: 42.424242424,
   actionIndicator: 42,
   actionOperation: "exampleActionOperation",
   counterAccount: "exampleCounterAccount",
@@ -40,7 +40,7 @@ const CREATE_INPUT = {
   updatedAt: new Date(),
 };
 const CREATE_RESULT = {
-  actionAmount: 42,
+  actionAmount: 42.424242424,
   actionIndicator: 42,
   actionOperation: "exampleActionOperation",
   counterAccount: "exampleCounterAccount",
@@ -62,7 +62,7 @@ const CREATE_RESULT = {
 };
 const FIND_MANY_RESULT = [
   {
-    actionAmount: 42,
+    actionAmount: 42.424242424,
     actionIndicator: 42,
     actionOperation: "exampleActionOperation",
     counterAccount: "exampleCounterAccount",
@@ -84,7 +84,7 @@ const FIND_MANY_RESULT = [
   },
 ];
 const FIND_ONE_RESULT = {
-  actionAmount: 42,
+  actionAmount: 42.424242424,
   actionIndicator: 42,
   actionOperation: "exampleActionOperation",
   counterAccount: "exampleCounterAccount",

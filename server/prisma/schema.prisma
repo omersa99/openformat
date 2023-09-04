@@ -59,7 +59,7 @@ model Account {
 model Transaction {
   accountInTransaction    Account?        @relation(fields: [accountInTransactionId], references: [id])
   accountInTransactionId  String?
-  actionAmount            Int?
+  actionAmount            Decimal?
   actionIndicator         Int?
   actionOperation         String?
   counterAccount          String?
