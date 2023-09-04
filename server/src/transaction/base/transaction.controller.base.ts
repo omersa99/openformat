@@ -58,6 +58,18 @@ export class TransactionControllerBase {
               connect: data.accountInTransaction,
             }
           : undefined,
+
+        documentDetail: data.documentDetail
+          ? {
+              connect: data.documentDetail,
+            }
+          : undefined,
+
+        receiptDetail: data.receiptDetail
+          ? {
+              connect: data.receiptDetail,
+            }
+          : undefined,
       },
       select: {
         accountInTransaction: {
@@ -74,6 +86,13 @@ export class TransactionControllerBase {
         data: true,
         date: true,
         details: true,
+
+        documentDetail: {
+          select: {
+            id: true,
+          },
+        },
+
         entryDate: true,
         foreignCurrencyAmount: true,
         foreignCurrencyCode: true,
@@ -81,6 +100,13 @@ export class TransactionControllerBase {
         lineNumberInTransaction: true,
         modifiedDate: true,
         portion: true,
+
+        receiptDetail: {
+          select: {
+            id: true,
+          },
+        },
+
         reference: true,
         reference_2: true,
         transactionNumber: true,
@@ -121,6 +147,13 @@ export class TransactionControllerBase {
         data: true,
         date: true,
         details: true,
+
+        documentDetail: {
+          select: {
+            id: true,
+          },
+        },
+
         entryDate: true,
         foreignCurrencyAmount: true,
         foreignCurrencyCode: true,
@@ -128,6 +161,13 @@ export class TransactionControllerBase {
         lineNumberInTransaction: true,
         modifiedDate: true,
         portion: true,
+
+        receiptDetail: {
+          select: {
+            id: true,
+          },
+        },
+
         reference: true,
         reference_2: true,
         transactionNumber: true,
@@ -169,6 +209,13 @@ export class TransactionControllerBase {
         data: true,
         date: true,
         details: true,
+
+        documentDetail: {
+          select: {
+            id: true,
+          },
+        },
+
         entryDate: true,
         foreignCurrencyAmount: true,
         foreignCurrencyCode: true,
@@ -176,6 +223,13 @@ export class TransactionControllerBase {
         lineNumberInTransaction: true,
         modifiedDate: true,
         portion: true,
+
+        receiptDetail: {
+          select: {
+            id: true,
+          },
+        },
+
         reference: true,
         reference_2: true,
         transactionNumber: true,
@@ -218,6 +272,18 @@ export class TransactionControllerBase {
                 connect: data.accountInTransaction,
               }
             : undefined,
+
+          documentDetail: data.documentDetail
+            ? {
+                connect: data.documentDetail,
+              }
+            : undefined,
+
+          receiptDetail: data.receiptDetail
+            ? {
+                connect: data.receiptDetail,
+              }
+            : undefined,
         },
         select: {
           accountInTransaction: {
@@ -234,6 +300,13 @@ export class TransactionControllerBase {
           data: true,
           date: true,
           details: true,
+
+          documentDetail: {
+            select: {
+              id: true,
+            },
+          },
+
           entryDate: true,
           foreignCurrencyAmount: true,
           foreignCurrencyCode: true,
@@ -241,6 +314,13 @@ export class TransactionControllerBase {
           lineNumberInTransaction: true,
           modifiedDate: true,
           portion: true,
+
+          receiptDetail: {
+            select: {
+              id: true,
+            },
+          },
+
           reference: true,
           reference_2: true,
           transactionNumber: true,
@@ -290,6 +370,13 @@ export class TransactionControllerBase {
           data: true,
           date: true,
           details: true,
+
+          documentDetail: {
+            select: {
+              id: true,
+            },
+          },
+
           entryDate: true,
           foreignCurrencyAmount: true,
           foreignCurrencyCode: true,
@@ -297,6 +384,13 @@ export class TransactionControllerBase {
           lineNumberInTransaction: true,
           modifiedDate: true,
           portion: true,
+
+          receiptDetail: {
+            select: {
+              id: true,
+            },
+          },
+
           reference: true,
           reference_2: true,
           transactionNumber: true,

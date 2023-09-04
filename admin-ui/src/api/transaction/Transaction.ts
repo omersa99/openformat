@@ -1,5 +1,7 @@
 import { Account } from "../account/Account";
 import { JsonValue } from "type-fest";
+import { DocumentDetail } from "../documentDetail/DocumentDetail";
+import { ReceiptDetail } from "../receiptDetail/ReceiptDetail";
 
 export type Transaction = {
   accountInTransaction?: Account | null;
@@ -11,6 +13,7 @@ export type Transaction = {
   data: JsonValue;
   date: Date | null;
   details: string | null;
+  documentDetail?: DocumentDetail | null;
   entryDate: Date | null;
   foreignCurrencyAmount: number | null;
   foreignCurrencyCode: string | null;
@@ -18,6 +21,7 @@ export type Transaction = {
   lineNumberInTransaction: number | null;
   modifiedDate: Date | null;
   portion: number | null;
+  receiptDetail?: ReceiptDetail | null;
   reference: string | null;
   reference_2: string | null;
   transactionNumber: number | null;

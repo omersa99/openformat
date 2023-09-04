@@ -10,7 +10,7 @@ export type Document = {
   createdAt: Date;
   documentDate: number | null;
   documentDetails?: Array<DocumentDetail>;
-  documentNumber: string | null;
+  documentNumber: number | null;
   documentProductionDate: number | null;
   documentType: number | null;
   id: string;

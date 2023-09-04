@@ -87,6 +87,13 @@ export const DocumentShow = (props: ShowProps): React.ReactElement => {
               <TextField source={DOCUMENT_TITLE_FIELD} />
             </ReferenceField>
             <TextField label="ID" source="id" />
+            <TextField
+              label="Payment/Check Clearance Date"
+              source="paymentCheckClearanceDate"
+            />
+            <TextField label="payment data" source="paymentData" />
+            <TextField label="payment type" source="paymentType" />
+            <TextField label="total" source="total" />
             <DateField source="updatedAt" label="Updated At" />
           </Datagrid>
         </ReferenceManyField>

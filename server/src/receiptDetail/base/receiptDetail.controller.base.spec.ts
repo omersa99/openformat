@@ -21,23 +21,35 @@ const existingId = "existingId";
 const CREATE_INPUT = {
   createdAt: new Date(),
   id: "exampleId",
+  paymentCheckClearanceDate: new Date(),
+  paymentType: 42,
+  total: 42.424242424,
   updatedAt: new Date(),
 };
 const CREATE_RESULT = {
   createdAt: new Date(),
   id: "exampleId",
+  paymentCheckClearanceDate: new Date(),
+  paymentType: 42,
+  total: 42.424242424,
   updatedAt: new Date(),
 };
 const FIND_MANY_RESULT = [
   {
     createdAt: new Date(),
     id: "exampleId",
+    paymentCheckClearanceDate: new Date(),
+    paymentType: 42,
+    total: 42.424242424,
     updatedAt: new Date(),
   },
 ];
 const FIND_ONE_RESULT = {
   createdAt: new Date(),
   id: "exampleId",
+  paymentCheckClearanceDate: new Date(),
+  paymentType: 42,
+  total: 42.424242424,
   updatedAt: new Date(),
 };
 
@@ -124,6 +136,8 @@ describe("ReceiptDetail", () => {
       .expect({
         ...CREATE_RESULT,
         createdAt: CREATE_RESULT.createdAt.toISOString(),
+        paymentCheckClearanceDate:
+          CREATE_RESULT.paymentCheckClearanceDate.toISOString(),
         updatedAt: CREATE_RESULT.updatedAt.toISOString(),
       });
   });
@@ -136,6 +150,8 @@ describe("ReceiptDetail", () => {
         {
           ...FIND_MANY_RESULT[0],
           createdAt: FIND_MANY_RESULT[0].createdAt.toISOString(),
+          paymentCheckClearanceDate:
+            FIND_MANY_RESULT[0].paymentCheckClearanceDate.toISOString(),
           updatedAt: FIND_MANY_RESULT[0].updatedAt.toISOString(),
         },
       ]);
@@ -159,6 +175,8 @@ describe("ReceiptDetail", () => {
       .expect({
         ...FIND_ONE_RESULT,
         createdAt: FIND_ONE_RESULT.createdAt.toISOString(),
+        paymentCheckClearanceDate:
+          FIND_ONE_RESULT.paymentCheckClearanceDate.toISOString(),
         updatedAt: FIND_ONE_RESULT.updatedAt.toISOString(),
       });
   });
@@ -172,6 +190,8 @@ describe("ReceiptDetail", () => {
       .expect({
         ...CREATE_RESULT,
         createdAt: CREATE_RESULT.createdAt.toISOString(),
+        paymentCheckClearanceDate:
+          CREATE_RESULT.paymentCheckClearanceDate.toISOString(),
         updatedAt: CREATE_RESULT.updatedAt.toISOString(),
       })
       .then(function () {

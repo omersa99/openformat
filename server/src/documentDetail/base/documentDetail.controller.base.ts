@@ -27,6 +27,9 @@ import { DocumentDetailWhereUniqueInput } from "./DocumentDetailWhereUniqueInput
 import { DocumentDetailFindManyArgs } from "./DocumentDetailFindManyArgs";
 import { DocumentDetailUpdateInput } from "./DocumentDetailUpdateInput";
 import { DocumentDetail } from "./DocumentDetail";
+import { TransactionFindManyArgs } from "../../transaction/base/TransactionFindManyArgs";
+import { Transaction } from "../../transaction/base/Transaction";
+import { TransactionWhereUniqueInput } from "../../transaction/base/TransactionWhereUniqueInput";
 
 @swagger.ApiBearerAuth()
 @common.UseGuards(defaultAuthGuard.DefaultAuthGuard, nestAccessControl.ACGuard)
@@ -299,5 +302,137 @@ export class DocumentDetailControllerBase {
       }
       throw error;
     }
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @common.Get("/:id/transactions")
+  @ApiNestedQuery(TransactionFindManyArgs)
+  @nestAccessControl.UseRoles({
+    resource: "Transaction",
+    action: "read",
+    possession: "any",
+  })
+  async findManyTransactions(
+    @common.Req() request: Request,
+    @common.Param() params: DocumentDetailWhereUniqueInput
+  ): Promise<Transaction[]> {
+    const query = plainToClass(TransactionFindManyArgs, request.query);
+    const results = await this.service.findTransactions(params.id, {
+      ...query,
+      select: {
+        accountInTransaction: {
+          select: {
+            id: true,
+          },
+        },
+
+        actionAmount: true,
+        actionIndicator: true,
+        actionOperation: true,
+        counterAccount: true,
+        createdAt: true,
+        data: true,
+        date: true,
+        details: true,
+
+        documentDetail: {
+          select: {
+            id: true,
+          },
+        },
+
+        entryDate: true,
+        foreignCurrencyAmount: true,
+        foreignCurrencyCode: true,
+        id: true,
+        lineNumberInTransaction: true,
+        modifiedDate: true,
+        portion: true,
+
+        receiptDetail: {
+          select: {
+            id: true,
+          },
+        },
+
+        reference: true,
+        reference_2: true,
+        transactionNumber: true,
+        transactionType: true,
+        updatedAt: true,
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @common.Post("/:id/transactions")
+  @nestAccessControl.UseRoles({
+    resource: "DocumentDetail",
+    action: "update",
+    possession: "any",
+  })
+  async connectTransactions(
+    @common.Param() params: DocumentDetailWhereUniqueInput,
+    @common.Body() body: TransactionWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      transactions: {
+        connect: body,
+      },
+    };
+    await this.service.update({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Patch("/:id/transactions")
+  @nestAccessControl.UseRoles({
+    resource: "DocumentDetail",
+    action: "update",
+    possession: "any",
+  })
+  async updateTransactions(
+    @common.Param() params: DocumentDetailWhereUniqueInput,
+    @common.Body() body: TransactionWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      transactions: {
+        set: body,
+      },
+    };
+    await this.service.update({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Delete("/:id/transactions")
+  @nestAccessControl.UseRoles({
+    resource: "DocumentDetail",
+    action: "update",
+    possession: "any",
+  })
+  async disconnectTransactions(
+    @common.Param() params: DocumentDetailWhereUniqueInput,
+    @common.Body() body: TransactionWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      transactions: {
+        disconnect: body,
+      },
+    };
+    await this.service.update({
+      where: params,
+      data,
+      select: { id: true },
+    });
   }
 }

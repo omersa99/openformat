@@ -23,6 +23,8 @@ import { Type } from "class-transformer";
 import { IsJSONValue } from "@app/custom-validators";
 import { GraphQLJSON } from "graphql-type-json";
 import { InputJsonValue } from "../../types";
+import { DocumentDetailWhereUniqueInput } from "../../documentDetail/base/DocumentDetailWhereUniqueInput";
+import { ReceiptDetailWhereUniqueInput } from "../../receiptDetail/base/ReceiptDetailWhereUniqueInput";
 
 @InputType()
 class TransactionUpdateInput {
@@ -116,6 +118,18 @@ class TransactionUpdateInput {
 
   @ApiProperty({
     required: false,
+    type: () => DocumentDetailWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => DocumentDetailWhereUniqueInput)
+  @IsOptional()
+  @Field(() => DocumentDetailWhereUniqueInput, {
+    nullable: true,
+  })
+  documentDetail?: DocumentDetailWhereUniqueInput | null;
+
+  @ApiProperty({
+    required: false,
   })
   @IsDate()
   @Type(() => Date)
@@ -179,6 +193,18 @@ class TransactionUpdateInput {
     nullable: true,
   })
   portion?: number | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => ReceiptDetailWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => ReceiptDetailWhereUniqueInput)
+  @IsOptional()
+  @Field(() => ReceiptDetailWhereUniqueInput, {
+    nullable: true,
+  })
+  receiptDetail?: ReceiptDetailWhereUniqueInput | null;
 
   @ApiProperty({
     required: false,

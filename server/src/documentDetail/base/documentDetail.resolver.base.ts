@@ -26,6 +26,8 @@ import { DocumentDetailCountArgs } from "./DocumentDetailCountArgs";
 import { DocumentDetailFindManyArgs } from "./DocumentDetailFindManyArgs";
 import { DocumentDetailFindUniqueArgs } from "./DocumentDetailFindUniqueArgs";
 import { DocumentDetail } from "./DocumentDetail";
+import { TransactionFindManyArgs } from "../../transaction/base/TransactionFindManyArgs";
+import { Transaction } from "../../transaction/base/Transaction";
 import { Document } from "../../document/base/Document";
 import { Item } from "../../item/base/Item";
 import { DocumentDetailService } from "../documentDetail.service";
@@ -170,6 +172,26 @@ export class DocumentDetailResolverBase {
       }
       throw error;
     }
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [Transaction], { name: "transactions" })
+  @nestAccessControl.UseRoles({
+    resource: "Transaction",
+    action: "read",
+    possession: "any",
+  })
+  async resolveFieldTransactions(
+    @graphql.Parent() parent: DocumentDetail,
+    @graphql.Args() args: TransactionFindManyArgs
+  ): Promise<Transaction[]> {
+    const results = await this.service.findTransactions(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)

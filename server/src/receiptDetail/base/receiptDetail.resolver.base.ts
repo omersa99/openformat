@@ -26,6 +26,8 @@ import { ReceiptDetailCountArgs } from "./ReceiptDetailCountArgs";
 import { ReceiptDetailFindManyArgs } from "./ReceiptDetailFindManyArgs";
 import { ReceiptDetailFindUniqueArgs } from "./ReceiptDetailFindUniqueArgs";
 import { ReceiptDetail } from "./ReceiptDetail";
+import { TransactionFindManyArgs } from "../../transaction/base/TransactionFindManyArgs";
+import { Transaction } from "../../transaction/base/Transaction";
 import { Document } from "../../document/base/Document";
 import { ReceiptDetailService } from "../receiptDetail.service";
 @common.UseGuards(GqlDefaultAuthGuard, gqlACGuard.GqlACGuard)
@@ -157,6 +159,26 @@ export class ReceiptDetailResolverBase {
       }
       throw error;
     }
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [Transaction], { name: "transactions" })
+  @nestAccessControl.UseRoles({
+    resource: "Transaction",
+    action: "read",
+    possession: "any",
+  })
+  async resolveFieldTransactions(
+    @graphql.Parent() parent: ReceiptDetail,
+    @graphql.Args() args: TransactionFindManyArgs
+  ): Promise<Transaction[]> {
+    const results = await this.service.findTransactions(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)

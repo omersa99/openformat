@@ -448,6 +448,10 @@ export class DocumentControllerBase {
         },
 
         id: true,
+        paymentCheckClearanceDate: true,
+        paymentData: true,
+        paymentType: true,
+        total: true,
         updatedAt: true,
       },
     });

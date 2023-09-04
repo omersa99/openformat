@@ -86,14 +86,14 @@ class DocumentCreateInput {
 
   @ApiProperty({
     required: false,
-    type: String,
+    type: Number,
   })
-  @IsString()
+  @IsInt()
   @IsOptional()
-  @Field(() => String, {
+  @Field(() => Number, {
     nullable: true,
   })
-  documentNumber?: string | null;
+  documentNumber?: number | null;
 
   @ApiProperty({
     required: false,

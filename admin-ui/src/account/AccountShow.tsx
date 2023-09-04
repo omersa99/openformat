@@ -12,6 +12,8 @@ import {
 } from "react-admin";
 
 import { ACCOUNT_TITLE_FIELD } from "./AccountTitle";
+import { DOCUMENTDETAIL_TITLE_FIELD } from "../documentDetail/DocumentDetailTitle";
+import { RECEIPTDETAIL_TITLE_FIELD } from "../receiptDetail/ReceiptDetailTitle";
 import { BUSINESS_TITLE_FIELD } from "../business/BusinessTitle";
 import { CLIENTSANDSUPPLIER_TITLE_FIELD } from "../clientsAndSupplier/ClientsAndSupplierTitle";
 
@@ -83,6 +85,13 @@ export const AccountShow = (props: ShowProps): React.ReactElement => {
             <TextField label="data" source="data" />
             <TextField label="Date" source="date" />
             <TextField label="Details" source="details" />
+            <ReferenceField
+              label="document details"
+              source="documentdetail.id"
+              reference="DocumentDetail"
+            >
+              <TextField source={DOCUMENTDETAIL_TITLE_FIELD} />
+            </ReferenceField>
             <TextField label="Entry Date" source="entryDate" />
             <TextField
               label="Foreign Currency Amount"
@@ -99,6 +108,13 @@ export const AccountShow = (props: ShowProps): React.ReactElement => {
             />
             <TextField label="Modified Date" source="modifiedDate" />
             <TextField label="Portion" source="portion" />
+            <ReferenceField
+              label="receipt details"
+              source="receiptdetail.id"
+              reference="ReceiptDetail"
+            >
+              <TextField source={RECEIPTDETAIL_TITLE_FIELD} />
+            </ReferenceField>
             <TextField label="Reference" source="reference" />
             <TextField label="Reference 2" source="reference_2" />
             <TextField label="Transaction Number" source="transactionNumber" />

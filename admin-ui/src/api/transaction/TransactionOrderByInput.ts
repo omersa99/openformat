@@ -10,6 +10,7 @@ export type TransactionOrderByInput = {
   data?: SortOrder;
   date?: SortOrder;
   details?: SortOrder;
+  documentDetailId?: SortOrder;
   entryDate?: SortOrder;
   foreignCurrencyAmount?: SortOrder;
   foreignCurrencyCode?: SortOrder;
@@ -17,6 +18,7 @@ export type TransactionOrderByInput = {
   lineNumberInTransaction?: SortOrder;
   modifiedDate?: SortOrder;
   portion?: SortOrder;
+  receiptDetailId?: SortOrder;
   reference?: SortOrder;
   reference_2?: SortOrder;
   transactionNumber?: SortOrder;

@@ -3,8 +3,8 @@ import { BooleanNullableFilter } from "../../util/BooleanNullableFilter";
 import { ClientsAndSupplierWhereUniqueInput } from "../clientsAndSupplier/ClientsAndSupplierWhereUniqueInput";
 import { IntNullableFilter } from "../../util/IntNullableFilter";
 import { DocumentDetailListRelationFilter } from "../documentDetail/DocumentDetailListRelationFilter";
-import { StringNullableFilter } from "../../util/StringNullableFilter";
 import { StringFilter } from "../../util/StringFilter";
+import { StringNullableFilter } from "../../util/StringNullableFilter";
 import { ReceiptDetailListRelationFilter } from "../receiptDetail/ReceiptDetailListRelationFilter";
 
 export type DocumentWhereInput = {
@@ -13,7 +13,7 @@ export type DocumentWhereInput = {
   clientSupplier?: ClientsAndSupplierWhereUniqueInput;
   documentDate?: IntNullableFilter;
   documentDetails?: DocumentDetailListRelationFilter;
-  documentNumber?: StringNullableFilter;
+  documentNumber?: IntNullableFilter;
   documentProductionDate?: IntNullableFilter;
   documentType?: IntNullableFilter;
   id?: StringFilter;
