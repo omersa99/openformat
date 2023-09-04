@@ -1,5 +1,6 @@
 import { Document } from "../document/Document";
 import { Item } from "../item/Item";
+import { Decimal } from "decimal.js";
 import { Transaction } from "../transaction/Transaction";
 
 export type DocumentDetail = {
@@ -7,7 +8,7 @@ export type DocumentDetail = {
   document?: Document;
   id: string;
   item?: Item | null;
-  priceWithoutVat: number | null;
+  priceWithoutVat: Decimal | null;
   quantity: number | null;
   transactions?: Array<Transaction>;
   transactionType: string | null;

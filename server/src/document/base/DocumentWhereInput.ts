@@ -18,6 +18,7 @@ import { BooleanNullableFilter } from "../../util/BooleanNullableFilter";
 import { ClientsAndSupplierWhereUniqueInput } from "../../clientsAndSupplier/base/ClientsAndSupplierWhereUniqueInput";
 import { IntNullableFilter } from "../../util/IntNullableFilter";
 import { DocumentDetailListRelationFilter } from "../../documentDetail/base/DocumentDetailListRelationFilter";
+import { IntFilter } from "../../util/IntFilter";
 import { StringFilter } from "../../util/StringFilter";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
 import { ReceiptDetailListRelationFilter } from "../../receiptDetail/base/ReceiptDetailListRelationFilter";
@@ -106,14 +107,14 @@ class DocumentWhereInput {
 
   @ApiProperty({
     required: false,
-    type: IntNullableFilter,
+    type: IntFilter,
   })
-  @Type(() => IntNullableFilter)
+  @Type(() => IntFilter)
   @IsOptional()
-  @Field(() => IntNullableFilter, {
+  @Field(() => IntFilter, {
     nullable: true,
   })
-  documentType?: IntNullableFilter;
+  documentType?: IntFilter;
 
   @ApiProperty({
     required: false,

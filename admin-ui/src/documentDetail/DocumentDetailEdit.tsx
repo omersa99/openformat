@@ -30,11 +30,7 @@ export const DocumentDetailEdit = (props: EditProps): React.ReactElement => {
         <ReferenceInput source="item.id" reference="Item" label="item">
           <SelectInput optionText={ItemTitle} />
         </ReferenceInput>
-        <NumberInput
-          step={1}
-          label="Price without VAT"
-          source="priceWithoutVat"
-        />
+        <NumberInput label="Price without VAT" source="priceWithoutVat" />
         <NumberInput step={1} label="quantity" source="quantity" />
         <ReferenceArrayInput
           source="transactions"

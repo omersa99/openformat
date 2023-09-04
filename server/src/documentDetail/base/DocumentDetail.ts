@@ -9,18 +9,20 @@ https://docs.amplication.com/how-to/custom-code
 
 ------------------------------------------------------------------------------
   */
-import { ObjectType, Field } from "@nestjs/graphql";
+import { ObjectType, Field, Float } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
 import {
   IsDate,
   ValidateNested,
   IsString,
   IsOptional,
+  IsNumber,
   IsInt,
 } from "class-validator";
 import { Type } from "class-transformer";
 import { Document } from "../../document/base/Document";
 import { Item } from "../../item/base/Item";
+import { Decimal } from "decimal.js";
 import { Transaction } from "../../transaction/base/Transaction";
 
 @ObjectType()
@@ -62,12 +64,12 @@ class DocumentDetail {
     required: false,
     type: Number,
   })
-  @IsInt()
+  @IsNumber()
   @IsOptional()
-  @Field(() => Number, {
+  @Field(() => Float, {
     nullable: true,
   })
-  priceWithoutVat!: number | null;
+  priceWithoutVat!: Decimal | null;
 
   @ApiProperty({
     required: false,

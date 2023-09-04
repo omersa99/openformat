@@ -101,11 +101,9 @@ export class DocumentResolverBase {
       data: {
         ...args.data,
 
-        business: args.data.business
-          ? {
-              connect: args.data.business,
-            }
-          : undefined,
+        business: {
+          connect: args.data.business,
+        },
 
         clientSupplier: args.data.clientSupplier
           ? {
@@ -132,11 +130,9 @@ export class DocumentResolverBase {
         data: {
           ...args.data,
 
-          business: args.data.business
-            ? {
-                connect: args.data.business,
-              }
-            : undefined,
+          business: {
+            connect: args.data.business,
+          },
 
           clientSupplier: args.data.clientSupplier
             ? {

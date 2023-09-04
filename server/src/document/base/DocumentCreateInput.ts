@@ -14,8 +14,8 @@ import { ApiProperty } from "@nestjs/swagger";
 import { BusinessWhereUniqueInput } from "../../business/base/BusinessWhereUniqueInput";
 import {
   ValidateNested,
-  IsOptional,
   IsBoolean,
+  IsOptional,
   IsInt,
   IsString,
 } from "class-validator";
@@ -27,16 +27,13 @@ import { ReceiptDetailCreateNestedManyWithoutDocumentsInput } from "./ReceiptDet
 @InputType()
 class DocumentCreateInput {
   @ApiProperty({
-    required: false,
+    required: true,
     type: () => BusinessWhereUniqueInput,
   })
   @ValidateNested()
   @Type(() => BusinessWhereUniqueInput)
-  @IsOptional()
-  @Field(() => BusinessWhereUniqueInput, {
-    nullable: true,
-  })
-  business?: BusinessWhereUniqueInput | null;
+  @Field(() => BusinessWhereUniqueInput)
+  business!: BusinessWhereUniqueInput;
 
   @ApiProperty({
     required: false,
@@ -107,15 +104,12 @@ class DocumentCreateInput {
   documentProductionDate?: number | null;
 
   @ApiProperty({
-    required: false,
+    required: true,
     type: Number,
   })
   @IsInt()
-  @IsOptional()
-  @Field(() => Number, {
-    nullable: true,
-  })
-  documentType?: number | null;
+  @Field(() => Number)
+  documentType!: number;
 
   @ApiProperty({
     required: false,

@@ -57,11 +57,9 @@ export class DocumentControllerBase {
       data: {
         ...data,
 
-        business: data.business
-          ? {
-              connect: data.business,
-            }
-          : undefined,
+        business: {
+          connect: data.business,
+        },
 
         clientSupplier: data.clientSupplier
           ? {
@@ -211,11 +209,9 @@ export class DocumentControllerBase {
         data: {
           ...data,
 
-          business: data.business
-            ? {
-                connect: data.business,
-              }
-            : undefined,
+          business: {
+            connect: data.business,
+          },
 
           clientSupplier: data.clientSupplier
             ? {

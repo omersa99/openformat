@@ -36,7 +36,7 @@ class DocumentUpdateInput {
   @Field(() => BusinessWhereUniqueInput, {
     nullable: true,
   })
-  business?: BusinessWhereUniqueInput | null;
+  business?: BusinessWhereUniqueInput;
 
   @ApiProperty({
     required: false,
@@ -115,7 +115,7 @@ class DocumentUpdateInput {
   @Field(() => Number, {
     nullable: true,
   })
-  documentType?: number | null;
+  documentType?: number;
 
   @ApiProperty({
     required: false,

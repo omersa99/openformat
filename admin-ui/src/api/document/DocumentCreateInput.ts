@@ -4,14 +4,14 @@ import { DocumentDetailCreateNestedManyWithoutDocumentsInput } from "./DocumentD
 import { ReceiptDetailCreateNestedManyWithoutDocumentsInput } from "./ReceiptDetailCreateNestedManyWithoutDocumentsInput";
 
 export type DocumentCreateInput = {
-  business?: BusinessWhereUniqueInput | null;
+  business: BusinessWhereUniqueInput;
   canceledDocument?: boolean | null;
   clientSupplier?: ClientsAndSupplierWhereUniqueInput | null;
   documentDate?: number | null;
   documentDetails?: DocumentDetailCreateNestedManyWithoutDocumentsInput;
   documentNumber?: number | null;
   documentProductionDate?: number | null;
-  documentType?: number | null;
+  documentType: number;
   linkedDocumentIds?: string | null;
   receiptDetails?: ReceiptDetailCreateNestedManyWithoutDocumentsInput;
 };
