@@ -354,7 +354,7 @@ type DocumentDetail {
 }
 
 input DocumentDetailCreateInput {
-  document: DocumentWhereUniqueInput
+  document: DocumentWhereUniqueInput!
   item: ItemWhereUniqueInput
   priceWithoutVat: Float
   quantity: Float
@@ -760,7 +760,7 @@ type ReceiptDetail {
 }
 
 input ReceiptDetailCreateInput {
-  document: DocumentWhereUniqueInput
+  document: DocumentWhereUniqueInput!
   paymentCheckClearanceDate: DateTime
   paymentData: JSON
   paymentType: Float
@@ -1030,7 +1030,7 @@ input TransactionUpdateManyWithoutReceiptDetailsInput {
 
 input TransactionWhereInput {
   accountInTransaction: AccountWhereUniqueInput
-  actionAmount: IntNullableFilter
+  actionAmount: DecimalNullableFilter
   actionIndicator: IntNullableFilter
   actionOperation: StringNullableFilter
   counterAccount: StringNullableFilter

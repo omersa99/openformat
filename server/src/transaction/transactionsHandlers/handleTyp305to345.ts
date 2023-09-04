@@ -51,7 +51,7 @@ export async function handleTyp305to345(document: Document, prisma: PrismaServic
   await prisma.transaction.create({
     data: {
       actionIndicator: actionIndicatorSecond,
-      actionAmount: amount * (100 - VatRate),
+      actionAmount: (amount * (100 - VatRate)) / 100,
       accountInTransaction: {
         connect: {
           id: payableAccount?.id,
@@ -68,7 +68,7 @@ export async function handleTyp305to345(document: Document, prisma: PrismaServic
   await prisma.transaction.create({
     data: {
       actionIndicator: actionIndicatorSecond,
-      actionAmount: amount * VatRate,
+      actionAmount: (amount * VatRate) / 100,
       accountInTransaction: {
         connect: {
           id: taxAccount?.id,

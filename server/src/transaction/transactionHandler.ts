@@ -2,6 +2,7 @@ import { PrismaService } from "../prisma/prisma.service";
 import { Document, DocumentDetail } from "@prisma/client";
 import { handleType300 } from "./transactionsHandlers/handleType300";
 import { handleTyp305to345 } from "./transactionsHandlers/handleTyp305to345";
+import { handleReceiptTransaction } from "./handleReceiptTransaction";
 
 export async function handleTransactionBasedOnDocumentType(document: Document, prisma: PrismaService, documentDetail: DocumentDetail) {
   // let customerAccount;
@@ -28,7 +29,7 @@ export async function handleTransactionBasedOnDocumentType(document: Document, p
       case 300:
         handleType300(document, prisma, documentDetail);
         break;
-      case 305 || 310 || 320 || 330 || 340 || 345:
+      case 305 || 310 || 330 || 340 || 345:
         handleTyp305to345(document, prisma, documentDetail);
         break;
 

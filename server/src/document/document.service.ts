@@ -2,11 +2,16 @@ import { Injectable } from "@nestjs/common";
 import { PrismaService } from "../prisma/prisma.service";
 import { DocumentServiceBase } from "./base/document.service.base";
 import { mapToDocumentModel, parseC100 } from "src/parsers/parseC100";
+import { Prisma, Document } from "@prisma/client";
+import { getNextDocumentNumber } from "./documentNumGenerate";
 
 @Injectable()
 export class DocumentService extends DocumentServiceBase {
   constructor(protected readonly prisma: PrismaService) {
     super(prisma);
+  }
+  async create<T extends Prisma.DocumentCreateArgs>(args: Prisma.SelectSubset<T, Prisma.DocumentCreateArgs>): Promise<Document> {
+    const documentNumber = await getNextDocumentNumber(this.prisma, args.data.businessId || "12", args.data.documentType);
   }
 
   async Line2Document(line: string) {

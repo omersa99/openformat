@@ -14,7 +14,7 @@ export class ReceiptDetailService extends ReceiptDetailServiceBase {
 
     try {
       const relatedDocument = await this.prisma.document.findUnique({
-        where: { id: args.data.documentId },
+        where: { id: documentReceiptDetail.documentId },
       });
 
       if (relatedDocument) {

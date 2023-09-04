@@ -3,6 +3,7 @@ import { PrismaService } from "../prisma/prisma.service";
 import { BusinessServiceBase } from "./base/business.service.base";
 import { Prisma, Business } from "@prisma/client";
 import { defaultAccountsData } from "src/account/defaultAccounts";
+import { initialCounters } from "src/setting/defaultDocumentNumbers";
 
 @Injectable()
 export class BusinessService extends BusinessServiceBase {
@@ -15,6 +16,7 @@ export class BusinessService extends BusinessServiceBase {
 
     await this.prisma.setting.create({
       data: {
+        accountingSettings: initialCounters,
         business: {
           connect: { id: newBusiness.id },
         },
