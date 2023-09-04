@@ -29,4 +29,14 @@ export const defaultAccountsData = [
     totalCredit: 0,
     totalDebit: 0,
   },
+  {
+    accountKey: "50001",
+    accountName: "הכנסות ממכירות",
+    accountantClassificationCode: 0,
+    accountBalanceAtStartOfSegment: 0,
+    examinedBalanceCode: "310",
+    examinedBalanceCodeDescription: "הכנסות",
+    totalCredit: 0,
+    totalDebit: 0,
+  },
 ];

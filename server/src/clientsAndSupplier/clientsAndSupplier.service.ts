@@ -19,11 +19,11 @@ export class ClientsAndSupplierService extends ClientsAndSupplierServiceBase {
             id: clientsAndSupplierObj.id,
           },
         },
-        // business:{
-        //   connect:{
-        //     id:
-        //   }
-        // }
+        business: {
+          connect: {
+            id: clientsAndSupplierObj.businessId || "",
+          },
+        },
         accountName: clientsAndSupplierObj.name,
         examinedBalanceCodeDescription: "לקוחות",
         examinedBalanceCode: "100",

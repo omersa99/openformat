@@ -121,6 +121,7 @@ input BooleanNullableFilter {
 type Business {
   accounts(orderBy: [AccountOrderByInput!], skip: Float, take: Float, where: AccountWhereInput): [Account!]!
   bn: Float!
+  clientsAndSuppliers(orderBy: [ClientsAndSupplierOrderByInput!], skip: Float, take: Float, where: ClientsAndSupplierWhereInput): [ClientsAndSupplier!]!
   createdAt: DateTime!
   documents(orderBy: [DocumentOrderByInput!], skip: Float, take: Float, where: DocumentWhereInput): [Document!]!
   id: String!
@@ -133,6 +134,7 @@ type Business {
 input BusinessCreateInput {
   accounts: AccountCreateNestedManyWithoutBusinessesInput
   bn: Float!
+  clientsAndSuppliers: ClientsAndSupplierCreateNestedManyWithoutBusinessesInput
   documents: DocumentCreateNestedManyWithoutBusinessesInput
   items: ItemCreateNestedManyWithoutBusinessesInput
   owner: UserWhereUniqueInput
@@ -151,6 +153,7 @@ input BusinessOrderByInput {
 input BusinessUpdateInput {
   accounts: AccountUpdateManyWithoutBusinessesInput
   bn: Float
+  clientsAndSuppliers: ClientsAndSupplierUpdateManyWithoutBusinessesInput
   documents: DocumentUpdateManyWithoutBusinessesInput
   items: ItemUpdateManyWithoutBusinessesInput
   owner: UserWhereUniqueInput
@@ -160,6 +163,7 @@ input BusinessUpdateInput {
 input BusinessWhereInput {
   accounts: AccountListRelationFilter
   bn: IntFilter
+  clientsAndSuppliers: ClientsAndSupplierListRelationFilter
   documents: DocumentListRelationFilter
   id: StringFilter
   items: ItemListRelationFilter
@@ -178,6 +182,7 @@ type ClientsAndSupplier {
   addressHouseNumber: String
   addressPostalCode: String
   addressStreet: String
+  business: Business
   businessNumber: String
   countryCode: String
   createdAt: DateTime!
@@ -194,10 +199,21 @@ input ClientsAndSupplierCreateInput {
   addressHouseNumber: String
   addressPostalCode: String
   addressStreet: String
+  business: BusinessWhereUniqueInput
   businessNumber: String
   countryCode: String
   documents: DocumentCreateNestedManyWithoutClientsAndSuppliersInput
   name: String
+}
+
+input ClientsAndSupplierCreateNestedManyWithoutBusinessesInput {
+  connect: [ClientsAndSupplierWhereUniqueInput!]
+}
+
+input ClientsAndSupplierListRelationFilter {
+  every: ClientsAndSupplierWhereInput
+  none: ClientsAndSupplierWhereInput
+  some: ClientsAndSupplierWhereInput
 }
 
 input ClientsAndSupplierOrderByInput {
@@ -207,6 +223,7 @@ input ClientsAndSupplierOrderByInput {
   addressHouseNumber: SortOrder
   addressPostalCode: SortOrder
   addressStreet: SortOrder
+  businessId: SortOrder
   businessNumber: SortOrder
   countryCode: SortOrder
   createdAt: SortOrder
@@ -222,10 +239,17 @@ input ClientsAndSupplierUpdateInput {
   addressHouseNumber: String
   addressPostalCode: String
   addressStreet: String
+  business: BusinessWhereUniqueInput
   businessNumber: String
   countryCode: String
   documents: DocumentUpdateManyWithoutClientsAndSuppliersInput
   name: String
+}
+
+input ClientsAndSupplierUpdateManyWithoutBusinessesInput {
+  connect: [ClientsAndSupplierWhereUniqueInput!]
+  disconnect: [ClientsAndSupplierWhereUniqueInput!]
+  set: [ClientsAndSupplierWhereUniqueInput!]
 }
 
 input ClientsAndSupplierWhereInput {
@@ -235,6 +259,7 @@ input ClientsAndSupplierWhereInput {
   addressHouseNumber: StringNullableFilter
   addressPostalCode: StringNullableFilter
   addressStreet: StringNullableFilter
+  business: BusinessWhereUniqueInput
   businessNumber: StringNullableFilter
   countryCode: StringNullableFilter
   documents: DocumentListRelationFilter
