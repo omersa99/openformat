@@ -4,7 +4,7 @@ import { Decimal } from "decimal.js";
 import { TransactionUpdateManyWithoutReceiptDetailsInput } from "./TransactionUpdateManyWithoutReceiptDetailsInput";
 
 export type ReceiptDetailUpdateInput = {
-  document?: DocumentWhereUniqueInput | null;
+  document?: DocumentWhereUniqueInput;
   paymentCheckClearanceDate?: Date | null;
   paymentData?: InputJsonValue;
   paymentType?: number | null;

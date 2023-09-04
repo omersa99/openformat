@@ -98,11 +98,9 @@ export class ReceiptDetailResolverBase {
       data: {
         ...args.data,
 
-        document: args.data.document
-          ? {
-              connect: args.data.document,
-            }
-          : undefined,
+        document: {
+          connect: args.data.document,
+        },
       },
     });
   }
@@ -123,11 +121,9 @@ export class ReceiptDetailResolverBase {
         data: {
           ...args.data,
 
-          document: args.data.document
-            ? {
-                connect: args.data.document,
-              }
-            : undefined,
+          document: {
+            connect: args.data.document,
+          },
         },
       });
     } catch (error) {

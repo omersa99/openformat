@@ -150,8 +150,8 @@ model ItemTransaction {
 
 model DocumentDetail {
   createdAt       DateTime      @default(now())
-  document        Document?     @relation(fields: [documentId], references: [id])
-  documentId      String?
+  document        Document      @relation(fields: [documentId], references: [id])
+  documentId      String
   id              String        @id @default(cuid())
   item            Item?         @relation(fields: [itemId], references: [id])
   itemId          String?
@@ -165,8 +165,8 @@ model DocumentDetail {
 
 model ReceiptDetail {
   createdAt                 DateTime      @default(now())
-  document                  Document?     @relation(fields: [documentId], references: [id])
-  documentId                String?
+  document                  Document      @relation(fields: [documentId], references: [id])
+  documentId                String
   id                        String        @id @default(cuid())
   paymentCheckClearanceDate DateTime?
   paymentData               Json?

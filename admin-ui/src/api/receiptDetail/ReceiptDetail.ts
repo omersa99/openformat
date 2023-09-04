@@ -5,7 +5,7 @@ import { Transaction } from "../transaction/Transaction";
 
 export type ReceiptDetail = {
   createdAt: Date;
-  document?: Document | null;
+  document?: Document;
   id: string;
   paymentCheckClearanceDate: Date | null;
   paymentData: JsonValue;

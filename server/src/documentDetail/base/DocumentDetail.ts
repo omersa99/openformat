@@ -14,8 +14,8 @@ import { ApiProperty } from "@nestjs/swagger";
 import {
   IsDate,
   ValidateNested,
-  IsOptional,
   IsString,
+  IsOptional,
   IsInt,
 } from "class-validator";
 import { Type } from "class-transformer";
@@ -34,13 +34,12 @@ class DocumentDetail {
   createdAt!: Date;
 
   @ApiProperty({
-    required: false,
+    required: true,
     type: () => Document,
   })
   @ValidateNested()
   @Type(() => Document)
-  @IsOptional()
-  document?: Document | null;
+  document?: Document;
 
   @ApiProperty({
     required: true,

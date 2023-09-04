@@ -4,7 +4,7 @@ import { Transaction } from "../transaction/Transaction";
 
 export type DocumentDetail = {
   createdAt: Date;
-  document?: Document | null;
+  document?: Document;
   id: string;
   item?: Item | null;
   priceWithoutVat: number | null;

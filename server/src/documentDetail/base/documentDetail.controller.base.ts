@@ -56,11 +56,9 @@ export class DocumentDetailControllerBase {
       data: {
         ...data,
 
-        document: data.document
-          ? {
-              connect: data.document,
-            }
-          : undefined,
+        document: {
+          connect: data.document,
+        },
 
         item: data.item
           ? {
@@ -207,11 +205,9 @@ export class DocumentDetailControllerBase {
         data: {
           ...data,
 
-          document: data.document
-            ? {
-                connect: data.document,
-              }
-            : undefined,
+          document: {
+            connect: data.document,
+          },
 
           item: data.item
             ? {

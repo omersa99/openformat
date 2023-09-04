@@ -99,11 +99,9 @@ export class DocumentDetailResolverBase {
       data: {
         ...args.data,
 
-        document: args.data.document
-          ? {
-              connect: args.data.document,
-            }
-          : undefined,
+        document: {
+          connect: args.data.document,
+        },
 
         item: args.data.item
           ? {
@@ -130,11 +128,9 @@ export class DocumentDetailResolverBase {
         data: {
           ...args.data,
 
-          document: args.data.document
-            ? {
-                connect: args.data.document,
-              }
-            : undefined,
+          document: {
+            connect: args.data.document,
+          },
 
           item: args.data.item
             ? {

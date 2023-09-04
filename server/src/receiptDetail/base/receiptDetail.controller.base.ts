@@ -56,11 +56,9 @@ export class ReceiptDetailControllerBase {
       data: {
         ...data,
 
-        document: data.document
-          ? {
-              connect: data.document,
-            }
-          : undefined,
+        document: {
+          connect: data.document,
+        },
       },
       select: {
         createdAt: true,
@@ -180,11 +178,9 @@ export class ReceiptDetailControllerBase {
         data: {
           ...data,
 
-          document: data.document
-            ? {
-                connect: data.document,
-              }
-            : undefined,
+          document: {
+            connect: data.document,
+          },
         },
         select: {
           createdAt: true,
