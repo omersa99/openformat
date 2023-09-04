@@ -16,8 +16,10 @@ import { ValidateNested, IsOptional } from "class-validator";
 import { Type } from "class-transformer";
 import { BooleanNullableFilter } from "../../util/BooleanNullableFilter";
 import { ClientsAndSupplierWhereUniqueInput } from "../../clientsAndSupplier/base/ClientsAndSupplierWhereUniqueInput";
-import { IntNullableFilter } from "../../util/IntNullableFilter";
+import { DecimalNullableFilter } from "../../util/DecimalNullableFilter";
+import { DateTimeNullableFilter } from "../../util/DateTimeNullableFilter";
 import { DocumentDetailListRelationFilter } from "../../documentDetail/base/DocumentDetailListRelationFilter";
+import { IntNullableFilter } from "../../util/IntNullableFilter";
 import { IntFilter } from "../../util/IntFilter";
 import { StringFilter } from "../../util/StringFilter";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
@@ -62,14 +64,25 @@ class DocumentWhereInput {
 
   @ApiProperty({
     required: false,
-    type: IntNullableFilter,
+    type: DecimalNullableFilter,
   })
-  @Type(() => IntNullableFilter)
+  @Type(() => DecimalNullableFilter)
   @IsOptional()
-  @Field(() => IntNullableFilter, {
+  @Field(() => DecimalNullableFilter, {
     nullable: true,
   })
-  documentDate?: IntNullableFilter;
+  deductionAmount?: DecimalNullableFilter;
+
+  @ApiProperty({
+    required: false,
+    type: DateTimeNullableFilter,
+  })
+  @Type(() => DateTimeNullableFilter)
+  @IsOptional()
+  @Field(() => DateTimeNullableFilter, {
+    nullable: true,
+  })
+  documentDate?: DateTimeNullableFilter;
 
   @ApiProperty({
     required: false,
@@ -93,17 +106,6 @@ class DocumentWhereInput {
     nullable: true,
   })
   documentNumber?: IntNullableFilter;
-
-  @ApiProperty({
-    required: false,
-    type: IntNullableFilter,
-  })
-  @Type(() => IntNullableFilter)
-  @IsOptional()
-  @Field(() => IntNullableFilter, {
-    nullable: true,
-  })
-  documentProductionDate?: IntNullableFilter;
 
   @ApiProperty({
     required: false,
@@ -137,6 +139,17 @@ class DocumentWhereInput {
     nullable: true,
   })
   linkedDocumentIds?: StringNullableFilter;
+
+  @ApiProperty({
+    required: false,
+    type: DateTimeNullableFilter,
+  })
+  @Type(() => DateTimeNullableFilter)
+  @IsOptional()
+  @Field(() => DateTimeNullableFilter, {
+    nullable: true,
+  })
+  modifiedDate?: DateTimeNullableFilter;
 
   @ApiProperty({
     required: false,

@@ -11,18 +11,29 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { DocumentWhereUniqueInput } from "../../document/base/DocumentWhereUniqueInput";
-import { ValidateNested, IsOptional } from "class-validator";
+import { DecimalNullableFilter } from "../../util/DecimalNullableFilter";
 import { Type } from "class-transformer";
+import { IsOptional, ValidateNested } from "class-validator";
+import { DocumentWhereUniqueInput } from "../../document/base/DocumentWhereUniqueInput";
 import { StringFilter } from "../../util/StringFilter";
 import { ItemWhereUniqueInput } from "../../item/base/ItemWhereUniqueInput";
-import { DecimalNullableFilter } from "../../util/DecimalNullableFilter";
 import { IntNullableFilter } from "../../util/IntNullableFilter";
 import { TransactionListRelationFilter } from "../../transaction/base/TransactionListRelationFilter";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
 
 @InputType()
 class DocumentDetailWhereInput {
+  @ApiProperty({
+    required: false,
+    type: DecimalNullableFilter,
+  })
+  @Type(() => DecimalNullableFilter)
+  @IsOptional()
+  @Field(() => DecimalNullableFilter, {
+    nullable: true,
+  })
+  discountAmount?: DecimalNullableFilter;
+
   @ApiProperty({
     required: false,
     type: () => DocumentWhereUniqueInput,

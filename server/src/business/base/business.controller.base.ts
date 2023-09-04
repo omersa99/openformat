@@ -558,12 +558,13 @@ export class BusinessControllerBase {
         },
 
         createdAt: true,
+        deductionAmount: true,
         documentDate: true,
         documentNumber: true,
-        documentProductionDate: true,
         documentType: true,
         id: true,
         linkedDocumentIds: true,
+        modifiedDate: true,
         updatedAt: true,
       },
     });

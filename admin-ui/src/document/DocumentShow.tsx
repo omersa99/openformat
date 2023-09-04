@@ -37,15 +37,13 @@ export const DocumentShow = (props: ShowProps): React.ReactElement => {
           <TextField source={CLIENTSANDSUPPLIER_TITLE_FIELD} />
         </ReferenceField>
         <DateField source="createdAt" label="Created At" />
+        <TextField label="Deduction Amount" source="deductionAmount" />
         <TextField label="Document Date" source="documentDate" />
         <TextField label="Document Number" source="documentNumber" />
-        <TextField
-          label="Document Production Date"
-          source="documentProductionDate"
-        />
         <TextField label="Document Type" source="documentType" />
         <TextField label="ID" source="id" />
         <TextField label="linked Document Ids" source="linkedDocumentIds" />
+        <TextField label="Modified Date" source="modifiedDate" />
         <DateField source="updatedAt" label="Updated At" />
         <ReferenceManyField
           reference="DocumentDetail"
@@ -54,6 +52,7 @@ export const DocumentShow = (props: ShowProps): React.ReactElement => {
         >
           <Datagrid rowClick="show">
             <DateField source="createdAt" label="Created At" />
+            <TextField label="discount amount" source="discountAmount" />
             <ReferenceField
               label="document"
               source="document.id"

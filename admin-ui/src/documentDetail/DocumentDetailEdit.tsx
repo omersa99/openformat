@@ -4,9 +4,9 @@ import {
   Edit,
   SimpleForm,
   EditProps,
+  NumberInput,
   ReferenceInput,
   SelectInput,
-  NumberInput,
   ReferenceArrayInput,
   SelectArrayInput,
   TextInput,
@@ -20,6 +20,7 @@ export const DocumentDetailEdit = (props: EditProps): React.ReactElement => {
   return (
     <Edit {...props}>
       <SimpleForm>
+        <NumberInput label="discount amount" source="discountAmount" />
         <ReferenceInput
           source="document.id"
           reference="Document"

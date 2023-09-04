@@ -8,8 +8,8 @@ import {
   SelectInput,
   NumberInput,
   TextInput,
-  DateInput,
   DateTimeInput,
+  DateInput,
 } from "react-admin";
 
 import { AccountTitle } from "../account/AccountTitle";
@@ -36,7 +36,7 @@ export const TransactionCreate = (props: CreateProps): React.ReactElement => {
         <TextInput label="Action Operation" source="actionOperation" />
         <TextInput label="Counter Account" source="counterAccount" />
         <div />
-        <DateInput label="Date" source="date" />
+        <DateTimeInput label="Date" source="date" />
         <TextInput label="Details" source="details" />
         <ReferenceInput
           source="documentDetail.id"

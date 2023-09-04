@@ -5,11 +5,12 @@ export type DocumentOrderByInput = {
   canceledDocument?: SortOrder;
   clientSupplierId?: SortOrder;
   createdAt?: SortOrder;
+  deductionAmount?: SortOrder;
   documentDate?: SortOrder;
   documentNumber?: SortOrder;
-  documentProductionDate?: SortOrder;
   documentType?: SortOrder;
   id?: SortOrder;
   linkedDocumentIds?: SortOrder;
+  modifiedDate?: SortOrder;
   updatedAt?: SortOrder;
 };

@@ -83,12 +83,13 @@ export class DocumentControllerBase {
         },
 
         createdAt: true,
+        deductionAmount: true,
         documentDate: true,
         documentNumber: true,
-        documentProductionDate: true,
         documentType: true,
         id: true,
         linkedDocumentIds: true,
+        modifiedDate: true,
         updatedAt: true,
       },
     });
@@ -126,12 +127,13 @@ export class DocumentControllerBase {
         },
 
         createdAt: true,
+        deductionAmount: true,
         documentDate: true,
         documentNumber: true,
-        documentProductionDate: true,
         documentType: true,
         id: true,
         linkedDocumentIds: true,
+        modifiedDate: true,
         updatedAt: true,
       },
     });
@@ -170,12 +172,13 @@ export class DocumentControllerBase {
         },
 
         createdAt: true,
+        deductionAmount: true,
         documentDate: true,
         documentNumber: true,
-        documentProductionDate: true,
         documentType: true,
         id: true,
         linkedDocumentIds: true,
+        modifiedDate: true,
         updatedAt: true,
       },
     });
@@ -235,12 +238,13 @@ export class DocumentControllerBase {
           },
 
           createdAt: true,
+          deductionAmount: true,
           documentDate: true,
           documentNumber: true,
-          documentProductionDate: true,
           documentType: true,
           id: true,
           linkedDocumentIds: true,
+          modifiedDate: true,
           updatedAt: true,
         },
       });
@@ -287,12 +291,13 @@ export class DocumentControllerBase {
           },
 
           createdAt: true,
+          deductionAmount: true,
           documentDate: true,
           documentNumber: true,
-          documentProductionDate: true,
           documentType: true,
           id: true,
           linkedDocumentIds: true,
+          modifiedDate: true,
           updatedAt: true,
         },
       });
@@ -323,6 +328,7 @@ export class DocumentControllerBase {
       ...query,
       select: {
         createdAt: true,
+        discountAmount: true,
 
         document: {
           select: {

@@ -40,15 +40,13 @@ export const DocumentList = (props: ListProps): React.ReactElement => {
           <TextField source={CLIENTSANDSUPPLIER_TITLE_FIELD} />
         </ReferenceField>
         <DateField source="createdAt" label="Created At" />
+        <TextField label="Deduction Amount" source="deductionAmount" />
         <TextField label="Document Date" source="documentDate" />
         <TextField label="Document Number" source="documentNumber" />
-        <TextField
-          label="Document Production Date"
-          source="documentProductionDate"
-        />
         <TextField label="Document Type" source="documentType" />
         <TextField label="ID" source="id" />
         <TextField label="linked Document Ids" source="linkedDocumentIds" />
+        <TextField label="Modified Date" source="modifiedDate" />
         <DateField source="updatedAt" label="Updated At" />
       </Datagrid>
     </List>

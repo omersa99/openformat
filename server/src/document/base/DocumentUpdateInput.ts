@@ -9,18 +9,21 @@ https://docs.amplication.com/how-to/custom-code
 
 ------------------------------------------------------------------------------
   */
-import { InputType, Field } from "@nestjs/graphql";
+import { InputType, Field, Float } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
 import { BusinessWhereUniqueInput } from "../../business/base/BusinessWhereUniqueInput";
 import {
   ValidateNested,
   IsOptional,
   IsBoolean,
+  IsNumber,
+  IsDate,
   IsInt,
   IsString,
 } from "class-validator";
 import { Type } from "class-transformer";
 import { ClientsAndSupplierWhereUniqueInput } from "../../clientsAndSupplier/base/ClientsAndSupplierWhereUniqueInput";
+import { Decimal } from "decimal.js";
 import { DocumentDetailUpdateManyWithoutDocumentsInput } from "./DocumentDetailUpdateManyWithoutDocumentsInput";
 import { ReceiptDetailUpdateManyWithoutDocumentsInput } from "./ReceiptDetailUpdateManyWithoutDocumentsInput";
 
@@ -65,12 +68,23 @@ class DocumentUpdateInput {
     required: false,
     type: Number,
   })
-  @IsInt()
+  @IsNumber()
   @IsOptional()
-  @Field(() => Number, {
+  @Field(() => Float, {
     nullable: true,
   })
-  documentDate?: number | null;
+  deductionAmount?: Decimal | null;
+
+  @ApiProperty({
+    required: false,
+  })
+  @IsDate()
+  @Type(() => Date)
+  @IsOptional()
+  @Field(() => Date, {
+    nullable: true,
+  })
+  documentDate?: Date | null;
 
   @ApiProperty({
     required: false,
@@ -104,17 +118,6 @@ class DocumentUpdateInput {
   @Field(() => Number, {
     nullable: true,
   })
-  documentProductionDate?: number | null;
-
-  @ApiProperty({
-    required: false,
-    type: Number,
-  })
-  @IsInt()
-  @IsOptional()
-  @Field(() => Number, {
-    nullable: true,
-  })
   documentType?: number;
 
   @ApiProperty({
@@ -127,6 +130,17 @@ class DocumentUpdateInput {
     nullable: true,
   })
   linkedDocumentIds?: string | null;
+
+  @ApiProperty({
+    required: false,
+  })
+  @IsDate()
+  @Type(() => Date)
+  @IsOptional()
+  @Field(() => Date, {
+    nullable: true,
+  })
+  modifiedDate?: Date | null;
 
   @ApiProperty({
     required: false,

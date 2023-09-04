@@ -292,6 +292,7 @@ export class ItemControllerBase {
       ...query,
       select: {
         createdAt: true,
+        discountAmount: true,
 
         document: {
           select: {
