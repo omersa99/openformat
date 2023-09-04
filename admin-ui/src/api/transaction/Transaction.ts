@@ -1,11 +1,12 @@
 import { Account } from "../account/Account";
+import { Decimal } from "decimal.js";
 import { JsonValue } from "type-fest";
 import { DocumentDetail } from "../documentDetail/DocumentDetail";
 import { ReceiptDetail } from "../receiptDetail/ReceiptDetail";
 
 export type Transaction = {
   accountInTransaction?: Account | null;
-  actionAmount: number | null;
+  actionAmount: Decimal | null;
   actionIndicator: number | null;
   actionOperation: string | null;
   counterAccount: string | null;

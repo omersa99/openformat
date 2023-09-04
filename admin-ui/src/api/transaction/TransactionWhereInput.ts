@@ -1,4 +1,5 @@
 import { AccountWhereUniqueInput } from "../account/AccountWhereUniqueInput";
+import { DecimalNullableFilter } from "../../util/DecimalNullableFilter";
 import { IntNullableFilter } from "../../util/IntNullableFilter";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
 import { JsonFilter } from "../../util/JsonFilter";
@@ -9,7 +10,7 @@ import { ReceiptDetailWhereUniqueInput } from "../receiptDetail/ReceiptDetailWhe
 
 export type TransactionWhereInput = {
   accountInTransaction?: AccountWhereUniqueInput;
-  actionAmount?: IntNullableFilter;
+  actionAmount?: DecimalNullableFilter;
   actionIndicator?: IntNullableFilter;
   actionOperation?: StringNullableFilter;
   counterAccount?: StringNullableFilter;

@@ -14,6 +14,7 @@ import { ApiProperty } from "@nestjs/swagger";
 import { AccountWhereUniqueInput } from "../../account/base/AccountWhereUniqueInput";
 import { ValidateNested, IsOptional } from "class-validator";
 import { Type } from "class-transformer";
+import { DecimalNullableFilter } from "../../util/DecimalNullableFilter";
 import { IntNullableFilter } from "../../util/IntNullableFilter";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
 import { JsonFilter } from "../../util/JsonFilter";
@@ -38,14 +39,14 @@ class TransactionWhereInput {
 
   @ApiProperty({
     required: false,
-    type: IntNullableFilter,
+    type: DecimalNullableFilter,
   })
-  @Type(() => IntNullableFilter)
+  @Type(() => DecimalNullableFilter)
   @IsOptional()
-  @Field(() => IntNullableFilter, {
+  @Field(() => DecimalNullableFilter, {
     nullable: true,
   })
-  actionAmount?: IntNullableFilter;
+  actionAmount?: DecimalNullableFilter;
 
   @ApiProperty({
     required: false,

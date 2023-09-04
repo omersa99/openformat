@@ -9,17 +9,19 @@ https://docs.amplication.com/how-to/custom-code
 
 ------------------------------------------------------------------------------
   */
-import { ObjectType, Field } from "@nestjs/graphql";
+import { ObjectType, Field, Float } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
 import { Account } from "../../account/base/Account";
 import {
   ValidateNested,
   IsOptional,
+  IsNumber,
   IsInt,
   IsString,
   IsDate,
 } from "class-validator";
 import { Type } from "class-transformer";
+import { Decimal } from "decimal.js";
 import { IsJSONValue } from "@app/custom-validators";
 import { GraphQLJSON } from "graphql-type-json";
 import { JsonValue } from "type-fest";
@@ -41,12 +43,12 @@ class Transaction {
     required: false,
     type: Number,
   })
-  @IsInt()
+  @IsNumber()
   @IsOptional()
-  @Field(() => Number, {
+  @Field(() => Float, {
     nullable: true,
   })
-  actionAmount!: number | null;
+  actionAmount!: Decimal | null;
 
   @ApiProperty({
     required: false,

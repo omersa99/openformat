@@ -27,7 +27,7 @@ export const TransactionEdit = (props: EditProps): React.ReactElement => {
         >
           <SelectInput optionText={AccountTitle} />
         </ReferenceInput>
-        <NumberInput step={1} label="Action Amount" source="actionAmount" />
+        <NumberInput label="Action Amount" source="actionAmount" />
         <NumberInput
           step={1}
           label="Action Indicator"
