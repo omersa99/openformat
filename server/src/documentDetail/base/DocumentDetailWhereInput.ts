@@ -16,6 +16,7 @@ import { ValidateNested, IsOptional } from "class-validator";
 import { Type } from "class-transformer";
 import { StringFilter } from "../../util/StringFilter";
 import { ItemWhereUniqueInput } from "../../item/base/ItemWhereUniqueInput";
+import { DecimalNullableFilter } from "../../util/DecimalNullableFilter";
 import { IntNullableFilter } from "../../util/IntNullableFilter";
 import { TransactionListRelationFilter } from "../../transaction/base/TransactionListRelationFilter";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
@@ -59,14 +60,14 @@ class DocumentDetailWhereInput {
 
   @ApiProperty({
     required: false,
-    type: IntNullableFilter,
+    type: DecimalNullableFilter,
   })
-  @Type(() => IntNullableFilter)
+  @Type(() => DecimalNullableFilter)
   @IsOptional()
-  @Field(() => IntNullableFilter, {
+  @Field(() => DecimalNullableFilter, {
     nullable: true,
   })
-  priceWithoutVat?: IntNullableFilter;
+  priceWithoutVat?: DecimalNullableFilter;
 
   @ApiProperty({
     required: false,

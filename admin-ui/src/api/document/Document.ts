@@ -4,7 +4,7 @@ import { DocumentDetail } from "../documentDetail/DocumentDetail";
 import { ReceiptDetail } from "../receiptDetail/ReceiptDetail";
 
 export type Document = {
-  business?: Business | null;
+  business?: Business;
   canceledDocument: boolean | null;
   clientSupplier?: ClientsAndSupplier | null;
   createdAt: Date;
@@ -12,7 +12,7 @@ export type Document = {
   documentDetails?: Array<DocumentDetail>;
   documentNumber: number | null;
   documentProductionDate: number | null;
-  documentType: number | null;
+  documentType: number;
   id: string;
   linkedDocumentIds: string | null;
   receiptDetails?: Array<ReceiptDetail>;

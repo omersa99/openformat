@@ -14,8 +14,8 @@ import { ApiProperty } from "@nestjs/swagger";
 import { Business } from "../../business/base/Business";
 import {
   ValidateNested,
-  IsOptional,
   IsBoolean,
+  IsOptional,
   IsDate,
   IsInt,
   IsString,
@@ -28,13 +28,12 @@ import { ReceiptDetail } from "../../receiptDetail/base/ReceiptDetail";
 @ObjectType()
 class Document {
   @ApiProperty({
-    required: false,
+    required: true,
     type: () => Business,
   })
   @ValidateNested()
   @Type(() => Business)
-  @IsOptional()
-  business?: Business | null;
+  business?: Business;
 
   @ApiProperty({
     required: false,
@@ -107,15 +106,12 @@ class Document {
   documentProductionDate!: number | null;
 
   @ApiProperty({
-    required: false,
+    required: true,
     type: Number,
   })
   @IsInt()
-  @IsOptional()
-  @Field(() => Number, {
-    nullable: true,
-  })
-  documentType!: number | null;
+  @Field(() => Number)
+  documentType!: number;
 
   @ApiProperty({
     required: true,

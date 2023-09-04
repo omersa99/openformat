@@ -9,12 +9,19 @@ https://docs.amplication.com/how-to/custom-code
 
 ------------------------------------------------------------------------------
   */
-import { InputType, Field } from "@nestjs/graphql";
+import { InputType, Field, Float } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
 import { DocumentWhereUniqueInput } from "../../document/base/DocumentWhereUniqueInput";
-import { ValidateNested, IsOptional, IsInt, IsString } from "class-validator";
+import {
+  ValidateNested,
+  IsOptional,
+  IsNumber,
+  IsInt,
+  IsString,
+} from "class-validator";
 import { Type } from "class-transformer";
 import { ItemWhereUniqueInput } from "../../item/base/ItemWhereUniqueInput";
+import { Decimal } from "decimal.js";
 import { TransactionUpdateManyWithoutDocumentDetailsInput } from "./TransactionUpdateManyWithoutDocumentDetailsInput";
 
 @InputType()
@@ -47,12 +54,12 @@ class DocumentDetailUpdateInput {
     required: false,
     type: Number,
   })
-  @IsInt()
+  @IsNumber()
   @IsOptional()
-  @Field(() => Number, {
+  @Field(() => Float, {
     nullable: true,
   })
-  priceWithoutVat?: number | null;
+  priceWithoutVat?: Decimal | null;
 
   @ApiProperty({
     required: false,

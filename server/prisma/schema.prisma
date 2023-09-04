@@ -96,7 +96,7 @@ model Document {
   documentDetails        DocumentDetail[]
   documentNumber         Int?
   documentProductionDate Int?
-  documentType           Int?
+  documentType           Int
   id                     String              @id @default(cuid())
   linkedDocumentIds      String?
   receiptDetails         ReceiptDetail[]
@@ -155,7 +155,7 @@ model DocumentDetail {
   id              String        @id @default(cuid())
   item            Item?         @relation(fields: [itemId], references: [id])
   itemId          String?
-  priceWithoutVat Int?
+  priceWithoutVat Decimal?
   quantity        Int?
   transactions    Transaction[]
   transactionType String?
