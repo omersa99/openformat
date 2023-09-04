@@ -21,47 +21,51 @@ const existingId = "existingId";
 const CREATE_INPUT = {
   canceledDocument: "true",
   createdAt: new Date(),
-  documentDate: 42,
+  deductionAmount: 42.424242424,
+  documentDate: new Date(),
   documentNumber: 42,
-  documentProductionDate: 42,
   documentType: 42,
   id: "exampleId",
   linkedDocumentIds: "exampleLinkedDocumentIds",
+  modifiedDate: new Date(),
   updatedAt: new Date(),
 };
 const CREATE_RESULT = {
   canceledDocument: "true",
   createdAt: new Date(),
-  documentDate: 42,
+  deductionAmount: 42.424242424,
+  documentDate: new Date(),
   documentNumber: 42,
-  documentProductionDate: 42,
   documentType: 42,
   id: "exampleId",
   linkedDocumentIds: "exampleLinkedDocumentIds",
+  modifiedDate: new Date(),
   updatedAt: new Date(),
 };
 const FIND_MANY_RESULT = [
   {
     canceledDocument: "true",
     createdAt: new Date(),
-    documentDate: 42,
+    deductionAmount: 42.424242424,
+    documentDate: new Date(),
     documentNumber: 42,
-    documentProductionDate: 42,
     documentType: 42,
     id: "exampleId",
     linkedDocumentIds: "exampleLinkedDocumentIds",
+    modifiedDate: new Date(),
     updatedAt: new Date(),
   },
 ];
 const FIND_ONE_RESULT = {
   canceledDocument: "true",
   createdAt: new Date(),
-  documentDate: 42,
+  deductionAmount: 42.424242424,
+  documentDate: new Date(),
   documentNumber: 42,
-  documentProductionDate: 42,
   documentType: 42,
   id: "exampleId",
   linkedDocumentIds: "exampleLinkedDocumentIds",
+  modifiedDate: new Date(),
   updatedAt: new Date(),
 };
 
@@ -148,6 +152,8 @@ describe("Document", () => {
       .expect({
         ...CREATE_RESULT,
         createdAt: CREATE_RESULT.createdAt.toISOString(),
+        documentDate: CREATE_RESULT.documentDate.toISOString(),
+        modifiedDate: CREATE_RESULT.modifiedDate.toISOString(),
         updatedAt: CREATE_RESULT.updatedAt.toISOString(),
       });
   });
@@ -160,6 +166,8 @@ describe("Document", () => {
         {
           ...FIND_MANY_RESULT[0],
           createdAt: FIND_MANY_RESULT[0].createdAt.toISOString(),
+          documentDate: FIND_MANY_RESULT[0].documentDate.toISOString(),
+          modifiedDate: FIND_MANY_RESULT[0].modifiedDate.toISOString(),
           updatedAt: FIND_MANY_RESULT[0].updatedAt.toISOString(),
         },
       ]);
@@ -183,6 +191,8 @@ describe("Document", () => {
       .expect({
         ...FIND_ONE_RESULT,
         createdAt: FIND_ONE_RESULT.createdAt.toISOString(),
+        documentDate: FIND_ONE_RESULT.documentDate.toISOString(),
+        modifiedDate: FIND_ONE_RESULT.modifiedDate.toISOString(),
         updatedAt: FIND_ONE_RESULT.updatedAt.toISOString(),
       });
   });
@@ -196,6 +206,8 @@ describe("Document", () => {
       .expect({
         ...CREATE_RESULT,
         createdAt: CREATE_RESULT.createdAt.toISOString(),
+        documentDate: CREATE_RESULT.documentDate.toISOString(),
+        modifiedDate: CREATE_RESULT.modifiedDate.toISOString(),
         updatedAt: CREATE_RESULT.updatedAt.toISOString(),
       })
       .then(function () {

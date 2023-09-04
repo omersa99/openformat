@@ -1,8 +1,10 @@
 import { BusinessWhereUniqueInput } from "../business/BusinessWhereUniqueInput";
 import { BooleanNullableFilter } from "../../util/BooleanNullableFilter";
 import { ClientsAndSupplierWhereUniqueInput } from "../clientsAndSupplier/ClientsAndSupplierWhereUniqueInput";
-import { IntNullableFilter } from "../../util/IntNullableFilter";
+import { DecimalNullableFilter } from "../../util/DecimalNullableFilter";
+import { DateTimeNullableFilter } from "../../util/DateTimeNullableFilter";
 import { DocumentDetailListRelationFilter } from "../documentDetail/DocumentDetailListRelationFilter";
+import { IntNullableFilter } from "../../util/IntNullableFilter";
 import { IntFilter } from "../../util/IntFilter";
 import { StringFilter } from "../../util/StringFilter";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
@@ -12,12 +14,13 @@ export type DocumentWhereInput = {
   business?: BusinessWhereUniqueInput;
   canceledDocument?: BooleanNullableFilter;
   clientSupplier?: ClientsAndSupplierWhereUniqueInput;
-  documentDate?: IntNullableFilter;
+  deductionAmount?: DecimalNullableFilter;
+  documentDate?: DateTimeNullableFilter;
   documentDetails?: DocumentDetailListRelationFilter;
   documentNumber?: IntNullableFilter;
-  documentProductionDate?: IntNullableFilter;
   documentType?: IntFilter;
   id?: StringFilter;
   linkedDocumentIds?: StringNullableFilter;
+  modifiedDate?: DateTimeNullableFilter;
   receiptDetails?: ReceiptDetailListRelationFilter;
 };

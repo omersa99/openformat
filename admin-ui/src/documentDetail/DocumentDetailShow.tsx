@@ -5,8 +5,8 @@ import {
   SimpleShowLayout,
   ShowProps,
   DateField,
-  ReferenceField,
   TextField,
+  ReferenceField,
   ReferenceManyField,
   Datagrid,
 } from "react-admin";
@@ -22,6 +22,7 @@ export const DocumentDetailShow = (props: ShowProps): React.ReactElement => {
     <Show {...props}>
       <SimpleShowLayout>
         <DateField source="createdAt" label="Created At" />
+        <TextField label="discount amount" source="discountAmount" />
         <ReferenceField
           label="document"
           source="document.id"

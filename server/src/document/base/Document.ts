@@ -9,7 +9,7 @@ https://docs.amplication.com/how-to/custom-code
 
 ------------------------------------------------------------------------------
   */
-import { ObjectType, Field } from "@nestjs/graphql";
+import { ObjectType, Field, Float } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
 import { Business } from "../../business/base/Business";
 import {
@@ -17,11 +17,13 @@ import {
   IsBoolean,
   IsOptional,
   IsDate,
+  IsNumber,
   IsInt,
   IsString,
 } from "class-validator";
 import { Type } from "class-transformer";
 import { ClientsAndSupplier } from "../../clientsAndSupplier/base/ClientsAndSupplier";
+import { Decimal } from "decimal.js";
 import { DocumentDetail } from "../../documentDetail/base/DocumentDetail";
 import { ReceiptDetail } from "../../receiptDetail/base/ReceiptDetail";
 
@@ -67,12 +69,23 @@ class Document {
     required: false,
     type: Number,
   })
-  @IsInt()
+  @IsNumber()
   @IsOptional()
-  @Field(() => Number, {
+  @Field(() => Float, {
     nullable: true,
   })
-  documentDate!: number | null;
+  deductionAmount!: Decimal | null;
+
+  @ApiProperty({
+    required: false,
+  })
+  @IsDate()
+  @Type(() => Date)
+  @IsOptional()
+  @Field(() => Date, {
+    nullable: true,
+  })
+  documentDate!: Date | null;
 
   @ApiProperty({
     required: false,
@@ -93,17 +106,6 @@ class Document {
     nullable: true,
   })
   documentNumber!: number | null;
-
-  @ApiProperty({
-    required: false,
-    type: Number,
-  })
-  @IsInt()
-  @IsOptional()
-  @Field(() => Number, {
-    nullable: true,
-  })
-  documentProductionDate!: number | null;
 
   @ApiProperty({
     required: true,
@@ -131,6 +133,17 @@ class Document {
     nullable: true,
   })
   linkedDocumentIds!: string | null;
+
+  @ApiProperty({
+    required: false,
+  })
+  @IsDate()
+  @Type(() => Date)
+  @IsOptional()
+  @Field(() => Date, {
+    nullable: true,
+  })
+  modifiedDate!: Date | null;
 
   @ApiProperty({
     required: false,

@@ -8,6 +8,7 @@ import {
   SelectInput,
   BooleanInput,
   NumberInput,
+  DateTimeInput,
   ReferenceArrayInput,
   SelectArrayInput,
   TextInput,
@@ -37,7 +38,8 @@ export const DocumentEdit = (props: EditProps): React.ReactElement => {
         >
           <SelectInput optionText={ClientsAndSupplierTitle} />
         </ReferenceInput>
-        <NumberInput step={1} label="Document Date" source="documentDate" />
+        <NumberInput label="Deduction Amount" source="deductionAmount" />
+        <DateTimeInput label="Document Date" source="documentDate" />
         <ReferenceArrayInput
           source="documentDetails"
           reference="DocumentDetail"
@@ -47,13 +49,9 @@ export const DocumentEdit = (props: EditProps): React.ReactElement => {
           <SelectArrayInput optionText={DocumentDetailTitle} />
         </ReferenceArrayInput>
         <NumberInput step={1} label="Document Number" source="documentNumber" />
-        <NumberInput
-          step={1}
-          label="Document Production Date"
-          source="documentProductionDate"
-        />
         <NumberInput step={1} label="Document Type" source="documentType" />
         <TextInput label="linked Document Ids" source="linkedDocumentIds" />
+        <DateTimeInput label="Modified Date" source="modifiedDate" />
         <ReferenceArrayInput
           source="receiptDetails"
           reference="ReceiptDetail"

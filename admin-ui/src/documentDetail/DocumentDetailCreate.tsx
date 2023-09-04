@@ -4,9 +4,9 @@ import {
   Create,
   SimpleForm,
   CreateProps,
+  NumberInput,
   ReferenceInput,
   SelectInput,
-  NumberInput,
   ReferenceArrayInput,
   SelectArrayInput,
   TextInput,
@@ -22,6 +22,7 @@ export const DocumentDetailCreate = (
   return (
     <Create {...props}>
       <SimpleForm>
+        <NumberInput label="discount amount" source="discountAmount" />
         <ReferenceInput
           source="document.id"
           reference="Document"

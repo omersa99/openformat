@@ -68,6 +68,7 @@ export class DocumentDetailControllerBase {
       },
       select: {
         createdAt: true,
+        discountAmount: true,
 
         document: {
           select: {
@@ -110,6 +111,7 @@ export class DocumentDetailControllerBase {
       ...args,
       select: {
         createdAt: true,
+        discountAmount: true,
 
         document: {
           select: {
@@ -153,6 +155,7 @@ export class DocumentDetailControllerBase {
       where: params,
       select: {
         createdAt: true,
+        discountAmount: true,
 
         document: {
           select: {
@@ -217,6 +220,7 @@ export class DocumentDetailControllerBase {
         },
         select: {
           createdAt: true,
+          discountAmount: true,
 
           document: {
             select: {
@@ -268,6 +272,7 @@ export class DocumentDetailControllerBase {
         where: params,
         select: {
           createdAt: true,
+          discountAmount: true,
 
           document: {
             select: {

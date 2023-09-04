@@ -13,16 +13,16 @@ import { ObjectType, Field, Float } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
 import {
   IsDate,
+  IsNumber,
+  IsOptional,
   ValidateNested,
   IsString,
-  IsOptional,
-  IsNumber,
   IsInt,
 } from "class-validator";
 import { Type } from "class-transformer";
+import { Decimal } from "decimal.js";
 import { Document } from "../../document/base/Document";
 import { Item } from "../../item/base/Item";
-import { Decimal } from "decimal.js";
 import { Transaction } from "../../transaction/base/Transaction";
 
 @ObjectType()
@@ -34,6 +34,17 @@ class DocumentDetail {
   @Type(() => Date)
   @Field(() => Date)
   createdAt!: Date;
+
+  @ApiProperty({
+    required: false,
+    type: Number,
+  })
+  @IsNumber()
+  @IsOptional()
+  @Field(() => Float, {
+    nullable: true,
+  })
+  discountAmount!: Decimal | null;
 
   @ApiProperty({
     required: true,

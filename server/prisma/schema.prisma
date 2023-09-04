@@ -87,20 +87,21 @@ model Transaction {
 
 model Document {
   business               Business?           @relation(fields: [businessId], references: [id],onDelete: Cascade)
-  businessId             String?
-  canceledDocument       Boolean?
+  businessId        String
+  canceledDocument  Boolean?
   clientSupplier         ClientsAndSupplier? @relation(fields: [clientSupplierId], references: [id],onDelete: Cascade)
-  clientSupplierId       String?
-  createdAt              DateTime            @default(now())
-  documentDate           Int?
-  documentDetails        DocumentDetail[]
-  documentNumber         Int?
-  documentProductionDate Int?
-  documentType           Int
-  id                     String              @id @default(cuid())
-  linkedDocumentIds      String?
-  receiptDetails         ReceiptDetail[]
-  updatedAt              DateTime            @updatedAt
+  clientSupplierId  String?
+  createdAt         DateTime            @default(now())
+  deductionAmount   Decimal?
+  documentDate      DateTime?
+  documentDetails   DocumentDetail[]
+  documentNumber    Int?
+  documentType      Int
+  id                String              @id @default(cuid())
+  linkedDocumentIds String?
+  modifiedDate      DateTime?
+  receiptDetails    ReceiptDetail[]
+  updatedAt         DateTime            @updatedAt
 }
 
 model Item {
@@ -150,6 +151,7 @@ model ItemTransaction {
 
 model DocumentDetail {
   createdAt       DateTime      @default(now())
+  discountAmount  Decimal?
   document        Document      @relation(fields: [documentId], references: [id],onDelete: Cascade)
   documentId      String
   id              String        @id @default(cuid())

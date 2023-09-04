@@ -72,6 +72,17 @@ class DocumentOrderByInput {
   @Field(() => SortOrder, {
     nullable: true,
   })
+  deductionAmount?: SortOrder;
+
+  @ApiProperty({
+    required: false,
+    enum: ["asc", "desc"],
+  })
+  @IsOptional()
+  @IsEnum(SortOrder)
+  @Field(() => SortOrder, {
+    nullable: true,
+  })
   documentDate?: SortOrder;
 
   @ApiProperty({
@@ -84,17 +95,6 @@ class DocumentOrderByInput {
     nullable: true,
   })
   documentNumber?: SortOrder;
-
-  @ApiProperty({
-    required: false,
-    enum: ["asc", "desc"],
-  })
-  @IsOptional()
-  @IsEnum(SortOrder)
-  @Field(() => SortOrder, {
-    nullable: true,
-  })
-  documentProductionDate?: SortOrder;
 
   @ApiProperty({
     required: false,
@@ -128,6 +128,17 @@ class DocumentOrderByInput {
     nullable: true,
   })
   linkedDocumentIds?: SortOrder;
+
+  @ApiProperty({
+    required: false,
+    enum: ["asc", "desc"],
+  })
+  @IsOptional()
+  @IsEnum(SortOrder)
+  @Field(() => SortOrder, {
+    nullable: true,
+  })
+  modifiedDate?: SortOrder;
 
   @ApiProperty({
     required: false,

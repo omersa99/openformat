@@ -54,6 +54,7 @@ export const ItemShow = (props: ShowProps): React.ReactElement => {
         >
           <Datagrid rowClick="show">
             <DateField source="createdAt" label="Created At" />
+            <TextField label="discount amount" source="discountAmount" />
             <ReferenceField
               label="document"
               source="document.id"
