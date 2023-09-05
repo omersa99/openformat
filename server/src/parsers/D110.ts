@@ -145,7 +145,7 @@ export const D110Fields: FieldDefinition[] = [
     Field_Id: 1272,
     Field_Name: "תאריך המסמך",
     Translation: "Document Date",
-    Type: "Num",
+    Type: "Date",
     Length: 8,
   },
   {

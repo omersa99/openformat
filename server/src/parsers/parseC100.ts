@@ -30,8 +30,8 @@ export function mapToDocumentModel(parsedData: { [x: string]: any }) {
     // businessId: String(parsedData["Authorized Business Number"]),
     documentType: Number(parsedData["Document Type"]),
     documentNumber: Number(parsedData["Document Number"]),
-    documentProductionDate: Number(parsedData["Document Production Date"]),
-    documentDate: Number(parsedData["Document Date"]),
+    // documentProductionDate: Number(parsedData["Document Production Date"]),
+    // documentDate: Number(parsedData["Document Date"]),
     canceledDocument: parsedData["Canceled Document"] || false,
     // ... (other fields mapping)
   };

@@ -5,6 +5,8 @@ import { mapToDocumentModel, parseC100 } from "src/parsers/parseC100";
 import { Prisma, Document } from "@prisma/client";
 import { getNextDocumentNumber } from "./documentNumGenerate";
 import { TransactionService } from "src/transaction/transaction.service";
+import { handleC100Creation } from "src/generator/main";
+import { Business2Json } from "src/generator/generator";
 
 @Injectable()
 export class DocumentService extends DocumentServiceBase {
@@ -23,6 +25,11 @@ export class DocumentService extends DocumentServiceBase {
     };
     const newDocument = await super.create({ ...args, data: modifiedData });
     return newDocument;
+  }
+
+  async convertDocument2String(documentID: string) {
+    // return handleC100Creation(documentID, this.prisma);
+    return Business2Json(documentID, this.prisma);
   }
 
   async Line2Document(line: string) {

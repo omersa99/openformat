@@ -308,13 +308,14 @@ type Document {
   canceledDocument: Boolean
   clientSupplier: ClientsAndSupplier
   createdAt: DateTime!
-  documentDate: Float
+  deductionAmount: Float
+  documentDate: DateTime
   documentDetails(orderBy: [DocumentDetailOrderByInput!], skip: Float, take: Float, where: DocumentDetailWhereInput): [DocumentDetail!]!
   documentNumber: Float
-  documentProductionDate: Float
   documentType: Float!
   id: String!
   linkedDocumentIds: String
+  modifiedDate: DateTime
   receiptDetails(orderBy: [ReceiptDetailOrderByInput!], skip: Float, take: Float, where: ReceiptDetailWhereInput): [ReceiptDetail!]!
   updatedAt: DateTime!
 }
@@ -323,12 +324,13 @@ input DocumentCreateInput {
   business: BusinessWhereUniqueInput!
   canceledDocument: Boolean
   clientSupplier: ClientsAndSupplierWhereUniqueInput
-  documentDate: Float
+  deductionAmount: Float
+  documentDate: DateTime
   documentDetails: DocumentDetailCreateNestedManyWithoutDocumentsInput
   documentNumber: Float
-  documentProductionDate: Float
   documentType: Float!
   linkedDocumentIds: String
+  modifiedDate: DateTime
   receiptDetails: ReceiptDetailCreateNestedManyWithoutDocumentsInput
 }
 
@@ -342,6 +344,7 @@ input DocumentCreateNestedManyWithoutClientsAndSuppliersInput {
 
 type DocumentDetail {
   createdAt: DateTime!
+  discountAmount: Float
   document: Document
   id: String!
   item: Item
@@ -354,6 +357,7 @@ type DocumentDetail {
 }
 
 input DocumentDetailCreateInput {
+  discountAmount: Float
   document: DocumentWhereUniqueInput!
   item: ItemWhereUniqueInput
   priceWithoutVat: Float
@@ -379,6 +383,7 @@ input DocumentDetailListRelationFilter {
 
 input DocumentDetailOrderByInput {
   createdAt: SortOrder
+  discountAmount: SortOrder
   documentId: SortOrder
   id: SortOrder
   itemId: SortOrder
@@ -390,6 +395,7 @@ input DocumentDetailOrderByInput {
 }
 
 input DocumentDetailUpdateInput {
+  discountAmount: Float
   document: DocumentWhereUniqueInput
   item: ItemWhereUniqueInput
   priceWithoutVat: Float
@@ -412,6 +418,7 @@ input DocumentDetailUpdateManyWithoutItemsInput {
 }
 
 input DocumentDetailWhereInput {
+  discountAmount: DecimalNullableFilter
   document: DocumentWhereUniqueInput
   id: StringFilter
   item: ItemWhereUniqueInput
@@ -437,12 +444,13 @@ input DocumentOrderByInput {
   canceledDocument: SortOrder
   clientSupplierId: SortOrder
   createdAt: SortOrder
+  deductionAmount: SortOrder
   documentDate: SortOrder
   documentNumber: SortOrder
-  documentProductionDate: SortOrder
   documentType: SortOrder
   id: SortOrder
   linkedDocumentIds: SortOrder
+  modifiedDate: SortOrder
   updatedAt: SortOrder
 }
 
@@ -450,12 +458,13 @@ input DocumentUpdateInput {
   business: BusinessWhereUniqueInput
   canceledDocument: Boolean
   clientSupplier: ClientsAndSupplierWhereUniqueInput
-  documentDate: Float
+  deductionAmount: Float
+  documentDate: DateTime
   documentDetails: DocumentDetailUpdateManyWithoutDocumentsInput
   documentNumber: Float
-  documentProductionDate: Float
   documentType: Float
   linkedDocumentIds: String
+  modifiedDate: DateTime
   receiptDetails: ReceiptDetailUpdateManyWithoutDocumentsInput
 }
 
@@ -475,13 +484,14 @@ input DocumentWhereInput {
   business: BusinessWhereUniqueInput
   canceledDocument: BooleanNullableFilter
   clientSupplier: ClientsAndSupplierWhereUniqueInput
-  documentDate: IntNullableFilter
+  deductionAmount: DecimalNullableFilter
+  documentDate: DateTimeNullableFilter
   documentDetails: DocumentDetailListRelationFilter
   documentNumber: IntNullableFilter
-  documentProductionDate: IntNullableFilter
   documentType: IntFilter
   id: StringFilter
   linkedDocumentIds: StringNullableFilter
+  modifiedDate: DateTimeNullableFilter
   receiptDetails: ReceiptDetailListRelationFilter
 }
 

@@ -29,3 +29,21 @@ export interface FieldDefinition {
   Type: string;
   Length: number;
 }
+
+export interface FieldInfo {
+  Field_Id: number;
+  Field_Name: string;
+  Translation: string;
+  Type: string;
+  Length: number;
+  value: any;
+}
+
+export interface DocumentJson {
+  Field_Id: number;
+  Field_Name: string;
+  Translation: string;
+  Type: string;
+  Length: number;
+  value: any;
+}

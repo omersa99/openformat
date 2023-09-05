@@ -2,8 +2,9 @@ import { Injectable } from "@nestjs/common";
 import { PrismaService } from "../prisma/prisma.service";
 import { DocumentDetailServiceBase } from "./base/documentDetail.service.base";
 import { mapToDocumentDetailModel, parseD110 } from "src/parsers/parseD110";
-import { Prisma, DocumentDetail } from "@prisma/client";
-import { handleTransactionBasedOnDocumentType } from "src/transaction/transactionHandler";
+import { Prisma, DocumentDetail, Document } from "@prisma/client";
+import { calculateTransactionDetails, handleTransactionBasedOnDocumentType } from "src/transaction/transactionHandler";
+import { handleItemInandOut } from "src/item/itemHandler";
 
 @Injectable()
 export class DocumentDetailService extends DocumentDetailServiceBase {
@@ -20,6 +21,8 @@ export class DocumentDetailService extends DocumentDetailServiceBase {
 
       if (relatedDocument) {
         await handleTransactionBasedOnDocumentType(relatedDocument, this.prisma, documentDetail);
+        await handleItemInandOut(documentDetail.itemId || "-1", relatedDocument.documentType || -1, documentDetail.quantity || -1, this.prisma);
+        //
       } else {
         console.error("There is no related Document");
       }
@@ -29,6 +32,7 @@ export class DocumentDetailService extends DocumentDetailServiceBase {
 
     return documentDetail;
   }
+
   async Line2DocumentDetails(line: string) {
     try {
       const parsedData = parseD110(line);
