@@ -11,14 +11,15 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field, Float } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { DocumentWhereUniqueInput } from "../../document/base/DocumentWhereUniqueInput";
 import {
-  ValidateNested,
+  IsString,
   IsOptional,
-  IsDate,
   IsInt,
+  ValidateNested,
+  IsDate,
   IsNumber,
 } from "class-validator";
+import { DocumentWhereUniqueInput } from "../../document/base/DocumentWhereUniqueInput";
 import { Type } from "class-transformer";
 import { IsJSONValue } from "@app/custom-validators";
 import { GraphQLJSON } from "graphql-type-json";
@@ -30,6 +31,72 @@ import { TransactionUpdateManyWithoutReceiptDetailsInput } from "./TransactionUp
 class ReceiptDetailUpdateInput {
   @ApiProperty({
     required: false,
+    type: String,
+  })
+  @IsString()
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  accountNumber?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: Number,
+  })
+  @IsInt()
+  @IsOptional()
+  @Field(() => Number, {
+    nullable: true,
+  })
+  bankNumber?: number | null;
+
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  branchIdentifier?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: Number,
+  })
+  @IsInt()
+  @IsOptional()
+  @Field(() => Number, {
+    nullable: true,
+  })
+  branchNumber?: number | null;
+
+  @ApiProperty({
+    required: false,
+    type: Number,
+  })
+  @IsInt()
+  @IsOptional()
+  @Field(() => Number, {
+    nullable: true,
+  })
+  checkNumber?: number | null;
+
+  @ApiProperty({
+    required: false,
+    type: Number,
+  })
+  @IsInt()
+  @IsOptional()
+  @Field(() => Number, {
+    nullable: true,
+  })
+  creditTransactionType?: number | null;
+
+  @ApiProperty({
+    required: false,
     type: () => DocumentWhereUniqueInput,
   })
   @ValidateNested()
@@ -39,6 +106,17 @@ class ReceiptDetailUpdateInput {
     nullable: true,
   })
   document?: DocumentWhereUniqueInput;
+
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  payeeCompanyCode?: string | null;
 
   @ApiProperty({
     required: false,
@@ -71,6 +149,17 @@ class ReceiptDetailUpdateInput {
     nullable: true,
   })
   paymentType?: number | null;
+
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  swipedCardName?: string | null;
 
   @ApiProperty({
     required: false,

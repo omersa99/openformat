@@ -166,13 +166,21 @@ model DocumentDetail {
 }
 
 model ReceiptDetail {
+  accountNumber             String?
+  bankNumber                Int?
+  branchIdentifier          String?
+  branchNumber              Int?
+  checkNumber               Int?
   createdAt                 DateTime      @default(now())
+  creditTransactionType     Int?
   document                  Document      @relation(fields: [documentId], references: [id])
   documentId                String
   id                        String        @id @default(cuid())
+  payeeCompanyCode          String?
   paymentCheckClearanceDate DateTime?
   paymentData               Json?
   paymentType               Int?
+  swipedCardName            String?
   total                     Decimal?
   transactions              Transaction[]
   updatedAt                 DateTime      @updatedAt
