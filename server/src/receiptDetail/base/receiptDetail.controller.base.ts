@@ -61,7 +61,13 @@ export class ReceiptDetailControllerBase {
         },
       },
       select: {
+        accountNumber: true,
+        bankNumber: true,
+        branchIdentifier: true,
+        branchNumber: true,
+        checkNumber: true,
         createdAt: true,
+        creditTransactionType: true,
 
         document: {
           select: {
@@ -70,9 +76,11 @@ export class ReceiptDetailControllerBase {
         },
 
         id: true,
+        payeeCompanyCode: true,
         paymentCheckClearanceDate: true,
         paymentData: true,
         paymentType: true,
+        swipedCardName: true,
         total: true,
         updatedAt: true,
       },
@@ -96,7 +104,13 @@ export class ReceiptDetailControllerBase {
     return this.service.findMany({
       ...args,
       select: {
+        accountNumber: true,
+        bankNumber: true,
+        branchIdentifier: true,
+        branchNumber: true,
+        checkNumber: true,
         createdAt: true,
+        creditTransactionType: true,
 
         document: {
           select: {
@@ -105,9 +119,11 @@ export class ReceiptDetailControllerBase {
         },
 
         id: true,
+        payeeCompanyCode: true,
         paymentCheckClearanceDate: true,
         paymentData: true,
         paymentType: true,
+        swipedCardName: true,
         total: true,
         updatedAt: true,
       },
@@ -132,7 +148,13 @@ export class ReceiptDetailControllerBase {
     const result = await this.service.findOne({
       where: params,
       select: {
+        accountNumber: true,
+        bankNumber: true,
+        branchIdentifier: true,
+        branchNumber: true,
+        checkNumber: true,
         createdAt: true,
+        creditTransactionType: true,
 
         document: {
           select: {
@@ -141,9 +163,11 @@ export class ReceiptDetailControllerBase {
         },
 
         id: true,
+        payeeCompanyCode: true,
         paymentCheckClearanceDate: true,
         paymentData: true,
         paymentType: true,
+        swipedCardName: true,
         total: true,
         updatedAt: true,
       },
@@ -183,7 +207,13 @@ export class ReceiptDetailControllerBase {
           },
         },
         select: {
+          accountNumber: true,
+          bankNumber: true,
+          branchIdentifier: true,
+          branchNumber: true,
+          checkNumber: true,
           createdAt: true,
+          creditTransactionType: true,
 
           document: {
             select: {
@@ -192,9 +222,11 @@ export class ReceiptDetailControllerBase {
           },
 
           id: true,
+          payeeCompanyCode: true,
           paymentCheckClearanceDate: true,
           paymentData: true,
           paymentType: true,
+          swipedCardName: true,
           total: true,
           updatedAt: true,
         },
@@ -227,7 +259,13 @@ export class ReceiptDetailControllerBase {
       return await this.service.delete({
         where: params,
         select: {
+          accountNumber: true,
+          bankNumber: true,
+          branchIdentifier: true,
+          branchNumber: true,
+          checkNumber: true,
           createdAt: true,
+          creditTransactionType: true,
 
           document: {
             select: {
@@ -236,9 +274,11 @@ export class ReceiptDetailControllerBase {
           },
 
           id: true,
+          payeeCompanyCode: true,
           paymentCheckClearanceDate: true,
           paymentData: true,
           paymentType: true,
+          swipedCardName: true,
           total: true,
           updatedAt: true,
         },

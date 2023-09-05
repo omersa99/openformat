@@ -441,7 +441,13 @@ export class DocumentControllerBase {
     const results = await this.service.findReceiptDetails(params.id, {
       ...query,
       select: {
+        accountNumber: true,
+        bankNumber: true,
+        branchIdentifier: true,
+        branchNumber: true,
+        checkNumber: true,
         createdAt: true,
+        creditTransactionType: true,
 
         document: {
           select: {
@@ -450,9 +456,11 @@ export class DocumentControllerBase {
         },
 
         id: true,
+        payeeCompanyCode: true,
         paymentCheckClearanceDate: true,
         paymentData: true,
         paymentType: true,
+        swipedCardName: true,
         total: true,
         updatedAt: true,
       },
