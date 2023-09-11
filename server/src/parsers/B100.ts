@@ -131,21 +131,21 @@ export const B100Fields: FieldDefinition[] = [
     Field_Id: 1368,
     Field_Name: "סכום הפעולה",
     Translation: "Action Amount",
-    Type: "Num",
+    Type: "NumData",
     Length: 15,
   },
   {
     Field_Id: 1369,
     Field_Name: 'סכום מט"ח',
     Translation: "Foreign Currency Amount",
-    Type: "Num",
+    Type: "NumData",
     Length: 15,
   },
   {
     Field_Id: 1370,
     Field_Name: "שדה כמות",
     Translation: "Quantity Field",
-    Type: "Num",
+    Type: "NumData",
     Length: 12,
   },
   {
@@ -173,7 +173,7 @@ export const B100Fields: FieldDefinition[] = [
     Field_Id: 1375,
     Field_Name: "תאריך הזנה",
     Translation: "Entry Date",
-    Type: "Num",
+    Type: "Date",
     Length: 8,
   },
   {

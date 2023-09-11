@@ -1,127 +1,101 @@
-// import { DocumentDetail, Document } from "@prisma/client";
-// import { PrismaService } from "src/prisma/prisma.service";
-// import { calculateTransactionDetails } from "src/transaction/transactionHandler";
-// import { C100AsJson } from "./C100totext";
-
-// export function formatField(value: any, Type: any, Length: number) {
-//   let formattedValue;
-
-//   switch (Type) {
-//     case "Str":
-//       formattedValue = String(value).padEnd(Length, " ");
-//       break;
-
-//     case "Num":
-//       const sign = value >= 0 ? "+" : "-";
-//       formattedValue =
-//         Math.abs(value)
-//           .toString()
-//           .padStart(Length - 1, "0") + sign;
-//       break;
-
-//     case "Date":
-//       const year = value.getFullYear();
-//       const month = (value.getMonth() + 1).toString().padStart(2, "0");
-//       const day = value.getDate().toString().padStart(2, "0");
-//       formattedValue = `${year}${month}${day}`;
-//       break;
-//     case "Time":
-//       const hours = value.getHours().toString().padStart(2, "0");
-//       const minutes = value.getMinutes().toString().padStart(2, "0");
-//       formattedValue = `${hours}${minutes}`;
-//       break;
-//     default:
-//       break;
-//   }
-
-//   return formattedValue;
-// }
-
-// export async function calculateDocumentBalances(document: Document, prisma: PrismaService) {
-//   let VATAmount = 0;
-//   let totalWithoutVat = 0;
-
-//   try {
-//     const documentDetails = await prisma.documentDetail.findMany({
-//       where: { documentId: document.id },
-//     });
-
-//     if (!documentDetails) {
-//       return {
-//         totalWithoutVat,
-//         VATAmount,
-//       };
-//     }
-
-//     for (const detail of documentDetails) {
-//       const { quantity, pricePerUnit, amount, VatRate } = calculateTransactionDetails(detail);
-//       totalWithoutVat += amount;
-//       VATAmount += (amount * VatRate) / 100;
-//     }
-//     return { totalWithoutVat, VATAmount };
-//   } catch (error) {
-//     console.error("Failed to update the related Document balance", error);
-//   }
-// }
-
-// export async function handleC100Creation(documentID: string, prisma: PrismaService) {
-//   let formattedString = "";
-//   let C100ModifiedFields = await C100AsJson(documentID, prisma);
-//   if (C100ModifiedFields) {
-//     for (const field of C100ModifiedFields) {
-//       if (field.hasOwnProperty("value")) {
-//         formattedString += formatField(field.value, field.Type, field.Length);
-//       }
-//     }
-
-//     return formattedString;
-//   }
-// }
-
-// export async function getDocumentsForBusiness(businessId: string, prisma: PrismaService) {
-//   try {
-//     const documents = await prisma.document.findMany({
-//       where: {
-//         businessId: businessId,
-//       },
-//     });
-//     return documents;
-//   } catch (error) {
-//     console.error("Error fetching documents:", error);
-//   }
-// }
 import { Document, DocumentDetail, Transaction } from "@prisma/client";
 import { PrismaService } from "src/prisma/prisma.service";
 import { calculateTransactionDetails } from "src/transaction/transactionHandler";
 import { C100AsJson } from "./C100totext";
 import { Decimal } from "@prisma/client/runtime"; // Import Decimal
+import { Business2Json } from "./generator";
+import { DocumentJson } from "src/types";
+import fs from "fs";
+
+export async function Json2OpenFormat(businessID: string, prisma: PrismaService) {
+  const BigJson = await Business2Json(businessID, prisma);
+  let result = { formattedString: "", INIdata: "" };
+
+  if (BigJson) {
+    let formattedString = "";
+
+    for (const records of BigJson.allJsonArrays) {
+      // console.log(record);
+      let line = "";
+      for (const record of records) {
+        for (const field of record) {
+          line += formatField(field.value, field.Type, field.Length);
+        }
+        line += "\r\n";
+      }
+      formattedString += line; // Use '\n' for line breaks
+    }
+    // console.log(BigJson.ini);
+    // fs.writeFileSync("output.txt", formattedString); // Writing to a file
+    let INIdata = await formatINIFile(BigJson.ini);
+    result.formattedString = formattedString;
+    result.INIdata = INIdata;
+  }
+  return result;
+}
+
+export async function formatINIFile(data: any) {
+  let formattedString = "";
+  for (const records of data) {
+    let line = "";
+    for (const record of records) {
+      //   for (const field of record) {
+      line += formatField(record.value, record.Type, record.Length);
+    }
+    line += "\r\n";
+
+    formattedString += line; // Use '\n' for line breaks
+    //   line += "\r\n";
+  }
+  // }
+  return formattedString;
+  // fs.writeFileSync("output.txt", formattedString); // Writing to a file
+  // console.log(formattedString);
+}
 
 // Function to format fields based on their type and length
 export function formatField(value: any, Type: string, Length: number): string | undefined {
   switch (Type) {
     case "Str":
-      return String(value).padEnd(Length, " ");
+      // return String(value).padStart(Length, " ");
+      return String(value).substring(0, Length).padStart(Length, " ");
+      break;
     case "Num":
-      const sign = value >= 0 ? "+" : "-";
-      return (
-        Math.abs(value)
-          .toString()
-          .padStart(Length - 1, "0") + sign
-      );
+      return String(value).substring(0, Length).padStart(Length, "0");
+      break;
+
+    case "NumData":
+      let numValue = Math.round(value * 100); // Round to nearest integer, assuming you need 2 decimal places
+      let sign = numValue >= 0 ? "+" : "-"; // Determine sign (positive numbers get a '+', negative numbers get a '-')
+      let absoluteValue = Math.abs(numValue); // Remove sign for padding
+      let paddedValue = String(absoluteValue).padStart(Length - 1, "0"); // Length - 1 because one position is for the sign
+      return sign + paddedValue;
+      break;
+
     case "Date":
       return formatDate(value);
+      break;
     case "Time":
       return formatTime(value);
+      break;
     default:
       return;
   }
 }
 
-// Helper function to format Date
-function formatDate(date: Date): string {
-  const year = date.getFullYear();
+function formatDate(dateString: string): string {
+  // console.log("Attempting to format date:", dateString); // Debug log
+
+  const date = new Date(dateString);
+  if (isNaN(date.getTime())) {
+    console.error("Invalid date string:", dateString); // Debug log
+    return "";
+  }
+
+  const year = date.getFullYear().toString();
   const month = (date.getMonth() + 1).toString().padStart(2, "0");
   const day = date.getDate().toString().padStart(2, "0");
+
   return `${year}${month}${day}`;
 }
 
@@ -133,43 +107,46 @@ function formatTime(time: Date): string {
 }
 
 // Function to calculate the total and VAT amount for a document
-export async function calculateDocumentBalances(document: Document, prisma: PrismaService) {
-  let VATAmount = 0;
-  let totalWithoutVat = 0;
+export async function calculateDocumentBalances(document: Document | null, prisma: PrismaService) {
+  let TotalbeforeDiscount = 0;
+  let Totaldiscount = 0;
+  let TotalVATAmount = 0;
+  let TotalDocumentWithVATAmount = 0;
 
-  try {
-    const documentDetails = await prisma.documentDetail.findMany({
-      where: { documentId: document.id },
-    });
+  if (!document) {
+    return { TotalbeforeDiscount, Totaldiscount, TotalVATAmount, TotalDocumentWithVATAmount };
+  }
 
-    if (!documentDetails) return { totalWithoutVat, VATAmount };
+  const documentDetails = await prisma.documentDetail.findMany({
+    where: { documentId: document.id },
+  });
+
+  if (documentDetails) {
+    // return { TotalbeforeDiscount, Totaldiscount, TotalVATAmount, TotalDocumentWithVATAmount };
 
     for (const detail of documentDetails) {
-      const { amount, VatRate } = calculateTransactionDetails(detail);
-      totalWithoutVat += amount;
-      VATAmount += (amount * VatRate) / 100;
+      const { quantity, pricePerUnit, discount, TotalAmountWithoutVat, VatRate, VATAmount } = calculateTransactionDetails(detail);
+      TotalbeforeDiscount += TotalAmountWithoutVat + discount;
+      Totaldiscount += discount;
+      TotalVATAmount += VATAmount;
+      TotalDocumentWithVATAmount += VATAmount + TotalAmountWithoutVat;
     }
-
-    return { totalWithoutVat, VATAmount };
-  } catch (error) {
-    console.error("Failed to update the related Document balance", error);
   }
-}
+  if (document.documentType != 320) {
+    const ReceiptDetail = await prisma.receiptDetail.findMany({
+      where: { documentId: document.id },
+    });
+    if (ReceiptDetail) {
+      for (const receipt of ReceiptDetail) {
+        let amount: number = Number(receipt.total) || 0;
+        TotalDocumentWithVATAmount += amount;
+      }
+    }
+  }
+  return { TotalbeforeDiscount, Totaldiscount, TotalVATAmount, TotalDocumentWithVATAmount };
 
-// Function to handle C100 document creation
-export async function handleC100Creation(documentID: string, prisma: PrismaService) {
-  let formattedString = "";
-  //   const C100ModifiedFields = await C100AsJson(documentID, prisma);
-
-  //   if (!C100ModifiedFields) return;
-
-  //   for (const field of C100ModifiedFields) {
-  //     if (field.hasOwnProperty("value")) {
-  //       formattedString += formatField(field.value, field.Type, field.Length) ?? "";
-  //     }
-  //   }
-
-  return formattedString;
+  // console.error("Failed to update the related Document balance", error);
+  // return { TotalbeforeDiscount: 0, Totaldiscount: 0, TotalVATAmount: 0, TotalDocumentWithVATAmount: 0 };
 }
 
 // Function to fetch documents for a specific business
@@ -207,4 +184,13 @@ export async function calculateTransactionSum(accountId: string, prisma: PrismaS
   });
 
   return { totalDebit, totalCredit };
+}
+
+export async function calculateDocumentDetails(documentDetail: DocumentDetail) {
+  const quantity: number = documentDetail.quantity || 0;
+  const pricePerUnit: number = Number(documentDetail.priceWithoutVat) || 0; // Note the change here
+  const amount = quantity * pricePerUnit;
+  const VatRate = documentDetail.vatRate || 0;
+  const VATAmount = VatRate * amount;
+  return {};
 }

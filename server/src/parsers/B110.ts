@@ -103,21 +103,21 @@ export const B110Fields: FieldDefinition[] = [
     Field_Id: 1414,
     Field_Name: "יתרת החשבון בתחילת החתך",
     Translation: "Account Balance at Start of Segment",
-    Type: "Num",
+    Type: "NumData",
     Length: 15,
   },
   {
     Field_Id: 1415,
     Field_Name: 'סה"כ חובה',
     Translation: "Total Debit",
-    Type: "Num",
+    Type: "NumData",
     Length: 15,
   },
   {
     Field_Id: 1416,
     Field_Name: 'סה"כ זכות',
     Translation: "Total Credit",
-    Type: "Num",
+    Type: "NumData",
     Length: 15,
   },
   {
@@ -145,7 +145,7 @@ export const B110Fields: FieldDefinition[] = [
     Field_Id: 1422,
     Field_Name: 'יתרת חשבון בתחילת חתך במט"ח',
     Translation: "Account Balance in Foreign Currency",
-    Type: "Num",
+    Type: "NumData",
     Length: 15,
   },
   {

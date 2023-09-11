@@ -30,29 +30,29 @@ export async function M100ToJson(item: Item, prisma: PrismaService, generalCount
         value = "";
         break;
       case 1453:
-        value = item.universalItemCode;
+        value = item.universalItemCode || "";
         break;
       case 1454:
-        value = item.supplierManufacturerCodeInProcurement;
+        value = item.supplierManufacturerCodeInProcurement || "";
         break;
       case 1455:
-        value = item.internalItemCode;
+        value = item.internalItemCode || "";
         break;
       case 1456:
-        value = item.itemName;
+        value = item.itemName || "";
         break;
       case 1457:
-        value = item.sortingCode;
+        value = item.sortingCode || "";
         break;
       case 1458:
-        value = item.sortingCodeDescription;
+        value = item.sortingCodeDescription || "";
         break;
       case 1459:
-        value = item.unitOfMeasurementDescription;
+        value = item.unitOfMeasurementDescription || "יחידה";
         break;
 
       case 1460:
-        value = item.openingBalance;
+        value = item.openingBalance || 0;
         break;
 
       case 1461:

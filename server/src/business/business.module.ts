@@ -4,11 +4,15 @@ import { BusinessModuleBase } from "./base/business.module.base";
 import { BusinessService } from "./business.service";
 import { BusinessController } from "./business.controller";
 import { BusinessResolver } from "./business.resolver";
+import { ClientsAndSupplierService } from "src/clientsAndSupplier/clientsAndSupplier.service";
+import { DocumentService } from "src/document/document.service";
+import { DocumentDetailService } from "src/documentDetail/documentDetail.service";
+import { ReceiptDetailService } from "src/receiptDetail/receiptDetail.service";
 
 @Module({
   imports: [BusinessModuleBase, forwardRef(() => AuthModule)],
   controllers: [BusinessController],
-  providers: [BusinessService, BusinessResolver],
+  providers: [BusinessService, BusinessResolver, ClientsAndSupplierService, DocumentService, ReceiptDetailService, DocumentDetailService], // Add it here
   exports: [BusinessService],
 })
 export class BusinessModule {}

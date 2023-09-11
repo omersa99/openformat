@@ -758,22 +758,38 @@ enum QueryMode {
 }
 
 type ReceiptDetail {
+  accountNumber: String
+  bankNumber: Float
+  branchIdentifier: String
+  branchNumber: Float
+  checkNumber: Float
   createdAt: DateTime!
+  creditTransactionType: Float
   document: Document
   id: String!
+  payeeCompanyCode: String
   paymentCheckClearanceDate: DateTime
   paymentData: JSON
   paymentType: Float
+  swipedCardName: String
   total: Float
   transactions(orderBy: [TransactionOrderByInput!], skip: Float, take: Float, where: TransactionWhereInput): [Transaction!]!
   updatedAt: DateTime!
 }
 
 input ReceiptDetailCreateInput {
+  accountNumber: String
+  bankNumber: Float
+  branchIdentifier: String
+  branchNumber: Float
+  checkNumber: Float
+  creditTransactionType: Float
   document: DocumentWhereUniqueInput!
+  payeeCompanyCode: String
   paymentCheckClearanceDate: DateTime
   paymentData: JSON
   paymentType: Float
+  swipedCardName: String
   total: Float
   transactions: TransactionCreateNestedManyWithoutReceiptDetailsInput
 }
@@ -789,21 +805,37 @@ input ReceiptDetailListRelationFilter {
 }
 
 input ReceiptDetailOrderByInput {
+  accountNumber: SortOrder
+  bankNumber: SortOrder
+  branchIdentifier: SortOrder
+  branchNumber: SortOrder
+  checkNumber: SortOrder
   createdAt: SortOrder
+  creditTransactionType: SortOrder
   documentId: SortOrder
   id: SortOrder
+  payeeCompanyCode: SortOrder
   paymentCheckClearanceDate: SortOrder
   paymentData: SortOrder
   paymentType: SortOrder
+  swipedCardName: SortOrder
   total: SortOrder
   updatedAt: SortOrder
 }
 
 input ReceiptDetailUpdateInput {
+  accountNumber: String
+  bankNumber: Float
+  branchIdentifier: String
+  branchNumber: Float
+  checkNumber: Float
+  creditTransactionType: Float
   document: DocumentWhereUniqueInput
+  payeeCompanyCode: String
   paymentCheckClearanceDate: DateTime
   paymentData: JSON
   paymentType: Float
+  swipedCardName: String
   total: Float
   transactions: TransactionUpdateManyWithoutReceiptDetailsInput
 }
@@ -815,11 +847,19 @@ input ReceiptDetailUpdateManyWithoutDocumentsInput {
 }
 
 input ReceiptDetailWhereInput {
+  accountNumber: StringNullableFilter
+  bankNumber: IntNullableFilter
+  branchIdentifier: StringNullableFilter
+  branchNumber: IntNullableFilter
+  checkNumber: IntNullableFilter
+  creditTransactionType: IntNullableFilter
   document: DocumentWhereUniqueInput
   id: StringFilter
+  payeeCompanyCode: StringNullableFilter
   paymentCheckClearanceDate: DateTimeNullableFilter
   paymentData: JsonFilter
   paymentType: IntNullableFilter
+  swipedCardName: StringNullableFilter
   total: DecimalNullableFilter
   transactions: TransactionListRelationFilter
 }

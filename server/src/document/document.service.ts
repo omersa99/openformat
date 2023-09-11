@@ -5,7 +5,7 @@ import { mapToDocumentModel, parseC100 } from "src/parsers/parseC100";
 import { Prisma, Document } from "@prisma/client";
 import { getNextDocumentNumber } from "./documentNumGenerate";
 import { TransactionService } from "src/transaction/transaction.service";
-import { handleC100Creation } from "src/generator/main";
+import { Json2OpenFormat, handleC100Creation } from "src/generator/main";
 import { Business2Json } from "src/generator/generator";
 
 @Injectable()
@@ -17,8 +17,8 @@ export class DocumentService extends DocumentServiceBase {
     let businessId = args.data.business?.connect?.id || "0";
 
     let docType = args.data.documentType || 200;
-
     const newDocumentNumber = await getNextDocumentNumber(this.prisma, businessId, docType);
+    console.log(newDocumentNumber);
     const modifiedData: Prisma.DocumentCreateInput = {
       ...args.data,
       documentNumber: newDocumentNumber,
@@ -29,7 +29,9 @@ export class DocumentService extends DocumentServiceBase {
 
   async convertDocument2String(documentID: string) {
     // return handleC100Creation(documentID, this.prisma);
-    return Business2Json(documentID, this.prisma);
+    // return Business2Json(documentID, this.prisma);
+
+    return await Json2OpenFormat(documentID, this.prisma);
   }
 
   async Line2Document(line: string) {

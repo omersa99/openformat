@@ -3,8 +3,16 @@ import { B100Fields } from "src/parsers/B100";
 import { Transaction } from "@prisma/client";
 import { DocumentJson } from "src/types";
 
-export async function TransactionToJson(transaction: Transaction, prisma: PrismaService, generalCounter: number, internalCounter: number) {
+export async function TransactionToJson(
+  transaction: Transaction,
+  prisma: PrismaService,
+  generalCounter: number,
+  internalCounter: number,
+  recordUniqueId: number
+) {
   const transactionFields = B100Fields;
+
+  let transactionAccount = await prisma.account.findUnique({ where: { id: transaction.accountInTransactionId || "123" } });
 
   const transactionJson: DocumentJson[] = transactionFields.map((field) => {
     let value;
@@ -19,13 +27,13 @@ export async function TransactionToJson(transaction: Transaction, prisma: Prisma
         value = "";
         break;
       case 1353:
-        value = generalCounter; // Placeholder for Transaction Number
+        value = recordUniqueId; // Placeholder for Transaction Number
         break;
       case 1354:
         value = internalCounter; // Placeholder for Line Number in Transaction
         break;
       case 1355:
-        value = 0; // Placeholder for Portion
+        value = transaction.portion;
         break;
       case 1356:
         value = "";
@@ -46,13 +54,13 @@ export async function TransactionToJson(transaction: Transaction, prisma: Prisma
         value = ""; // Placeholder for Details
         break;
       case 1362:
-        value = transaction.date || ""; // Format the date as needed
+        value = transaction.date || transaction.createdAt; // Format the date as needed
         break;
       case 1363:
-        value = transaction.modifiedDate || ""; // Format the modified date as needed
+        value = transaction.createdAt || ""; // Format the modified date as needed
         break;
       case 1364:
-        value = transaction.accountInTransactionId || "";
+        value = transactionAccount?.accountKey || "";
         break;
       case 1365:
         value = transaction.counterAccount || "";

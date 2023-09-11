@@ -2,7 +2,7 @@ import { Injectable } from "@nestjs/common";
 import { PrismaService } from "../prisma/prisma.service";
 import { ReceiptDetailServiceBase } from "./base/receiptDetail.service.base";
 import { Prisma, ReceiptDetail } from "@prisma/client";
-import { handleReceiptTransaction } from "src/transaction/handleReceiptTransaction";
+import { handleReceiptTransaction } from "src/transaction/transactionHandler";
 
 @Injectable()
 export class ReceiptDetailService extends ReceiptDetailServiceBase {

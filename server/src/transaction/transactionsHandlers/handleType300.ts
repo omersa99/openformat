@@ -26,12 +26,14 @@ export async function handleType300(document: Document, prisma: PrismaService, d
   // let quantity = documentDetail.quantity || 0;
   // let pricePerUnit = documentDetail.priceWithoutVat || 0;
   // let amount = quantity * pricePerUnit;
-  const { quantity, pricePerUnit, amount, VatRate } = calculateTransactionDetails(documentDetail);
+  const { quantity, pricePerUnit, discount, TotalAmountWithoutVat, VatRate, VATAmount } = calculateTransactionDetails(documentDetail);
 
   await prisma.transaction.create({
     data: {
       actionIndicator: 1,
-      actionAmount: amount,
+      actionAmount: TotalAmountWithoutVat + VATAmount,
+      date: document.createdAt,
+      portion: document.documentNumber,
       accountInTransaction: {
         connect: {
           id: customerAccount.id,
@@ -48,7 +50,9 @@ export async function handleType300(document: Document, prisma: PrismaService, d
   await prisma.transaction.create({
     data: {
       actionIndicator: 2,
-      actionAmount: amount,
+      date: document.createdAt,
+      portion: document.documentNumber,
+      actionAmount: TotalAmountWithoutVat + VATAmount,
       accountInTransaction: {
         connect: {
           id: payableAccount?.id,

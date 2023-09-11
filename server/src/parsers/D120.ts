@@ -82,14 +82,14 @@ export const D120Fields: FieldDefinition[] = [
     Field_Id: 1311,
     Field_Name: "תאריך הפירעון של ההמחאה / התשלום",
     Translation: "Payment/Check Clearance Date",
-    Type: "Num",
+    Type: "Date",
     Length: 8,
   },
   {
     Field_Id: 1312,
     Field_Name: "סכום השורה",
     Translation: "Line Amount",
-    Type: "Num",
+    Type: "NumData",
     Length: 15,
   },
   {
@@ -124,7 +124,7 @@ export const D120Fields: FieldDefinition[] = [
     Field_Id: 1322,
     Field_Name: "תאריך המסמך",
     Translation: "Document Date",
-    Type: "Num",
+    Type: "Date",
     Length: 8,
   },
   {

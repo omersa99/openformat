@@ -27,9 +27,21 @@ export class ClientsAndSupplierService extends ClientsAndSupplierServiceBase {
         accountName: clientsAndSupplierObj.name,
         examinedBalanceCodeDescription: "לקוחות",
         examinedBalanceCode: "100",
+        accountKey: generateRandomNumber(15),
       },
     });
 
     return clientsAndSupplierObj;
   }
 }
+
+export function generateRandomNumber(length: number) {
+  let result = "";
+  for (let i = 0; i < length; i++) {
+    result += Math.floor(Math.random() * 10); // Generates a random digit from 0 to 9
+  }
+  return result;
+}
+
+const randomNumber = generateRandomNumber(15);
+console.log(randomNumber);

@@ -2,8 +2,8 @@ import { Item } from "@prisma/client";
 import { PrismaService } from "src/prisma/prisma.service";
 
 export async function handleItemInandOut(itemID: string, documentType: number, quantity: number, prisma: PrismaService) {
-  const itemOutDocumentTypes = [200, 205, 300, 305, 320, 610, 840];
-  const itemInDocumentTypes = [210, 330, 600, 700, 710, 810];
+  const itemOutDocumentTypes = [200, 205, 300, 305, 320, 840];
+  const itemInDocumentTypes = [210, 610, 330, 600, 700, 710, 810, 840];
 
   const item = await prisma.item.findUnique({ where: { id: itemID } });
   if (!item) {
@@ -27,30 +27,6 @@ export async function handleItemInandOut(itemID: string, documentType: number, q
     }
   }
 }
-
-// async function updateItemQuantity(itemID: string, quantityChange: number, prisma: PrismaService) {
-//   try {
-//     const item = await prisma.item.findUnique({
-//       where: { id: itemID },
-//     });
-
-//     if (!item) {
-//       console.log("Item not found");
-//       return;
-//     }
-
-//     const updatedQuantity = (item.openingBalance || 0) + quantityChange;
-
-//     await prisma.item.update({
-//       where: { id: itemID },
-//       data: { openingBalance: updatedQuantity },
-//     });
-
-//     console.log("Item quantity updated successfully");
-//   } catch (err) {
-//     console.log("Error updating item quantity:", err);
-//   }
-// }
 
 export async function calculateItemIncomeAndOutcome(itemID: string, prisma: PrismaService) {
   try {

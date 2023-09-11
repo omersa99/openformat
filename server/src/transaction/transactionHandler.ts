@@ -1,66 +1,47 @@
 import { PrismaService } from "../prisma/prisma.service";
-import { Document, DocumentDetail } from "@prisma/client";
+import { Document, DocumentDetail, ReceiptDetail } from "@prisma/client";
 import { handleType300 } from "./transactionsHandlers/handleType300";
-import { handleTyp305to345 } from "./transactionsHandlers/handleTyp305to345";
-import { handleReceiptTransaction } from "./handleReceiptTransaction";
+import { handleTyp305to345, handleTyp700 } from "./transactionsHandlers/handleTyp305to345";
+import { handleReceipt400, handleReceipt420 } from "./handleReceiptTransaction";
 
 export async function handleTransactionBasedOnDocumentType(document: Document, prisma: PrismaService, documentDetail: DocumentDetail) {
-  // let customerAccount;
-
-  //   try {
-  //     const customer = await prisma.clientsAndSupplier.findUnique({
-  //       where: { id: document.clientSupplierId || "0" },
-  //     });
-
-  //     customerAccount = await prisma.account.findFirst({
-  //       where: { clientsAndSuppliersId: customer?.id || "0" },
-  //     });
-
-  //     if (!customerAccount) {
-  //       console.log("Could not find customer account");
-  //       return;
-  //     }
-  //   } catch (err) {
-  //     console.log("Error finding customer account:", err);
-  //     return;
-  //   }
   try {
     switch (document.documentType) {
+      case 100:
+      case 200:
+      case 500:
+      case 600:
+      case 210:
+      case 710:
+        break;
       case 300:
-        handleType300(document, prisma, documentDetail);
+        await handleType300(document, prisma, documentDetail);
         break;
-      case 305 || 310 || 330 || 340 || 345:
-        handleTyp305to345(document, prisma, documentDetail);
+      case 305:
+      case 310:
+      case 320:
+      case 330:
+      case 340:
+      case 345:
+        await handleTyp305to345(document, prisma, documentDetail);
+      case 700:
+        await handleTyp700(document, prisma, documentDetail);
         break;
+    }
+  } catch (error) {
+    console.log("Error in handleTransactionBasedOnDocumentType:", error);
+  }
+}
 
-        //   let quantity = documentDetail.quantity || 0;
-        //   let pricePerUnit = documentDetail.priceWithoutVat || 0;
-        //   let amount = quantity * pricePerUnit;
-
-        //   await prisma.transaction.create({
-        //     data: {
-        //       actionIndicator: 1,
-        //       actionAmount: amount,
-        //       accountInTransaction: {
-        //         connect: {
-        //           id: customerAccount.id,
-        //         },
-        //       },
-        //     },
-        //   });
-        //   const payableAccount = await prisma.account.findFirst({ where: { accountKey: "50001" } });
-        //   await prisma.transaction.create({
-        //     data: {
-        //       actionIndicator: 2,
-        //       actionAmount: amount,
-        //       accountInTransaction: {
-        //         connect: {
-        //           id: payableAccount?.id,
-        //         },
-        //       },
-        //     },
-        //   });
-
+export async function handleReceiptTransaction(document: Document, prisma: PrismaService, receiptDetail: ReceiptDetail) {
+  try {
+    switch (document.documentType) {
+      case 400:
+        await handleReceipt400(document, prisma, receiptDetail);
+        break;
+      case 420:
+      case 410:
+        await handleReceipt420(document, prisma, receiptDetail);
         break;
     }
   } catch (error) {
@@ -71,8 +52,10 @@ export async function handleTransactionBasedOnDocumentType(document: Document, p
 export function calculateTransactionDetails(documentDetail: DocumentDetail) {
   const quantity: number = documentDetail.quantity || 0;
   const pricePerUnit: number = Number(documentDetail.priceWithoutVat) || 0; // Note the change here
-  const amount = quantity * pricePerUnit;
+  const discount: number = Number(documentDetail.discountAmount) || 0;
+  const TotalAmountWithoutVat = quantity * pricePerUnit - discount;
   const VatRate = documentDetail.vatRate || 0;
+  const VATAmount = (VatRate * (quantity * pricePerUnit)) / 100;
 
-  return { quantity, pricePerUnit, amount, VatRate };
+  return { quantity, pricePerUnit, discount, TotalAmountWithoutVat, VatRate, VATAmount };
 }

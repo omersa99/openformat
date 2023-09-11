@@ -58,7 +58,8 @@ export async function AccountToJson(account: Account, prisma: PrismaService, gen
         value = account.accountantClassificationCode || "";
         break;
       case 1419:
-        value = account.clientsAndSuppliersId || "";
+        // value = account.clientsAndSuppliersId || "";
+        value = "";
         break;
       // ... Handle other cases ...
       default:

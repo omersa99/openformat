@@ -9,7 +9,7 @@ export async function D110ToJson(document: Document, documentDetail: DocumentDet
   const DtailsFields: FieldDefinition[] = D110Fields;
 
   let item = await prisma.item.findUnique({ where: { id: documentDetail.itemId || "123" } });
-  const { quantity, pricePerUnit, amount, VatRate } = calculateTransactionDetails(documentDetail);
+  const { quantity, pricePerUnit, discount, TotalAmountWithoutVat, VatRate, VATAmount } = calculateTransactionDetails(documentDetail);
 
   let itemData: {
     InternalItemCode: any;
@@ -18,6 +18,7 @@ export async function D110ToJson(document: Document, documentDetail: DocumentDet
     ManufacturerName?: string;
     ManufacturerSerialNumber?: string;
     MeasurementUnit?: string;
+    sortingCodeDescription?: string;
   };
   if (item) {
     itemData = {
@@ -27,6 +28,7 @@ export async function D110ToJson(document: Document, documentDetail: DocumentDet
       ManufacturerName: item.supplierManufacturerCodeInProcurement || "",
       ManufacturerSerialNumber: "1234",
       MeasurementUnit: item.unitOfMeasurementDescription || "",
+      sortingCodeDescription: item.sortingCodeDescription || "abc",
     };
   } else {
     itemData = {
@@ -36,6 +38,7 @@ export async function D110ToJson(document: Document, documentDetail: DocumentDet
       ManufacturerName: "",
       ManufacturerSerialNumber: "",
       MeasurementUnit: "",
+      sortingCodeDescription: "abc",
     };
   }
 
@@ -61,10 +64,10 @@ export async function D110ToJson(document: Document, documentDetail: DocumentDet
         value = internalCounter;
         break;
       case 1256:
-        value = ""; // need to change this
+        value = document.documentType;
         break;
       case 1257:
-        value = ""; // need to change this
+        value = document.linkedDocumentIds || "";
         break;
       case 1258:
         value = documentDetail.transactionType;
@@ -73,7 +76,7 @@ export async function D110ToJson(document: Document, documentDetail: DocumentDet
         value = itemData.InternalItemCode;
         break;
       case 1260:
-        value = "abc";
+        value = item?.sortingCodeDescription;
         break;
       case 1261:
         value = itemData.ManufacturerName;
@@ -85,19 +88,19 @@ export async function D110ToJson(document: Document, documentDetail: DocumentDet
         value = itemData.MeasurementUnit;
         break;
       case 1264:
-        value = itemData.quantity;
+        value = quantity ? quantity * 100 : 0;
         break;
       case 1265:
-        value = documentDetail.priceWithoutVat || 0;
+        value = pricePerUnit || 0;
         break;
       case 1266:
-        value = documentDetail.discountAmount || 0;
+        value = discount ? -discount : 0;
         break;
       case 1267:
-        value = amount;
+        value = TotalAmountWithoutVat + discount;
         break;
       case 1268:
-        value = documentDetail.vatRate || 0;
+        value = VatRate || 0;
         break;
 
       case 1270:
