@@ -5,7 +5,7 @@ import { mapToDocumentModel, parseC100 } from "src/parsers/parseC100";
 import { Prisma, Document } from "@prisma/client";
 import { getNextDocumentNumber } from "./documentNumGenerate";
 import { TransactionService } from "src/transaction/transaction.service";
-import { Json2OpenFormat, handleC100Creation } from "src/generator/main";
+import { Json2OpenFormat } from "src/generator/main";
 import { Business2Json } from "src/generator/generator";
 
 @Injectable()
