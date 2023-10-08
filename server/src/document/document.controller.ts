@@ -7,6 +7,8 @@ import { Response } from "express";
 import { Public } from "src/decorators/public.decorator";
 import * as iconv from "iconv-lite"; // Import the iconv-lite library
 import archiver from "archiver";
+import { PrismaService } from "src/prisma/prisma.service";
+import { getNextDocumentNumber } from "./documentNumGenerate";
 
 @swagger.ApiTags("documents")
 @common.Controller("documents")
@@ -14,7 +16,8 @@ export class DocumentController extends DocumentControllerBase {
   constructor(
     protected readonly service: DocumentService,
     @nestAccessControl.InjectRolesBuilder()
-    protected readonly rolesBuilder: nestAccessControl.RolesBuilder
+    protected readonly rolesBuilder: nestAccessControl.RolesBuilder,
+    private readonly prismaService: PrismaService // Inject the Prisma service
   ) {
     super(service, rolesBuilder);
   }
@@ -35,11 +38,11 @@ export class DocumentController extends DocumentControllerBase {
 
   @Public()
   @common.Get("downloadTxt")
-  async downloadTxt(@common.Res() res: Response) {
+  async downloadTxt(@common.Res() res: Response, @common.Query("id") id: string) {
     try {
       console.log("Download endpoint hit"); // Debugging line
 
-      const documentID = "clmdq18c80000vgwcxavenurh"; // Replace this with the actual Document ID
+      const documentID = id || "clmdq18c80000vgwcxavenurh"; // Use the id from query or a default one
       const result = (await this.service.convertDocument2String(documentID)) || "";
 
       const archive = archiver("zip");
@@ -63,6 +66,25 @@ export class DocumentController extends DocumentControllerBase {
     } catch (error) {
       console.error("An error occurred:", error);
       res.status(500).send("An error occurred");
+    }
+  }
+
+  // Create a new GET endpoint for getNextDocumentNumber
+  @common.Get("getNextDocumentNumber")
+  async getNextDocumentNumberEndpoint(@common.Query("businessId") businessId: string, @common.Query("documentType") documentType: number) {
+    try {
+      // Call the getNextDocumentNumber function
+      const nextDocumentNumber = await getNextDocumentNumber(this.prismaService, businessId, documentType);
+
+      if (nextDocumentNumber !== null) {
+        return { documentNumber: nextDocumentNumber };
+      } else {
+        // Handle the case where businessSetting is not found
+        return { error: "Business setting not found." };
+      }
+    } catch (error) {
+      console.error("An error occurred:", error);
+      throw new common.InternalServerErrorException("An error occurred");
     }
   }
 }

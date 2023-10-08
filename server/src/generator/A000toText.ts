@@ -4,7 +4,7 @@ import { A000Counter } from "src/parsers/A000Counter";
 import { PrismaService } from "src/prisma/prisma.service";
 import { FieldDefinition, FieldInfo } from "src/types";
 
-export async function A000ToJson(businessNumber: number, generalCounter: number, ProccessIdentifier: String) {
+export async function A000ToJson(business: Business | null, generalCounter: number, ProccessIdentifier: String) {
   const GeneralFields: FieldDefinition[] = A000Fields;
 
   const newDetails: FieldInfo[] = GeneralFields.map((field) => {
@@ -20,7 +20,7 @@ export async function A000ToJson(businessNumber: number, generalCounter: number,
         value = generalCounter;
         break;
       case 1003:
-        value = businessNumber;
+        value = business?.bn || 0;
         break;
       case 1004:
         value = ProccessIdentifier;
@@ -32,16 +32,16 @@ export async function A000ToJson(businessNumber: number, generalCounter: number,
         value = "123456789";
         break;
       case 1007:
-        value = "קלסר חכם";
+        value = "גומייק בעמ";
         break;
       case 1008:
         value = "V1";
         break;
       case 1009:
-        value = 516835741;
+        value = 516213964;
         break;
       case 1010:
-        value = "קסלר";
+        value = "גומייק";
         break;
       case 1011:
         value = 1;
@@ -56,7 +56,7 @@ export async function A000ToJson(businessNumber: number, generalCounter: number,
         value = 2;
         break;
       case 1015:
-        value = businessNumber;
+        value = business?.bn || 0;
         break;
       case 1016:
         value = "";
@@ -65,7 +65,7 @@ export async function A000ToJson(businessNumber: number, generalCounter: number,
         value = "";
         break;
       case 1018:
-        value = "קסלר";
+        value = "גומייק";
         break;
       case 1019:
         value = "";
@@ -89,10 +89,10 @@ export async function A000ToJson(businessNumber: number, generalCounter: number,
         value = "";
         break;
       case 1026:
-        value = "20230101";
+        value = getCurrentDate();
         break;
       case 1027:
-        value = "0000";
+        value = getCurrentTime();
         break;
       case 1028:
         value = 0;
@@ -145,4 +145,19 @@ export async function CounterToJson(recordID: string, count: number) {
     };
   });
   return counters;
+}
+
+function getCurrentDate() {
+  const now = new Date();
+  const year = now.getFullYear();
+  const month = (now.getMonth() + 1).toString().padStart(2, "0"); // Months are zero-indexed
+  const day = now.getDate().toString().padStart(2, "0");
+  return `${year}${month}${day}`;
+}
+
+function getCurrentTime() {
+  const now = new Date();
+  const hours = now.getHours().toString().padStart(2, "0");
+  const minutes = now.getMinutes().toString().padStart(2, "0");
+  return `${hours}${minutes}`;
 }

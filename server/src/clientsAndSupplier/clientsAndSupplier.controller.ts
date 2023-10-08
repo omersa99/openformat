@@ -14,4 +14,11 @@ export class ClientsAndSupplierController extends ClientsAndSupplierControllerBa
   ) {
     super(service, rolesBuilder);
   }
+
+  @common.Post()
+  @swagger.ApiBearerAuth()
+  @swagger.ApiResponse({ status: 201, description: "Client/Supplier successfully created." })
+  async create(@common.Body() createDto: any): Promise<any> {
+    return this.service.create(createDto);
+  }
 }

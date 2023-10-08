@@ -499,6 +499,19 @@ input DocumentWhereUniqueInput {
   id: String!
 }
 
+type GorderUserData {
+  employeeId: String
+  fullname: String
+  imgPath: String
+  orgId: String
+  orgLogo: String
+  orgName: String
+  permissions: [String!]
+  primaryColor: String
+  type: Float
+  userId: String
+}
+
 input IntFilter {
   equals: Int
   gt: Int
@@ -1128,6 +1141,8 @@ input UserCreateInput {
 
 type UserInfo {
   accessToken: String
+  gorderAccessToken: String
+  gorderUserData: GorderUserData
   id: String!
   roles: [String!]!
   username: String!

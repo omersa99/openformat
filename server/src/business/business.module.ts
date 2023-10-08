@@ -8,11 +8,12 @@ import { ClientsAndSupplierService } from "src/clientsAndSupplier/clientsAndSupp
 import { DocumentService } from "src/document/document.service";
 import { DocumentDetailService } from "src/documentDetail/documentDetail.service";
 import { ReceiptDetailService } from "src/receiptDetail/receiptDetail.service";
+import { ItemService } from "src/item/item.service";
 
 @Module({
   imports: [BusinessModuleBase, forwardRef(() => AuthModule)],
   controllers: [BusinessController],
-  providers: [BusinessService, BusinessResolver, ClientsAndSupplierService, DocumentService, ReceiptDetailService, DocumentDetailService], // Add it here
+  providers: [BusinessService, BusinessResolver, ClientsAndSupplierService, DocumentService, ReceiptDetailService, ItemService, DocumentDetailService], // Add it here
   exports: [BusinessService],
 })
 export class BusinessModule {}

@@ -9,12 +9,15 @@ import { Document } from "src/document/base/Document";
 import { DocumentService } from "src/document/document.service";
 import { DocumentDetailService } from "src/documentDetail/documentDetail.service";
 import { ReceiptDetailService } from "src/receiptDetail/receiptDetail.service";
+import { ItemService } from "src/item/item.service";
+import { Item } from "src/item/base/Item";
 
 @Injectable()
 export class BusinessService extends BusinessServiceBase {
   constructor(
     protected readonly prisma: PrismaService,
     private readonly clientsAndSupplierService: ClientsAndSupplierService,
+    private readonly itemService: ItemService,
     private readonly documents: DocumentService,
     private readonly documentDetail: DocumentDetailService,
     private readonly ReceiptDetail: ReceiptDetailService
@@ -36,11 +39,18 @@ export class BusinessService extends BusinessServiceBase {
 
     await this.createDefaultAccounts(newBusiness.id);
     let mainCustomer = await this.createDefaultClients(newBusiness.id); // Add this line
+    let defaultItem = await this.createDefaultItem(newBusiness.id); // Add this line
     // await this.DocumentsGenerator(mainCustomer, newBusiness, 200);
-    // for (let i = 0; i < 20; i++) {
-    //   await this.ManyDocumentsGenerator(mainCustomer, newBusiness, [100, 200, 205, 210, 300, 205, 300, 305, 310, 330, 340, 345, 500, 700, 710]);
-    //   await this.ManyReciptsGenerator(mainCustomer, newBusiness, [400, 420, 410]);
-    // }
+    for (let i = 0; i < 2; i++) {
+      await this.ManyDocumentsGenerator(
+        mainCustomer,
+        newBusiness,
+        [100, 200, 205, 210, 300, 305, 310, 330, 340, 345, 500, 700, 710, 910, 900, 840, 600, 610, 800, 810, 820, 830],
+        defaultItem
+      );
+      await this.ManyReciptsGenerator(mainCustomer, newBusiness, [400, 405, 420, 410]);
+      await this.InvoiceRecipt(mainCustomer, newBusiness, defaultItem);
+    }
     return newBusiness;
   }
 
@@ -75,6 +85,39 @@ export class BusinessService extends BusinessServiceBase {
     return Client;
   }
 
+  async createDefaultItem(businessId: string) {
+    const defaultItem = {
+      internalItemCode: "123456",
+      itemName: "TV",
+      openingBalance: 20,
+      sortingCode: "123456",
+      sortingCodeDescription: "Desc",
+      unitOfMeasurementDescription: "יחידה",
+    };
+    let Item = await this.itemService.create({
+      data: {
+        ...defaultItem,
+        businessId,
+      },
+    });
+
+    return Item;
+  }
+
+  async InvoiceRecipt(client: ClientsAndSupplier, Business: Business, item: Item) {
+    let invoicRec = await this.ManyDocumentsGenerator(client, Business, [320], item);
+
+    // Create details for the document
+    await this.ReceiptDetail.create({
+      data: {
+        paymentType: 1,
+        total: 200,
+        document: {
+          connect: { id: invoicRec?.id },
+        },
+      },
+    });
+  }
   async DocumentsGenerator(client: ClientsAndSupplier, Business: Business, documentTypeNum: number | 200) {
     // crete multiplication of 200 documents
     let DocumentData = {
@@ -109,8 +152,9 @@ export class BusinessService extends BusinessServiceBase {
     });
   }
 
-  async ManyDocumentsGenerator(client: ClientsAndSupplier, Business: Business, documentTypeNums: number[]) {
+  async ManyDocumentsGenerator(client: ClientsAndSupplier, Business: Business, documentTypeNums: number[], item: Item) {
     // Loop through array of document types
+    let newDocument;
     for (const documentTypeNum of documentTypeNums) {
       let DocumentData = {
         // businessId: Business.id,
@@ -120,7 +164,7 @@ export class BusinessService extends BusinessServiceBase {
         documentType: documentTypeNum, // Use the current document type number from the loop
       } as Prisma.DocumentCreateInput;
 
-      let newDocument = await this.documents.create({
+      newDocument = await this.documents.create({
         data: {
           ...DocumentData,
           business: {
@@ -141,7 +185,7 @@ export class BusinessService extends BusinessServiceBase {
         data: {
           item: {
             connect: {
-              id: "clm8ymgl30002vgx8zme89hwh",
+              id: item.id,
             },
           },
           priceWithoutVat: 10,
@@ -154,6 +198,7 @@ export class BusinessService extends BusinessServiceBase {
         },
       });
     }
+    return newDocument;
   }
 
   async ManyReciptsGenerator(client: ClientsAndSupplier, Business: Business, documentTypeNums: number[]) {

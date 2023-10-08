@@ -113,17 +113,6 @@ export async function Business2Json(businessID: string, prisma: PrismaService) {
         }
       }
     }
-    // M100 == Items
-    const Items = await prisma.item.findMany({ where: { businessId: business?.id } });
-    if (Items) {
-      for (const item of Items) {
-        const itemsToJson = await M100ToJson(item, prisma, generalCounter);
-        if (itemsToJson) {
-          itemsToJsonArray.push(itemsToJson); // Spread the results into the array
-          generalCounter += 1;
-        }
-      }
-    }
 
     // B110 === accounts
     const accounts = await prisma.account.findMany({ where: { businessId: business?.id } });
@@ -139,22 +128,46 @@ export async function Business2Json(businessID: string, prisma: PrismaService) {
   } else {
     console.log("No documents found for the business.");
   }
+  // M100 == Items
+  const Items = await prisma.item.findMany({ where: { businessId: business?.id } });
+  if (Items) {
+    for (const item of Items) {
+      const itemsToJson = await M100ToJson(item, prisma, generalCounter);
+      if (itemsToJson) {
+        itemsToJsonArray.push(itemsToJson); // Spread the results into the array
+        generalCounter += 1;
+      }
+    }
+  }
+
+  //Modify record numbers
+  let counter = 2;
+  const generalCounterFields = [1201, 1251, 1301, 1351, 1401, 1451];
+  let allData = [documentsJson, detailToJsonarray, receiptDetailToJsonarray, transactionsToJsonArray, accountsToJsonArray, itemsToJsonArray];
+  for (const Datalist of allData) {
+    for (const item of Datalist) {
+      for (const record of item) {
+        if (generalCounterFields.includes(record["Field_Id"])) {
+          record.value = counter;
+          counter += 1;
+        }
+      }
+    }
+  }
 
   allJsonArrays.push(documentsJson);
   allJsonArrays.push(detailToJsonarray);
-  allJsonArrays.push(itemsToJsonArray);
-  allJsonArrays.push(accountsToJsonArray);
-  allJsonArrays.push(transactionsToJsonArray);
   allJsonArrays.push(receiptDetailToJsonarray);
+  allJsonArrays.push(transactionsToJsonArray);
+  allJsonArrays.push(accountsToJsonArray);
+  allJsonArrays.push(itemsToJsonArray);
 
   //Z900
-
-  //A100
   let Z900Record = await Z100AsJson(generalCounter, ProccessIdentifier);
   allJsonArrays.push([Z900Record]);
 
+  // set BN
   const idsToModify = [1252, 1202, 1452, 1402, 1352, 1302, 1102, 1152];
-
   for (const jsonArray of allJsonArrays) {
     for (const row of jsonArray) {
       // console.log(row);
@@ -171,7 +184,7 @@ export async function Business2Json(businessID: string, prisma: PrismaService) {
   //Creare INI.txt file
   const ini: any = [];
   // generalCounter += 1;
-  ini.push(await A000ToJson(business?.bn || 0, generalCounter, ProccessIdentifier));
+  ini.push(await A000ToJson(business, generalCounter, ProccessIdentifier));
   ini.push(await CounterToJson("A100", 1));
   ini.push(await CounterToJson("C100", documentsJson.length | 0));
   ini.push(await CounterToJson("D110", detailToJsonarray.length | 0));

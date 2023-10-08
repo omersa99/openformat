@@ -1,7 +1,7 @@
 import { PrismaService } from "../prisma/prisma.service";
 import { Document, DocumentDetail, ReceiptDetail } from "@prisma/client";
 import { handleType300 } from "./transactionsHandlers/handleType300";
-import { handleTyp305to345, handleTyp700 } from "./transactionsHandlers/handleTyp305to345";
+import { handleTyp305to345, handleTyp700, handleTyp810 } from "./transactionsHandlers/handleTyp305to345";
 import { handleReceipt400, handleReceipt420 } from "./handleReceiptTransaction";
 
 export async function handleTransactionBasedOnDocumentType(document: Document, prisma: PrismaService, documentDetail: DocumentDetail) {
@@ -9,9 +9,12 @@ export async function handleTransactionBasedOnDocumentType(document: Document, p
     switch (document.documentType) {
       case 100:
       case 200:
+      case 205:
+      case 210:
       case 500:
       case 600:
-      case 210:
+      case 610:
+
       case 710:
         break;
       case 300:
@@ -24,8 +27,17 @@ export async function handleTransactionBasedOnDocumentType(document: Document, p
       case 340:
       case 345:
         await handleTyp305to345(document, prisma, documentDetail);
+        break;
       case 700:
         await handleTyp700(document, prisma, documentDetail);
+        break;
+      case 810:
+      case 800:
+      case 820:
+      case 840:
+      case 900:
+      case 910:
+        await handleTyp810(document, prisma, documentDetail);
         break;
     }
   } catch (error) {
@@ -37,6 +49,7 @@ export async function handleReceiptTransaction(document: Document, prisma: Prism
   try {
     switch (document.documentType) {
       case 400:
+      case 405:
         await handleReceipt400(document, prisma, receiptDetail);
         break;
       case 420:

@@ -13,18 +13,18 @@ import { jwtSecretFactory } from "./jwt/jwtSecretFactory";
 import { PasswordService } from "./password.service";
 import { TokenService } from "./token.service";
 import { UserModule } from "../user/user.module";
+import { HttpModule } from "@nestjs/axios";
+
 @Module({
   imports: [
     forwardRef(() => UserModule),
     PassportModule,
+    HttpModule,
     SecretsManagerModule,
     JwtModule.registerAsync({
       imports: [SecretsManagerModule],
       inject: [SecretsManagerService, ConfigService],
-      useFactory: async (
-        secretsService: SecretsManagerService,
-        configService: ConfigService
-      ) => {
+      useFactory: async (secretsService: SecretsManagerService, configService: ConfigService) => {
         const secret = await secretsService.getSecret<string>(JWT_SECRET_KEY);
         const expiresIn = configService.get(JWT_EXPIRATION);
         if (!secret) {
@@ -40,14 +40,7 @@ import { UserModule } from "../user/user.module";
       },
     }),
   ],
-  providers: [
-    AuthService,
-    PasswordService,
-    AuthResolver,
-    JwtStrategy,
-    jwtSecretFactory,
-    TokenService,
-  ],
+  providers: [AuthService, PasswordService, AuthResolver, JwtStrategy, jwtSecretFactory, TokenService],
   controllers: [AuthController],
   exports: [AuthService, PasswordService],
 })

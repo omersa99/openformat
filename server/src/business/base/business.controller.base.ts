@@ -389,10 +389,7 @@ export class BusinessControllerBase {
     action: "read",
     possession: "any",
   })
-  async findManyClientsAndSuppliers(
-    @common.Req() request: Request,
-    @common.Param() params: BusinessWhereUniqueInput
-  ): Promise<ClientsAndSupplier[]> {
+  async findManyClientsAndSuppliers(@common.Req() request: Request, @common.Param() params: BusinessWhereUniqueInput): Promise<ClientsAndSupplier[]> {
     const query = plainToClass(ClientsAndSupplierFindManyArgs, request.query);
     const results = await this.service.findClientsAndSuppliers(params.id, {
       ...query,
@@ -424,9 +421,7 @@ export class BusinessControllerBase {
       },
     });
     if (results === null) {
-      throw new errors.NotFoundException(
-        `No resource was found for ${JSON.stringify(params)}`
-      );
+      throw new errors.NotFoundException(`No resource was found for ${JSON.stringify(params)}`);
     }
     return results;
   }
@@ -437,10 +432,7 @@ export class BusinessControllerBase {
     action: "update",
     possession: "any",
   })
-  async connectClientsAndSuppliers(
-    @common.Param() params: BusinessWhereUniqueInput,
-    @common.Body() body: ClientsAndSupplierWhereUniqueInput[]
-  ): Promise<void> {
+  async connectClientsAndSuppliers(@common.Param() params: BusinessWhereUniqueInput, @common.Body() body: ClientsAndSupplierWhereUniqueInput[]): Promise<void> {
     const data = {
       clientsAndSuppliers: {
         connect: body,
@@ -459,10 +451,7 @@ export class BusinessControllerBase {
     action: "update",
     possession: "any",
   })
-  async updateClientsAndSuppliers(
-    @common.Param() params: BusinessWhereUniqueInput,
-    @common.Body() body: ClientsAndSupplierWhereUniqueInput[]
-  ): Promise<void> {
+  async updateClientsAndSuppliers(@common.Param() params: BusinessWhereUniqueInput, @common.Body() body: ClientsAndSupplierWhereUniqueInput[]): Promise<void> {
     const data = {
       clientsAndSuppliers: {
         set: body,
@@ -521,6 +510,7 @@ export class BusinessControllerBase {
         clientSupplier: {
           select: {
             id: true,
+            name: true,
           },
         },
 
